@@ -560,6 +560,20 @@ export const CheckoutModal: React.FC = () => {
                       )}
                     </button>
                     
+                    {/* PERSISTENT HIGHLY VISIBLE POLICY BANNER (BELOW CONFIRM ORDER BUTTON) */}
+                    <div className="mt-3.5 p-3 sm:p-3.5 bg-[#F4EFEB] border border-[#C5A880]/50 rounded-2xl text-center shadow-xs">
+                      <p className="text-[11px] sm:text-xs font-bold text-[#8C6E43] tracking-wide flex items-center justify-center flex-wrap gap-1 sm:gap-1.5">
+                        <span className="font-semibold">★ 100% Refund Policy</span>
+                        <span className="text-[#C5A880] font-normal">|</span>
+                        <span className="font-semibold">7-Day Easy Returns</span>
+                        <span className="text-[#C5A880] font-normal">|</span>
+                        <span className="font-semibold">Secure Cash on Delivery</span>
+                      </p>
+                      <p className="text-[10px] text-[#55504A] mt-1 font-medium">
+                        Doorstep inspection guaranteed. Zero prepayment risk.
+                      </p>
+                    </div>
+
                     <p className="text-[11px] text-[#55504A] text-center mt-2.5 flex items-center justify-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5 text-[#8C6E43]" />
                       Zero prepayment risk • 12-hour dispatch guarantee
@@ -645,6 +659,13 @@ export const CheckoutModal: React.FC = () => {
 
             </div>
           )}
+        </div>
+
+        {/* Persistent Reassurance Policy Strip at Modal Bottom */}
+        <div className="px-4 sm:px-6 py-2.5 bg-[#F8F5EE] border-t border-[#C5A880]/25 flex items-center justify-center text-center shrink-0 rounded-b-3xl">
+          <span className="text-[10px] sm:text-[11px] font-semibold text-[#8C6E43] tracking-wide">
+            ★ 100% Refund Policy &nbsp;|&nbsp; 7-Day Easy Returns &nbsp;|&nbsp; Secure Cash on Delivery
+          </span>
         </div>
 
       </div>
