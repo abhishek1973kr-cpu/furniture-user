@@ -1,0 +1,182 @@
+'use client';
+
+import React, { useState, useMemo } from 'react';
+import { MOCK_PRODUCTS } from '@/data/mockData';
+import { ProductCard } from './ProductCard';
+import { SlidersHorizontal, Sparkles } from 'lucide-react';
+
+interface ProductCatalogProps {
+  selectedCategory: 'All' | 'Ladies Ornaments' | 'Gents Ornaments';
+  onSelectCategory: (category: 'All' | 'Ladies Ornaments' | 'Gents Ornaments') => void;
+  searchQuery: string;
+}
+
+export const ProductCatalog: React.FC<ProductCatalogProps> = ({
+  selectedCategory,
+  onSelectCategory,
+  searchQuery,
+}) => {
+  const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
+  const [sortBy, setSortBy] = useState<'featured' | 'rating' | 'reviews'>('featured');
+
+  // Subcategories depending on current main category
+  const availableSubCategories = useMemo(() => {
+    let prods = MOCK_PRODUCTS;
+    if (selectedCategory !== 'All') {
+      prods = prods.filter((p) => p.category === selectedCategory);
+    }
+    const set = new Set<string>();
+    prods.forEach((p) => set.add(p.subCategory));
+    return ['All', ...Array.from(set)];
+  }, [selectedCategory]);
+
+  // Filtered and sorted products
+  const filteredProducts = useMemo(() => {
+    return MOCK_PRODUCTS.filter((product) => {
+      // Category match
+      if (selectedCategory !== 'All' && product.category !== selectedCategory) {
+        return false;
+      }
+      // SubCategory match
+      if (selectedSubCategory !== 'All' && product.subCategory !== selectedSubCategory) {
+        return false;
+      }
+      // Search query match
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const matchesTitle = product.title.toLowerCase().includes(q);
+        const matchesSubtitle = product.subtitle.toLowerCase().includes(q);
+        const matchesCategory = product.category.toLowerCase().includes(q);
+        const matchesSubCategory = product.subCategory.toLowerCase().includes(q);
+        return matchesTitle || matchesSubtitle || matchesCategory || matchesSubCategory;
+      }
+      return true;
+    }).sort((a, b) => {
+      if (sortBy === 'rating') {
+        return b.rating - a.rating;
+      }
+      if (sortBy === 'reviews') {
+        return b.reviewCount - a.reviewCount;
+      }
+      return 0; // featured order in mockData
+    });
+  }, [selectedCategory, selectedSubCategory, searchQuery, sortBy]);
+
+  return (
+    <section id="catalog" className="py-16 sm:py-24 bg-[#141414] text-[#F9F8F6]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-10">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="w-8 h-[1px] bg-[#C5A880]/60" />
+            <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] font-semibold">
+              The Royal Wholesale Gallery
+            </span>
+            <span className="w-8 h-[1px] bg-[#C5A880]/60" />
+          </div>
+
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif font-normal text-[#F9F8F6]">
+            Curated Ornaments for Ladies & Gents
+          </h2>
+
+          <p className="mt-3 text-xs sm:text-sm text-[#9E9A93] max-w-xl mx-auto">
+            Every piece is strictly priced at flat <span className="text-[#C5A880] font-medium">₹99</span> (Original MRP ₹349).
+            Dispatched via express logistics within 12 hours.
+          </p>
+        </div>
+
+        {/* Primary Category Selector Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex p-1 bg-[#1A1A1A] border border-[#C5A880]/25 rounded-none shadow-sm">
+            {(['All', 'Ladies Ornaments', 'Gents Ornaments'] as const).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => {
+                  onSelectCategory(cat);
+                  setSelectedSubCategory('All');
+                }}
+                className={`px-4 sm:px-8 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300 ${
+                  selectedCategory === cat
+                    ? 'bg-[#C5A880] text-[#1A1A1A] shadow-sm'
+                    : 'text-[#F9F8F6]/70 hover:text-[#C5A880]'
+                }`}
+              >
+                {cat === 'All' ? 'All Collections' : cat}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Secondary Subcategory Filters & Sorting Bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 mb-8 border-b border-[#C5A880]/15">
+          
+          {/* Subcategory scrollable tags */}
+          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+            {availableSubCategories.map((sub) => (
+              <button
+                key={sub}
+                onClick={() => setSelectedSubCategory(sub)}
+                className={`px-3 py-1.5 text-[11px] uppercase tracking-wider whitespace-nowrap transition-colors border ${
+                  selectedSubCategory === sub
+                    ? 'bg-[#C5A880]/15 border-[#C5A880] text-[#C5A880]'
+                    : 'bg-[#171717] border-white/5 text-[#9E9A93] hover:text-[#F9F8F6] hover:border-[#C5A880]/30'
+                }`}
+              >
+                {sub}
+              </button>
+            ))}
+          </div>
+
+          {/* Right: Results Count & Sort Dropdown */}
+          <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 text-xs">
+            <span className="text-[#9E9A93] tracking-wide">
+              Showing <strong className="text-white font-medium">{filteredProducts.length}</strong> creations
+            </span>
+
+            <div className="flex items-center gap-2 bg-[#1A1A1A] border border-[#C5A880]/25 px-3 py-1.5">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#C5A880]" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-transparent text-[#F9F8F6] text-xs focus:outline-none cursor-pointer uppercase tracking-wider"
+              >
+                <option value="featured" className="bg-[#1A1A1A] text-white">Featured</option>
+                <option value="rating" className="bg-[#1A1A1A] text-white">Highest Rated</option>
+                <option value="reviews" className="bg-[#1A1A1A] text-white">Most Reviewed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Product Grid */}
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-[#171717] border border-[#C5A880]/20 max-w-lg mx-auto p-8">
+            <Sparkles className="w-8 h-8 text-[#C5A880] mx-auto mb-3" />
+            <h3 className="text-lg font-serif text-white">No creations found matching your search</h3>
+            <p className="text-xs text-[#9E9A93] mt-2">
+              Try exploring "Ladies Ornaments" or "Gents Ornaments" or reset your search term.
+            </p>
+            <button
+              onClick={() => {
+                onSelectCategory('All');
+                setSelectedSubCategory('All');
+              }}
+              className="mt-6 px-6 py-2.5 bg-[#C5A880] text-[#1A1A1A] text-xs uppercase tracking-widest font-semibold"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
+
+      </div>
+    </section>
+  );
+};
+
