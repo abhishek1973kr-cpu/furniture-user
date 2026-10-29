@@ -18,9 +18,9 @@ const sansFont = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'LivFabs | Space-Saving Smart Furniture & Comfort Essentials (₹1500 - ₹2500)',
+  title: 'LivFabs | Space-Saving Smart Furniture & Comfort Essentials',
   description:
-    'Discover multi-functional space-saving smart furniture: sofa cum beds, 5-in-1 convertible ottoman cubes, wall-mounted murphy beds, and rolling underbed storage strictly priced at ₹1,500 – ₹2,500. Fastly shipped within 12 hours with Cash on Delivery.',
+    'Discover multi-functional space-saving smart furniture: sofa cum beds, 5-in-1 convertible ottoman cubes, wall-mounted murphy beds, and rolling underbed storage. Fastly shipped within 12 hours with Cash on Delivery.',
   keywords: [
     'LivFabs',
     'Smart Furniture',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'LivFabs | Space-Saving Smart Furniture & Comfort Essentials',
     description:
-      'Fastly Shipped Within 12 Hours | Exclusive Range ₹1500 - ₹2500 | Multi-Functional Space-Saving Designs.',
+      'Fastly Shipped Within 12 Hours | Space-Saving Smart Furniture & Comfort Essentials | Multi-Functional Designs.',
     type: 'website',
   },
 };
@@ -48,7 +48,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${serifFont.variable} ${sansFont.variable}`}>
-      <body className="bg-[#141414] text-[#F9F8F6] antialiased min-h-screen flex flex-col selection:bg-[#C5A880] selection:text-[#1A1A1A]">
+      <body className="bg-[#FDFBF7] text-[#1A1A1A] antialiased min-h-screen flex flex-col selection:bg-[#C5A880] selection:text-[#1A1A1A]">
         <CartProvider>
           {children}
         </CartProvider>

@@ -11,7 +11,7 @@ export interface Product {
   category: ProductCategory;
   subCategory: string;
   originalPrice: number;
-  wholesalePrice: number; // strictly between 1500 and 2500
+  wholesalePrice: number; // Wholesale selling price
   rating: number;
   reviewCount: number;
   images: string[]; // Up to 8 high-resolution images for the gallery

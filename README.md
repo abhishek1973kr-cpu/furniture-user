@@ -48,7 +48,7 @@ Built as a **100% standalone frontend prototype** with zero external backend or 
 ## ⚡ Core Features
 
 - **Top Scrolling Marquee**:
-  `"⚡ LivFabs | Space-Saving Smart Furniture & Comfort Essentials | Exclusive Range ₹1500 - ₹2500 | Fastly Shipped Within 12 Hours"`
+  `"⚡ LivFabs | Space-Saving Smart Furniture & Comfort Essentials | Fastly Shipped Within 12 Hours"`
 - **Fluid 5-Thumbnail Gallery Switching Animation**:
   Smooth interactive angle switching across 5 photography angles per product with zoom hover and space-saving specifications.
 - **Centered Half-Screen Modal Popup (~60-70% height/width)**:

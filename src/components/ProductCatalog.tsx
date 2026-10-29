@@ -77,38 +77,38 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   }, [products, selectedCategory, selectedSubCategory, searchQuery, sortBy]);
 
   return (
-    <section id="catalog" className="py-16 sm:py-24 bg-[#141414] text-[#F9F8F6]">
+    <section id="catalog" className="py-16 sm:py-24 bg-[#FDFBF7] text-[#1A1A1A]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 mb-3">
-            <span className="w-8 h-[1px] bg-[#C5A880]/60" />
-            <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] font-semibold flex items-center gap-2">
+            <span className="w-8 h-[1px] bg-[#C5A880]" />
+            <span className="text-xs uppercase tracking-[0.3em] text-[#8C6E43] font-semibold flex items-center gap-2">
               The Space-Saving Furniture Atelier
               {isLiveConnected && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[9px] tracking-normal lowercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-100 border border-emerald-400 text-emerald-800 text-[9px] tracking-normal font-semibold lowercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                   live
                 </span>
               )}
             </span>
-            <span className="w-8 h-[1px] bg-[#C5A880]/60" />
+            <span className="w-8 h-[1px] bg-[#C5A880]" />
           </div>
 
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif font-normal text-[#F9F8F6]">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif font-normal text-[#1A1A1A]">
             Architectural Multi-Function Designs
           </h2>
 
-          <p className="mt-3 text-xs sm:text-sm text-[#9E9A93] max-w-xl mx-auto">
-            Strictly priced between <span className="text-[#C5A880] font-medium font-serif">₹1,500 – ₹2,500</span> (Original MRP up to ₹6,499).
-            Dispatched via express logistics within 12 hours.
+          <p className="mt-3 text-xs sm:text-sm text-[#55504A] max-w-xl mx-auto leading-relaxed">
+            Direct factory wholesale pricing with instant doorstep Cash on Delivery.
+            Every piece is precision packed and dispatched within 12 hours.
           </p>
         </div>
 
         {/* Primary 4 Category Selector Tabs (Fully Rounded Pills) */}
         <div className="flex justify-center mb-8 overflow-x-auto pb-2 scrollbar-none">
-          <div className="inline-flex p-1.5 bg-[#1A1A1A] border border-[#C5A880]/25 rounded-full shadow-sm whitespace-nowrap">
+          <div className="inline-flex p-1.5 bg-[#F4EFEB] border border-[#C5A880]/30 rounded-full shadow-sm whitespace-nowrap">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -118,8 +118,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 }}
                 className={`px-5 sm:px-7 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] rounded-full transition-all duration-300 ${
                   selectedCategory === cat
-                    ? 'bg-[#C5A880] text-[#1A1A1A] shadow-goldGlow'
-                    : 'text-[#F9F8F6]/70 hover:text-[#C5A880]'
+                    ? 'bg-[#1A1A1A] text-[#FDFBF7] shadow-md'
+                    : 'text-[#55504A] hover:text-[#1A1A1A]'
                 }`}
               >
                 {cat === 'All' ? 'All Curations' : cat}
@@ -129,7 +129,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         </div>
 
         {/* Secondary Subcategory Filters & Sorting Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 mb-8 border-b border-[#C5A880]/15">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 mb-8 border-b border-[#C5A880]/20">
           
           {/* Subcategory scrollable tags (Rounded-full pills) */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
@@ -139,8 +139,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 onClick={() => setSelectedSubCategory(sub)}
                 className={`px-4 py-2 text-[11px] uppercase tracking-wider whitespace-nowrap transition-all rounded-full border ${
                   selectedSubCategory === sub
-                    ? 'bg-[#C5A880]/15 border-[#C5A880] text-[#C5A880] shadow-sm'
-                    : 'bg-[#171717] border-white/5 text-[#9E9A93] hover:text-[#F9F8F6] hover:border-[#C5A880]/30'
+                    ? 'bg-[#1A1A1A] border-[#1A1A1A] text-[#FDFBF7] shadow-sm'
+                    : 'bg-[#FFFFFF] border-[#C5A880]/30 text-[#55504A] hover:text-[#1A1A1A] hover:border-[#8C6E43]'
                 }`}
               >
                 {sub}
@@ -150,21 +150,21 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
 
           {/* Right: Results Count & Sort Dropdown (Curvy Pill) */}
           <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 text-xs">
-            <span className="text-[#9E9A93] tracking-wide">
-              Showing <strong className="text-white font-medium">{filteredProducts.length}</strong> creations
+            <span className="text-[#55504A] tracking-wide">
+              Showing <strong className="text-[#1A1A1A] font-semibold">{filteredProducts.length}</strong> creations
             </span>
 
-            <div className="flex items-center gap-2 bg-[#1A1A1A] border border-[#C5A880]/25 px-4 py-2 rounded-full shadow-sm">
-              <SlidersHorizontal className="w-3.5 h-3.5 text-[#C5A880]" />
+            <div className="flex items-center gap-2 bg-[#FFFFFF] border border-[#C5A880]/30 px-4 py-2 rounded-full shadow-sm">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#8C6E43]" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-transparent text-[#F9F8F6] text-xs focus:outline-none cursor-pointer uppercase tracking-wider"
+                className="bg-transparent text-[#1A1A1A] text-xs focus:outline-none cursor-pointer uppercase tracking-wider"
               >
-                <option value="featured" className="bg-[#1A1A1A] text-white">Featured</option>
-                <option value="price-low" className="bg-[#1A1A1A] text-white">Price: Low to High</option>
-                <option value="price-high" className="bg-[#1A1A1A] text-white">Price: High to Low</option>
-                <option value="rating" className="bg-[#1A1A1A] text-white">Highest Rated</option>
+                <option value="featured" className="bg-[#FFFFFF] text-[#1A1A1A]">Featured</option>
+                <option value="price-low" className="bg-[#FFFFFF] text-[#1A1A1A]">Price: Low to High</option>
+                <option value="price-high" className="bg-[#FFFFFF] text-[#1A1A1A]">Price: High to Low</option>
+                <option value="rating" className="bg-[#FFFFFF] text-[#1A1A1A]">Highest Rated</option>
               </select>
             </div>
           </div>
@@ -178,10 +178,10 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-[#171717] border border-[#C5A880]/20 rounded-3xl max-w-lg mx-auto p-8 shadow-luxury">
-            <Sparkles className="w-8 h-8 text-[#C5A880] mx-auto mb-3" />
-            <h3 className="text-lg font-serif text-white">No smart furniture found</h3>
-            <p className="text-xs text-[#9E9A93] mt-2">
+          <div className="text-center py-20 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-3xl max-w-lg mx-auto p-8 shadow-sm">
+            <Sparkles className="w-8 h-8 text-[#8C6E43] mx-auto mb-3" />
+            <h3 className="text-lg font-serif text-[#1A1A1A]">No smart furniture found</h3>
+            <p className="text-xs text-[#55504A] mt-2">
               Try exploring "Smart Living", "Flexi Work & Dine", or clear your search term.
             </p>
             <button

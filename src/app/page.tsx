@@ -28,7 +28,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-[#141414] text-[#F9F8F6]">
+    <main className="min-h-screen flex flex-col bg-[#FDFBF7] text-[#1A1A1A]">
       {/* 1. Top Scrolling Marquee Ticker */}
       <MarqueeTicker />
 

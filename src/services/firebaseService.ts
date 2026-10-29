@@ -33,13 +33,13 @@ export function mapFirestoreDocToProduct(id: string, data: any): Product {
     ];
   }
 
-  // Ensure price is within the ₹1500 - ₹2500 range or fallback gracefully
-  const rawPrice = Number(data.price || data.wholesalePrice);
+  // Support any price fetched from the database without limitations or clamping
+  const rawPrice = Number(data.price !== undefined ? data.price : data.wholesalePrice);
   const wholesalePrice = !isNaN(rawPrice) && rawPrice > 0 ? rawPrice : 1999;
   const originalPrice =
     data.originalPrice && Number(data.originalPrice) > wholesalePrice
       ? Number(data.originalPrice)
-      : Math.round(wholesalePrice * 2.2);
+      : Math.round(wholesalePrice * 1.8);
 
   // Normalize category to one of the 4 strict categories
   let category: ProductCategory = 'Smart Living';
@@ -226,22 +226,43 @@ export async function createFirestoreOrder(
     createdAt: serverTimestamp(),
   };
 
-  if (db) {
-    try {
-      const ordersCol = collection(db, ORDERS_COLLECTION);
-      const docRef = await addDoc(ordersCol, orderDocData);
-      return {
-        orderId: docRef.id ? `LF-${docRef.id.slice(0, 6).toUpperCase()}` : generatedId,
-        success: true,
-      };
-    } catch (err) {
-      console.warn('Firestore addDoc to "orders" failed, using local confirmation fallback:', err);
-    }
+  if (!db) {
+    throw new Error('Database connection is not initialized. Please verify your Firebase connection.');
   }
 
-  // Local fallback simulation if Firestore credentials are in demo mode
-  return {
-    orderId: generatedId,
-    success: true,
-  };
+  // 1. try/catch block around the Firestore addDoc/setDoc logic for saving the order
+  try {
+    const ordersCol = collection(db, ORDERS_COLLECTION);
+
+    // Timeout guard: 7000ms. If Firestore connection or security rules hang/stall indefinitely,
+    // abort so the submit button NEVER gets stuck in an infinite loading spinner!
+    const addDocPromise = addDoc(ordersCol, orderDocData);
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              'Firestore request timed out. Please check your internet connection and Firestore security rules.'
+            )
+          ),
+        7000
+      )
+    );
+
+    const docRef = await Promise.race([addDocPromise, timeoutPromise]);
+
+    return {
+      orderId: docRef && docRef.id ? `LF-${docRef.id.slice(0, 6).toUpperCase()}` : generatedId,
+      success: true,
+    };
+  } catch (err: any) {
+    console.error('Firestore addDoc to "orders" failed:', err);
+    // Explicitly rethrow clean error message to stop spinner immediately & alert user
+    const errorMsg =
+      err?.code === 'permission-denied'
+        ? 'Permission Denied: Your Firestore rules do not permit writing to the "orders" collection.'
+        : err?.message || 'Failed to save order to Firebase. Please try again.';
+    throw new Error(errorMsg);
+  }
 }
+

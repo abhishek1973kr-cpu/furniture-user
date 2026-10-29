@@ -20,3 +20,4 @@ const auth = typeof window !== "undefined" ? getAuth(app) : null;
 
 export { app, db, storage, auth, firebaseConfig };
 export default app;
+

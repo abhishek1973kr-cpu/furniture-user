@@ -39,18 +39,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       onClick={() => openProductDetail(product)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative bg-[#171717] border border-[#C5A880]/20 hover:border-[#C5A880]/60 transition-all duration-300 flex flex-col justify-between rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-luxury"
+      className="group relative bg-[#FFFFFF] border border-[#C5A880]/30 hover:border-[#8C6E43] transition-all duration-300 flex flex-col justify-between rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md"
     >
       {/* Top Media Container with Rounded Corners */}
-      <div className="relative aspect-[4/3] sm:aspect-square w-full overflow-hidden bg-[#121212] rounded-t-3xl">
+      <div className="relative aspect-[4/3] sm:aspect-square w-full overflow-hidden bg-[#F4EFEB] rounded-t-3xl">
         
         {/* Badges Overlay (Pill Shaped) */}
         <div className="absolute top-3 left-3 z-20 flex flex-col gap-1.5 pointer-events-none">
-          <span className="bg-[#C5A880] text-[#1A1A1A] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
+          <span className="bg-[#8C6E43] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
             Save {discountPercentage}%
           </span>
           {product.isBestseller && (
-            <span className="bg-[#121212]/90 border border-[#C5A880]/40 text-[#C5A880] text-[9px] font-medium px-2.5 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm">
+            <span className="bg-white/95 border border-[#8C6E43]/40 text-[#8C6E43] text-[9px] font-semibold px-2.5 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
               ★ Bestseller
             </span>
           )}
@@ -58,8 +58,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         {/* 12h Dispatch Badge Top Right (Pill Shaped) */}
         <div className="absolute top-3 right-3 z-20 pointer-events-none">
-          <span className="inline-flex items-center gap-1.5 bg-[#121212]/90 border border-emerald-500/30 text-emerald-400 text-[9px] font-medium px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm">
-            <Zap className="w-2.5 h-2.5 fill-emerald-400" />
+          <span className="inline-flex items-center gap-1.5 bg-white/95 border border-emerald-500/40 text-emerald-800 text-[9px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
+            <Zap className="w-2.5 h-2.5 fill-emerald-600 text-emerald-600" />
             12h Dispatch
           </span>
         </div>
@@ -76,13 +76,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         {/* Hover Quick Action Overlay */}
-        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 z-20">
+        <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 z-20">
           <button
             onClick={(e) => {
               e.stopPropagation();
               openProductDetail(product);
             }}
-            className="flex-1 py-2.5 px-4 bg-[#121212]/90 hover:bg-[#C5A880] text-[#F9F8F6] hover:text-[#1A1A1A] border border-[#C5A880]/40 text-[11px] uppercase tracking-wider font-semibold transition-all flex items-center justify-center gap-2 rounded-full backdrop-blur-sm shadow-md"
+            className="flex-1 py-2.5 px-4 bg-white/95 hover:bg-[#8C6E43] text-[#1A1A1A] hover:text-white border border-[#C5A880]/40 text-[11px] uppercase tracking-wider font-semibold transition-all flex items-center justify-center gap-2 rounded-full backdrop-blur-sm shadow-md"
           >
             <Eye className="w-3.5 h-3.5" />
             <span>Quick View</span>
@@ -91,43 +91,43 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Product Content Details */}
-      <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between bg-[#171717] rounded-b-3xl">
+      <div className="p-5 sm:p-6 flex flex-col flex-grow justify-between bg-[#FFFFFF] rounded-b-3xl">
         <div>
           {/* Category & Rating */}
-          <div className="flex items-center justify-between text-[11px] text-[#9E9A93] mb-2">
-            <span className="uppercase tracking-[0.16em] text-[#C5A880]/90 font-medium truncate pr-2">
+          <div className="flex items-center justify-between text-[11px] text-[#55504A] mb-2">
+            <span className="uppercase tracking-[0.16em] text-[#8C6E43] font-semibold truncate pr-2">
               {product.category}
             </span>
-            <div className="flex items-center gap-1 bg-[#121212] px-2.5 py-0.5 rounded-full border border-white/5 shrink-0">
-              <Star className="w-3 h-3 text-[#C5A880] fill-[#C5A880]" />
-              <span className="text-white font-medium">{product.rating}</span>
-              <span className="text-[#9E9A93]">({product.reviewCount})</span>
+            <div className="flex items-center gap-1 bg-[#F5F2EB] px-2.5 py-0.5 rounded-full border border-[#C5A880]/30 shrink-0">
+              <Star className="w-3 h-3 text-[#8C6E43] fill-[#8C6E43]" />
+              <span className="text-[#1A1A1A] font-semibold">{product.rating}</span>
+              <span className="text-[#7E7870]">({product.reviewCount})</span>
             </div>
           </div>
 
           {/* Product Title */}
-          <h3 className="text-sm sm:text-base font-serif font-normal text-[#F9F8F6] line-clamp-1 group-hover:text-[#C5A880] transition-colors">
+          <h3 className="text-sm sm:text-base font-serif font-medium text-[#1A1A1A] line-clamp-1 group-hover:text-[#8C6E43] transition-colors">
             {product.title}
           </h3>
 
           {/* Space Saving Highlight */}
-          <p className="text-xs text-[#9E9A93] font-light line-clamp-1 mt-1.5">
+          <p className="text-xs text-[#55504A] font-normal line-clamp-1 mt-1.5">
             ⚡ {product.spaceSavingFeature}
           </p>
         </div>
 
         {/* Pricing & CTA Section */}
-        <div className="mt-5 pt-3.5 border-t border-[#C5A880]/15">
+        <div className="mt-5 pt-3.5 border-t border-[#C5A880]/20">
           <div className="flex items-baseline justify-between mb-3.5">
             <div className="flex items-baseline gap-2">
-              <span className="text-xl sm:text-2xl font-serif font-bold text-[#C5A880]">
+              <span className="text-xl sm:text-2xl font-serif font-bold text-[#8C6E43]">
                 ₹{product.wholesalePrice.toLocaleString('en-IN')}
               </span>
-              <span className="text-xs line-through text-[#9E9A93]">
+              <span className="text-xs line-through text-[#7E7870]">
                 ₹{product.originalPrice.toLocaleString('en-IN')}
               </span>
             </div>
-            <span className="text-[10px] uppercase tracking-wider text-[#C5A880] font-medium bg-[#C5A880]/10 px-2.5 py-1 rounded-full border border-[#C5A880]/20">
+            <span className="text-[10px] uppercase tracking-wider text-[#8C6E43] font-semibold bg-[#F5F2EB] px-2.5 py-1 rounded-full border border-[#C5A880]/30">
               Wholesale
             </span>
           </div>
@@ -138,8 +138,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               onClick={handleAddToCart}
               className={`py-2.5 px-3 text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 ${
                 addedAnimation
-                  ? 'bg-emerald-800/80 border-emerald-500 text-white'
-                  : 'bg-transparent border-[#C5A880]/40 text-[#F9F8F6] hover:bg-white/5 hover:border-[#C5A880]'
+                  ? 'bg-emerald-700 border-emerald-700 text-white'
+                  : 'bg-transparent border-[#C5A880]/50 text-[#1A1A1A] hover:bg-[#F5F2EB] hover:border-[#8C6E43]'
               }`}
             >
               {addedAnimation ? (
@@ -149,7 +149,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 </>
               ) : (
                 <>
-                  <ShoppingBag className="w-3.5 h-3.5 text-[#C5A880]" />
+                  <ShoppingBag className="w-3.5 h-3.5 text-[#8C6E43]" />
                   <span>Add to Bag</span>
                 </>
               )}
@@ -157,7 +157,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
             <button
               onClick={handleBuyNow}
-              className="py-2.5 px-3 bg-[#C5A880] hover:bg-[#D4B489] text-[#1A1A1A] text-[11px] font-bold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-goldGlow"
+              className="py-2.5 px-3 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-[11px] font-bold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md"
             >
               <span>Buy Now</span>
             </button>

@@ -556,7 +556,7 @@ export const MOCK_REVIEWS: Review[] = [
 export const BRAND_STATS = [
   { label: 'Smart Homes Furnished', value: '32,400+' },
   { label: 'Dispatch Guarantee', value: '< 12 Hours' },
-  { label: 'Wholesale Price Range', value: '₹1500 - ₹2500' },
+  { label: 'Wholesale Direct Privilege', value: 'Factory Direct' },
   { label: 'Customer Satisfaction', value: '4.9 / 5.0' },
 ];
 
@@ -567,7 +567,7 @@ export const WHOLESALE_BENEFITS = [
     icon: 'Zap',
   },
   {
-    title: 'Exclusive Range ₹1500 - ₹2500',
+    title: 'Factory Direct Wholesale Rates',
     desc: 'By sourcing directly from robotic precision ateliers, we deliver premium multi-functional furniture at honest wholesale rates.',
     icon: 'Crown',
   },
