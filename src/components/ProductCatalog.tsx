@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { MOCK_PRODUCTS } from '@/data/mockData';
 import { ProductCard } from './ProductCard';
-import { SlidersHorizontal, Sparkles } from 'lucide-react';
+import { SlidersHorizontal, Sparkles, Radio } from 'lucide-react';
 import { ProductCategory } from '@/types';
+import { useCart } from '@/context/CartContext';
 
 interface ProductCatalogProps {
   selectedCategory: 'All' | ProductCategory;
@@ -25,23 +25,24 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   onSelectCategory,
   searchQuery,
 }) => {
+  const { products, isInventoryLoading, isLiveConnected } = useCart();
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high' | 'rating'>('featured');
 
-  // Subcategories depending on current main category
+  // Subcategories depending on current main category & live products
   const availableSubCategories = useMemo(() => {
-    let prods = MOCK_PRODUCTS;
+    let prods = products;
     if (selectedCategory !== 'All') {
       prods = prods.filter((p) => p.category === selectedCategory);
     }
     const set = new Set<string>();
     prods.forEach((p) => set.add(p.subCategory));
     return ['All', ...Array.from(set)];
-  }, [selectedCategory]);
+  }, [products, selectedCategory]);
 
-  // Filtered and sorted products
+  // Filtered and sorted products from real-time Firestore collection
   const filteredProducts = useMemo(() => {
-    return MOCK_PRODUCTS.filter((product) => {
+    return products.filter((product) => {
       // Category match
       if (selectedCategory !== 'All' && product.category !== selectedCategory) {
         return false;
@@ -71,9 +72,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
       if (sortBy === 'rating') {
         return b.rating - a.rating;
       }
-      return 0; // featured order in mockData
+      return 0; // default order
     });
-  }, [selectedCategory, selectedSubCategory, searchQuery, sortBy]);
+  }, [products, selectedCategory, selectedSubCategory, searchQuery, sortBy]);
 
   return (
     <section id="catalog" className="py-16 sm:py-24 bg-[#141414] text-[#F9F8F6]">
@@ -83,8 +84,14 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="w-8 h-[1px] bg-[#C5A880]/60" />
-            <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] font-semibold">
+            <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] font-semibold flex items-center gap-2">
               The Space-Saving Furniture Atelier
+              {isLiveConnected && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[9px] tracking-normal lowercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  live
+                </span>
+              )}
             </span>
             <span className="w-8 h-[1px] bg-[#C5A880]/60" />
           </div>

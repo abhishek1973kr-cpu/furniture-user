@@ -10,11 +10,11 @@ export interface Product {
   subtitle: string;
   category: ProductCategory;
   subCategory: string;
-  originalPrice: number; // e.g. 4999 - 6999
-  wholesalePrice: number; // strictly between 1500 and 2500 (e.g. 1799, 1999, 2199, 2499)
+  originalPrice: number;
+  wholesalePrice: number; // strictly between 1500 and 2500
   rating: number;
   reviewCount: number;
-  images: string[]; // Exactly 5 high-resolution mock images per product
+  images: string[]; // Up to 8 high-resolution images for the gallery
   description: string;
   spaceSavingFeature: string;
   specifications: {
@@ -61,6 +61,34 @@ export interface OrderFormValues {
   pincode: string;
   paymentMethod: 'cod' | 'upi';
   orderNotes?: string;
+}
+
+export interface FirestoreOrderItem {
+  id: string;
+  title: string;
+  name?: string;
+  price: number;
+  quantity: number;
+  image: string;
+  category?: string;
+  subtotal: number;
+}
+
+export interface FirestoreOrderPayload {
+  customerName: string;
+  phone: string;
+  phoneNumber: string;
+  fullAddress: string;
+  paymentMethod: 'COD' | string;
+  orderDate: string;
+  orderDateTime: string;
+  items: FirestoreOrderItem[];
+  totalPrice: number;
+  totalAmount: number;
+  discountSaved: number;
+  status: 'Pending';
+  createdAt: any;
+  dispatchTime: string;
 }
 
 export interface ConfirmedOrder {

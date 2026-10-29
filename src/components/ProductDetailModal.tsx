@@ -98,12 +98,12 @@ export const ProductDetailModal: React.FC = () => {
             </div>
           </div>
 
-          {/* 5-Thumbnail Fluid Selector Bar */}
+          {/* 8-Image Fluid Gallery Selector Bar */}
           <div className="mt-4">
             <span className="text-[10px] uppercase tracking-widest text-[#9E9A93] block mb-2 font-medium">
-              Multi-Angle Functional Views (Select to Switch)
+              Multi-Angle Perspectives ({product.images.length} Functional Views)
             </span>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {product.images.map((imgUrl, idx) => (
                 <button
                   key={idx}

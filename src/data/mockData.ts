@@ -9,7 +9,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Smart Living',
     subCategory: 'Sofa Cum Bed',
     originalPrice: 5999,
-    wholesalePrice: 2499, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 2499,
     rating: 4.9,
     reviewCount: 524,
     images: [
@@ -18,6 +18,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'Engineered for compact luxury living. Effortlessly transitions from a plush, ergonomic 2-seater lounge sofa into a supportive Queen-sized floor bed in less than 5 seconds. Packed with 32-density orthopaedic rebound foam that cushions pressure points during sleep and sitting.',
@@ -48,7 +51,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Smart Living',
     subCategory: 'Convertible Ottoman',
     originalPrice: 4999,
-    wholesalePrice: 1999, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1999,
     rating: 4.9,
     reviewCount: 382,
     images: [
@@ -57,6 +60,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'A masterstroke of smart space optimization. One single compact cube unrolls into 5 independent, heavy-duty padded guest seats on industrial swivel caster wheels. When party or family time ends, snap them back together into an elegant single footrest or coffee table.',
@@ -87,7 +93,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Smart Living',
     subCategory: 'Wall Murphy Bed',
     originalPrice: 6499,
-    wholesalePrice: 2399, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 2399,
     rating: 4.8,
     reviewCount: 295,
     images: [
@@ -96,6 +102,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'Reclaim your entire bedroom floor by day. LivFabs dual hydraulic gas-strut mechanism lets you effortlessly lift and stow a full-size bed flush against the wall with finger-light balance. Integrated fold-out legs deploy automatically upon descent.',
@@ -128,7 +137,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'On-The-Go Comfort',
     subCategory: 'Air Beds & Mattresses',
     originalPrice: 4499,
-    wholesalePrice: 1899, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1899,
     rating: 4.8,
     reviewCount: 642,
     images: [
@@ -137,6 +146,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'The ultimate portable luxury mattress for overnight guests, weekend road trips, or micro-apartments. Built-in high-speed electric motor inflates this Queen-sized double-height mattress to hotel firmness in under 3 minutes. Puncture-resistant velvety flocking prevents sheet slippage.',
@@ -167,7 +179,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'On-The-Go Comfort',
     subCategory: 'Inflatable Lounger',
     originalPrice: 3999,
-    wholesalePrice: 1599, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1599,
     rating: 4.8,
     reviewCount: 318,
     images: [
@@ -176,6 +188,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'No pump or electricity required. Just whip through ambient air to catch a full billow of air, roll the clip, and relax on a floating cloud. Whether placed on your balcony, living room terrace, or beach outing, the contour curves cradle your spine with zero pressure points.',
@@ -206,7 +221,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'On-The-Go Comfort',
     subCategory: 'Ergonomic Wedge Pillow',
     originalPrice: 3799,
-    wholesalePrice: 1699, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1699,
     rating: 4.9,
     reviewCount: 472,
     images: [
@@ -215,6 +230,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'Engineered by orthopaedic specialists for multi-posture spinal decompression. The foldable hinge design lets you configure this wedge into 4 positions: 30° incline for reading, 60° upright backrest for laptop work, elevated leg support for varicose vein relief, or gentle head elevation.',
@@ -247,7 +265,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Flexi Work & Dine',
     subCategory: 'Wall-Mounted Desk',
     originalPrice: 4899,
-    wholesalePrice: 1799, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1799,
     rating: 4.9,
     reviewCount: 681,
     images: [
@@ -256,6 +274,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'The quintessential desk for work-from-home pros residing in modern apartments. Mounts securely to any wall with industrial folding triangular brackets. Flips up with a single click to provide a spacious 32" workstation, and folds down flat to just 1.5 inches thickness when the workday ends.',
@@ -286,7 +307,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Flexi Work & Dine',
     subCategory: 'Laptop Bed Table',
     originalPrice: 3699,
-    wholesalePrice: 1549, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1549,
     rating: 4.8,
     reviewCount: 429,
     images: [
@@ -295,6 +316,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'Transform any bed or sofa into an ergonomic workstation. Features 5 angle tilt adjustments to eliminate neck strain, 4 telescopic height levels, a tablet/phone dock slot, a pull-out stationery drawer, and non-slip silicone wrist rest.',
@@ -325,7 +349,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Flexi Work & Dine',
     subCategory: 'Extendable Dining Table',
     originalPrice: 5999,
-    wholesalePrice: 2299, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 2299,
     rating: 4.9,
     reviewCount: 310,
     images: [
@@ -334,6 +358,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'The ultimate solution for hosting dinners without permanently occupying dining room space. In everyday compact mode, it comfortably seats 2 to 4 people. When guests arrive, smoothly pull the ball-bearing extension tracks to expand into a generous 6-seater feast banquet.',
@@ -366,7 +393,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Storage & Utility',
     subCategory: 'Under-Bed Storage with Wheels',
     originalPrice: 3899,
-    wholesalePrice: 1649, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1649,
     rating: 4.9,
     reviewCount: 519,
     images: [
@@ -375,6 +402,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1540518614846-7ede433c4ef7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'Unlock massive hidden storage beneath your bed frames. Equipped with 4 smooth-glide 360° silent caster wheels that roll effortlessly over thick carpets and hardwood floors. Rigid reinforced carbon-wire frame keeps seasonal blankets, winter coats, and spare beddings protected from dust and moisture.',
@@ -405,7 +435,7 @@ export const MOCK_PRODUCTS: Product[] = [
     category: 'Storage & Utility',
     subCategory: 'Under-Bed Storage with Wheels',
     originalPrice: 4199,
-    wholesalePrice: 1849, // strictly between ₹1500 - ₹2500
+    wholesalePrice: 1849,
     rating: 4.8,
     reviewCount: 366,
     images: [
@@ -414,6 +444,9 @@ export const MOCK_PRODUCTS: Product[] = [
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1000&auto=format&fit=crop',
     ],
     description:
       'Engineered for maximum payload durability. Welded structural metal grid resists crushing and rodent intrusion. Low-profile 6.5-inch height slides beneath almost any modern divan or cot, creating hidden high-volume storage for luggage, shoes, sports gear, and bedding.',

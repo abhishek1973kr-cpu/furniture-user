@@ -2,8 +2,16 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, CartItem, ConfirmedOrder } from '@/types';
+import { MOCK_PRODUCTS } from '@/data/mockData';
+import { subscribeToLiveInventory } from '@/services/firebaseService';
 
 interface CartContextType {
+  // Live Inventory from Firestore 'inventoryItems'
+  products: Product[];
+  isInventoryLoading: boolean;
+  isLiveConnected: boolean;
+
+  // Cart Management
   cartItems: CartItem[];
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (productId: string) => void;
@@ -39,6 +47,12 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // 1. Real-time Live Inventory state from Firestore 'inventoryItems'
+  const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
+  const [isInventoryLoading, setIsInventoryLoading] = useState(true);
+  const [isLiveConnected, setIsLiveConnected] = useState(false);
+
+  // Cart & Modals State
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProductForDetail, setSelectedProductForDetail] = useState<Product | null>(null);
@@ -47,7 +61,26 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [checkoutQuantity, setCheckoutQuantity] = useState(1);
   const [confirmedOrder, setConfirmedOrder] = useState<ConfirmedOrder | null>(null);
 
-  // Initialize with 1 sample item or empty state smoothly
+  // 1. Subscribe to live Firestore `inventoryItems` collection using onSnapshot
+  useEffect(() => {
+    const unsubscribe = subscribeToLiveInventory(
+      (liveItems) => {
+        setProducts(liveItems);
+        setIsInventoryLoading(false);
+        setIsLiveConnected(true);
+      },
+      (err) => {
+        console.warn('Firestore onSnapshot listener error:', err);
+        setIsInventoryLoading(false);
+      }
+    );
+
+    return () => {
+      if (unsubscribe) unsubscribe();
+    };
+  }, []);
+
+  // Initialize cart from localStorage smoothly
   useEffect(() => {
     try {
       const saved = localStorage.getItem('livfabs_cart');
@@ -141,6 +174,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   return (
     <CartContext.Provider
       value={{
+        products,
+        isInventoryLoading,
+        isLiveConnected,
         cartItems,
         addToCart,
         removeFromCart,
@@ -177,4 +213,3 @@ export const useCart = () => {
   }
   return context;
 };
-
