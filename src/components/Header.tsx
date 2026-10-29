@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShoppingBag, Search, Menu, X, Sparkles, PhoneCall, Heart } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Sparkles, PhoneCall } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { ProductCategory } from '@/types';
 
 interface HeaderProps {
-  onSelectCategory?: (category: 'All' | 'Ladies Ornaments' | 'Gents Ornaments') => void;
+  onSelectCategory?: (category: 'All' | ProductCategory) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
 }
@@ -19,7 +20,7 @@ export const Header: React.FC<HeaderProps> = ({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  const handleNavClick = (category?: 'All' | 'Ladies Ornaments' | 'Gents Ornaments', targetId = 'catalog') => {
+  const handleNavClick = (category?: 'All' | ProductCategory, targetId = 'catalog') => {
     if (category && onSelectCategory) {
       onSelectCategory(category);
     }
@@ -35,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Left: Mobile Menu Toggle & Secondary Links */}
+          {/* Left: Mobile Menu Toggle & Secondary Search */}
           <div className="flex items-center gap-4 lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -48,46 +49,56 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="p-2 text-[#F9F8F6] hover:text-[#C5A880] transition-colors focus:outline-none"
-              aria-label="Search collection"
+              aria-label="Search smart furniture"
             >
               <Search className="w-5 h-5" />
             </button>
           </div>
 
           {/* Desktop Left Nav Links */}
-          <nav className="hidden lg:flex items-center space-x-8 text-xs font-medium uppercase tracking-[0.2em] text-[#F9F8F6]/80">
+          <nav className="hidden lg:flex items-center space-x-7 text-xs font-medium uppercase tracking-[0.16em] text-[#F9F8F6]/80">
             <button
-              onClick={() => handleNavClick('Ladies Ornaments')}
+              onClick={() => handleNavClick('Smart Living')}
               className="hover:text-[#C5A880] transition-colors py-2 relative group"
             >
-              Ladies Ornaments
+              Smart Living
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full" />
             </button>
             <button
-              onClick={() => handleNavClick('Gents Ornaments')}
+              onClick={() => handleNavClick('On-The-Go Comfort')}
               className="hover:text-[#C5A880] transition-colors py-2 relative group"
             >
-              Gents Ornaments
+              On-The-Go Comfort
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full" />
             </button>
             <button
-              onClick={() => handleNavClick(undefined, 'wholesale-story')}
+              onClick={() => handleNavClick('Flexi Work & Dine')}
               className="hover:text-[#C5A880] transition-colors py-2 relative group"
             >
-              Wholesale Privilege
+              Flexi Work & Dine
+              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full" />
+            </button>
+            <button
+              onClick={() => handleNavClick('Storage & Utility')}
+              className="hover:text-[#C5A880] transition-colors py-2 relative group"
+            >
+              Storage & Utility
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#C5A880] transition-all duration-300 group-hover:w-full" />
             </button>
           </nav>
 
           {/* Center Brand Identity */}
-          <div className="flex flex-col items-center justify-center cursor-pointer select-none py-1" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <div
+            className="flex flex-col items-center justify-center cursor-pointer select-none py-1"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <div className="flex items-center gap-1.5">
               <span className="text-xl sm:text-2xl font-serif tracking-[0.25em] text-[#F9F8F6] font-normal uppercase">
                 Liv<span className="text-[#C5A880] font-light">Fabs</span>
               </span>
             </div>
-            <span className="text-[9px] uppercase tracking-[0.35em] text-[#C5A880] font-medium mt-0.5">
-              Haute Ornaments • Flat ₹99
+            <span className="text-[9px] uppercase tracking-[0.3em] text-[#C5A880] font-medium mt-0.5">
+              Smart Furniture • ₹1500 - ₹2500
             </span>
           </div>
 
@@ -98,10 +109,10 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="relative flex items-center">
                 <input
                   type="text"
-                  placeholder="Search rings, chains, chokers..."
+                  placeholder="Search sofa bed, ottoman, tables..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-56 pl-9 pr-4 py-1.5 bg-[#121212] border border-[#C5A880]/25 rounded-none text-xs text-[#F9F8F6] placeholder-[#9E9A93] focus:outline-none focus:border-[#C5A880] transition-all"
+                  className="w-60 pl-9 pr-4 py-1.5 bg-[#121212] border border-[#C5A880]/25 rounded-none text-xs text-[#F9F8F6] placeholder-[#9E9A93] focus:outline-none focus:border-[#C5A880] transition-all"
                 />
                 <Search className="w-3.5 h-3.5 text-[#C5A880] absolute left-3 pointer-events-none" />
                 {searchQuery && (
@@ -115,9 +126,9 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
             </div>
 
-            {/* Support / WhatsApp concierge */}
+            {/* Concierge Support Helpline */}
             <a
-              href="https://wa.me/919820054321?text=Hello%20LivFabs,%20I%20have%20an%20inquiry%20about%20the%20Flat%20₹99%20Wholesale%20Ornaments"
+              href="https://wa.me/919820054321?text=Hello%20LivFabs,%20I%20have%20an%20inquiry%20regarding%20Space-Saving%20Smart%20Furniture"
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center gap-1.5 text-xs uppercase tracking-wider text-[#F9F8F6]/80 hover:text-[#C5A880] transition-colors"
@@ -150,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({
               <input
                 type="text"
                 autoFocus
-                placeholder="Search ladies & gents ornaments at ₹99..."
+                placeholder="Search sofa bed, ottoman cube, air bed, tables..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-10 py-2.5 bg-[#121212] border border-[#C5A880]/40 text-sm text-[#F9F8F6] placeholder-[#9E9A93] focus:outline-none focus:border-[#C5A880]"
@@ -172,47 +183,56 @@ export const Header: React.FC<HeaderProps> = ({
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-x-0 top-20 bg-[#121212] border-b border-[#C5A880]/30 shadow-2xl p-6 transition-all z-50">
-          <div className="flex flex-col space-y-5 text-sm uppercase tracking-[0.2em]">
+          <div className="flex flex-col space-y-4 text-sm uppercase tracking-[0.18em]">
             <button
               onClick={() => handleNavClick('All', 'catalog')}
               className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5 flex items-center justify-between"
             >
-              <span>Explore All Ornaments</span>
-              <span className="text-[#C5A880] font-serif text-xs">₹99 Wholesale</span>
+              <span>Explore All Smart Furniture</span>
+              <span className="text-[#C5A880] font-serif text-xs">₹1500 - ₹2500</span>
             </button>
 
             <button
-              onClick={() => handleNavClick('Ladies Ornaments', 'catalog')}
+              onClick={() => handleNavClick('Smart Living', 'catalog')}
               className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5 flex items-center justify-between"
             >
-              <span>Ladies Ornaments</span>
-              <span className="text-xs text-[#9E9A93]">Chokers, Earrings, Kada</span>
+              <span>Smart Living</span>
+              <span className="text-xs text-[#9E9A93]">Sofa Beds, Ottoman, Murphy</span>
             </button>
 
             <button
-              onClick={() => handleNavClick('Gents Ornaments', 'catalog')}
+              onClick={() => handleNavClick('On-The-Go Comfort', 'catalog')}
               className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5 flex items-center justify-between"
             >
-              <span>Gents Ornaments</span>
-              <span className="text-xs text-[#9E9A93]">Cuban Chains, Signets, Kadas</span>
+              <span>On-The-Go Comfort</span>
+              <span className="text-xs text-[#9E9A93]">Air Beds, Loungers, Wedge</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('Flexi Work & Dine', 'catalog')}
+              className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5 flex items-center justify-between"
+            >
+              <span>Flexi Work & Dine</span>
+              <span className="text-xs text-[#9E9A93]">Wall Desks, Laptop & Dining</span>
+            </button>
+
+            <button
+              onClick={() => handleNavClick('Storage & Utility', 'catalog')}
+              className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5 flex items-center justify-between"
+            >
+              <span>Storage & Utility</span>
+              <span className="text-xs text-[#9E9A93]">Rolling Under-Bed Trunks</span>
             </button>
 
             <button
               onClick={() => handleNavClick(undefined, 'reviews')}
               className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5"
             >
-              Verified Buyer Reviews (4.9★)
-            </button>
-
-            <button
-              onClick={() => handleNavClick(undefined, 'wholesale-story')}
-              className="text-left py-2 text-[#F9F8F6] hover:text-[#C5A880] border-b border-white/5"
-            >
-              The LivFabs Wholesale Story
+              Client Reviews (4.9★)
             </button>
 
             <div className="pt-2 flex flex-col gap-3">
-              <div className="p-3 bg-[#1A1A1A] border border-[#C5A880]/20 rounded-none flex items-center gap-3">
+              <div className="p-3 bg-[#1A1A1A] border border-[#C5A880]/20 flex items-center gap-3">
                 <Sparkles className="w-5 h-5 text-[#C5A880] shrink-0" />
                 <div className="text-xs tracking-normal">
                   <p className="text-white font-medium">12-Hour Priority Dispatch</p>
@@ -226,4 +246,3 @@ export const Header: React.FC<HeaderProps> = ({
     </header>
   );
 };
-

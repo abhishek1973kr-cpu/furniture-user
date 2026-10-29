@@ -47,7 +47,7 @@ export const CartDrawer: React.FC = () => {
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-[#C5A880]" />
               <h2 id="cart-drawer-title" className="text-base font-serif font-normal uppercase tracking-wider text-white">
-                Shopping Bag ({cartItems.reduce((acc, i) => acc + i.quantity, 0)})
+                Furniture Bag ({cartItems.reduce((acc, i) => acc + i.quantity, 0)})
               </h2>
             </div>
             
@@ -63,7 +63,7 @@ export const CartDrawer: React.FC = () => {
           {/* 12-Hour Priority Shipping Notice */}
           <div className="px-5 py-2.5 bg-[#121212] border-b border-white/5 flex items-center gap-2 text-xs text-[#C5A880]">
             <Zap className="w-3.5 h-3.5 fill-[#C5A880] shrink-0" />
-            <span>Eligible for 12-Hour Priority Dispatch & Free Shipping</span>
+            <span>Eligible for 12-Hour Priority Dispatch & Free Express Delivery</span>
           </div>
 
           {/* Items List */}
@@ -71,9 +71,9 @@ export const CartDrawer: React.FC = () => {
             {cartItems.length === 0 ? (
               <div className="py-20 text-center flex flex-col items-center justify-center">
                 <ShoppingBag className="w-12 h-12 text-[#C5A880]/40 mb-3" />
-                <h3 className="text-base font-serif text-white">Your Bag is Empty</h3>
+                <h3 className="text-base font-serif text-white">Your Furniture Bag is Empty</h3>
                 <p className="text-xs text-[#9E9A93] mt-1 max-w-xs">
-                  Discover our exclusive Ladies & Gents ornaments priced at flat ₹99 wholesale privilege.
+                  Discover our exclusive Space-Saving Smart Furniture strictly in the ₹1,500 – ₹2,500 range.
                 </p>
                 <button
                   onClick={closeCart}
@@ -89,7 +89,7 @@ export const CartDrawer: React.FC = () => {
                   className="p-3 bg-[#141414] border border-[#C5A880]/20 flex gap-3 relative group"
                 >
                   {/* Thumbnail */}
-                  <div className="relative w-18 h-18 w-20 h-20 bg-[#0D0D0D] border border-white/10 shrink-0">
+                  <div className="relative w-20 h-20 bg-[#0D0D0D] border border-white/10 shrink-0">
                     <Image
                       src={item.product.images[0]}
                       alt={item.product.title}
@@ -138,10 +138,10 @@ export const CartDrawer: React.FC = () => {
 
                       <div className="text-right">
                         <span className="text-sm font-serif font-bold text-[#C5A880]">
-                          ₹{item.product.wholesalePrice * item.quantity}
+                          ₹{(item.product.wholesalePrice * item.quantity).toLocaleString('en-IN')}
                         </span>
                         <span className="block text-[10px] line-through text-[#9E9A93]">
-                          ₹{item.product.originalPrice * item.quantity}
+                          ₹{(item.product.originalPrice * item.quantity).toLocaleString('en-IN')}
                         </span>
                       </div>
                     </div>
@@ -157,19 +157,21 @@ export const CartDrawer: React.FC = () => {
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between text-[#9E9A93]">
                   <span>Subtotal MRP:</span>
-                  <span className="line-through">₹{originalSubtotal}</span>
+                  <span className="line-through">₹{originalSubtotal.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between text-[#C5A880]">
                   <span>Wholesale Privilege Savings:</span>
-                  <span>- ₹{totalSaved} (72%)</span>
+                  <span>- ₹{totalSaved.toLocaleString('en-IN')}</span>
                 </div>
                 <div className="flex justify-between text-[#9E9A93]">
-                  <span>Express 12h Shipping:</span>
+                  <span>12-Hour Priority Shipping:</span>
                   <span className="text-emerald-400">FREE</span>
                 </div>
                 <div className="pt-2 border-t border-white/10 flex justify-between items-baseline text-sm">
                   <span className="font-serif uppercase tracking-wider text-white">Payable (COD):</span>
-                  <span className="text-xl font-serif font-bold text-[#C5A880]">₹{subtotal}</span>
+                  <span className="text-xl font-serif font-bold text-[#C5A880]">
+                    ₹{subtotal.toLocaleString('en-IN')}
+                  </span>
                 </div>
               </div>
 
@@ -195,4 +197,3 @@ export const CartDrawer: React.FC = () => {
     </div>
   );
 };
-

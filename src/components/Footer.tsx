@@ -29,13 +29,13 @@ export const Footer: React.FC = () => {
         <div className="pb-12 border-b border-white/10 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="text-center lg:text-left">
             <span className="text-[10px] uppercase tracking-[0.25em] text-[#C5A880] font-semibold">
-              The LivFabs Privilege Circle
+              The LivFabs Smart Home Club
             </span>
             <h3 className="text-xl sm:text-2xl font-serif text-white mt-1">
-              Be the First to Claim Limited ₹99 Drops
+              Be the First to Claim Limited Furniture Drops
             </h3>
             <p className="text-xs text-[#9E9A93] mt-1 max-w-md">
-              Receive secret VIP preview links before our 12-hour dispatch inventory sells out.
+              Receive secret VIP preview notifications before our 12-hour dispatch inventory sells out.
             </p>
           </div>
 
@@ -66,17 +66,17 @@ export const Footer: React.FC = () => {
               Liv<span className="text-[#C5A880]">Fabs</span>
             </span>
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#C5A880] mt-1 mb-4">
-              Haute Ornaments Atelier
+              Smart Space Furniture Atelier
             </p>
             <p className="text-xs text-[#9E9A93] leading-relaxed mb-4">
-              Direct artisan casting of timeless ladies and gents jewelry with 18K micro-gold anti-tarnish plating. Delivered nationwide with 12-hour dispatch.
+              Direct robotic casting of space-saving modular furniture and on-the-go comfort essentials. Delivered nationwide with 12-hour priority dispatch.
             </p>
 
             <div className="space-y-2 text-xs text-[#9E9A93]">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#C5A880] shrink-0 mt-0.5" />
                 <span>
-                  LivFabs Atelier, 4th Floor, Luxury Heritage Arcade, Linking Road, Bandra West, Mumbai 400050, India
+                  LivFabs Studio & Atelier, 4th Floor, Design Pavilion, Linking Road, Bandra West, Mumbai 400050, India
                 </span>
               </div>
             </div>
@@ -85,37 +85,37 @@ export const Footer: React.FC = () => {
           {/* Col 2: Curated Collections */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A880] mb-4">
-              Artisan Collections
+              Smart Collections
             </h4>
             <ul className="space-y-2.5 text-xs text-[#9E9A93]">
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
-                  Solitaire Chokers & Pendants (₹99)
+                  Modular Velvet Sofa Cum Beds
                 </a>
               </li>
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
-                  Austrian Crystal Cascade Drops (₹99)
+                  5-in-1 Rubik Convertible Ottoman Cubes
                 </a>
               </li>
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
-                  Heritage Filigree Kada Bangles (₹99)
+                  Hydraulic Studio Murphy Wall Beds
                 </a>
               </li>
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
-                  Monarch Cuban Heavy Chains (₹99)
+                  AeroPlush Deluxe Air Beds with Pump
                 </a>
               </li>
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
-                  Jet Black Obsidian Signet Rings (₹99)
+                  Drop-Leaf Wall-Mounted Smart Tables
                 </a>
               </li>
               <li>
                 <a href="#catalog" className="hover:text-white transition-colors">
-                  Twin Beast Imperial Lion Kadas (₹99)
+                  GlideMaster Rolling Under-Bed Trunks
                 </a>
               </li>
             </ul>
@@ -128,7 +128,7 @@ export const Footer: React.FC = () => {
             </h4>
             <div className="space-y-3 text-xs text-[#9E9A93]">
               <p>
-                Our personal jewelry concierges are available 7 days a week (9:00 AM – 9:00 PM IST).
+                Our furniture assembly & design concierges are available 7 days a week (9:00 AM – 9:00 PM IST).
               </p>
               
               <div className="flex items-center gap-2 text-white">
@@ -147,7 +147,7 @@ export const Footer: React.FC = () => {
 
               <div className="pt-2">
                 <span className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#C5A880]/30 text-[10px] text-[#C5A880] uppercase tracking-wider">
-                  ⚡ 12-Hour Dispatch In Motion
+                  ⚡ 12-Hour Dispatch Active
                 </span>
               </div>
             </div>
@@ -180,7 +180,7 @@ export const Footer: React.FC = () => {
                   onClick={() => setActivePolicyModal('warranty')}
                   className="hover:text-[#C5A880] transition-colors text-left"
                 >
-                  ✨ 6-Month Anti-Tarnish Warranty
+                  ✨ 2-Year Mechanism & Frame Warranty
                 </button>
               </li>
               <li>
@@ -188,7 +188,7 @@ export const Footer: React.FC = () => {
                   onClick={() => setActivePolicyModal('privacy')}
                   className="hover:text-[#C5A880] transition-colors text-left"
                 >
-                  🔒 Client Privacy & Data Security
+                  🔒 Client Privacy & Data Protection
                 </button>
               </li>
               <li>
@@ -207,7 +207,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Trust & Copyright Row */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#9E9A93]">
           <div className="flex items-center gap-3">
-            <span className="text-[#C5A880] font-serif">LivFabs Private Limited</span>
+            <span className="text-[#C5A880] font-serif">LivFabs Smart Living Private Limited</span>
             <span>•</span>
             <span>© {new Date().getFullYear()} All Rights Reserved.</span>
           </div>
@@ -215,9 +215,9 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-4 text-[11px] uppercase tracking-wider">
             <span className="text-white/80">Cash On Delivery</span>
             <span>•</span>
-            <span className="text-white/80">Bluedart Priority</span>
+            <span className="text-white/80">Bluedart Heavy Logistics</span>
             <span>•</span>
-            <span className="text-[#C5A880]">Flat ₹99 Wholesale Price</span>
+            <span className="text-[#C5A880]">Flat ₹1500 - ₹2500 Range</span>
           </div>
 
           <button
@@ -251,7 +251,7 @@ export const Footer: React.FC = () => {
               <div>
                 <h3 className="text-base font-serif text-[#C5A880] mb-2">⚡ 12-Hour Priority Shipping Policy</h3>
                 <p className="text-[#9E9A93] leading-relaxed mb-3">
-                  All confirmed orders at LivFabs are packaged in tamper-evident velvet boxes and dispatched from our Mumbai atelier within 12 hours. Express air logistics via Bluedart and Delhivery ensure metro delivery within 24–48 hours and rest of India within 2–3 days.
+                  All confirmed smart furniture orders at LivFabs are packaged in reinforced honeycomb transit cartons and dispatched from our Mumbai atelier within 12 hours. Express logistics ensure metro delivery within 24–48 hours and rest of India within 2–3 business days.
                 </p>
                 <p className="text-[#9E9A93] leading-relaxed">
                   Real-time SMS waybills and WhatsApp dispatch tracking updates are dispatched automatically to your registered phone number.
@@ -263,16 +263,16 @@ export const Footer: React.FC = () => {
               <div>
                 <h3 className="text-base font-serif text-[#C5A880] mb-2">🛡️ 7-Day Doorstep Replacement Guarantee</h3>
                 <p className="text-[#9E9A93] leading-relaxed mb-3">
-                  Every piece undergoes optical examination. If in the rare case your ornament arrives damaged, flawed, or differs from the displayed angle, simply notify our concierge within 7 days for a hassle-free doorstep replacement with zero return shipping fee.
+                  Every smart furniture item undergoes mechanical and surface inspection before dispatch. If your package arrives damaged or missing components, notify our concierge within 7 days for a 100% free doorstep replacement with zero return shipping fee.
                 </p>
               </div>
             )}
 
             {activePolicyModal === 'warranty' && (
               <div>
-                <h3 className="text-base font-serif text-[#C5A880] mb-2">✨ 6-Month Anti-Tarnish Warranty</h3>
+                <h3 className="text-base font-serif text-[#C5A880] mb-2">✨ 2-Year Mechanism & Frame Warranty</h3>
                 <p className="text-[#9E9A93] leading-relaxed mb-3">
-                  Our ornaments feature multi-shield 18K micro-gold electroplating. Each order is backed by a 6-month anti-tarnish guarantee against normal discoloration under standard care.
+                  Our foldable joints, hydraulic pistons, and structural steel frames are covered under a comprehensive 2-year warranty against manufacturing defects and structural sag.
                 </p>
               </div>
             )}
@@ -290,7 +290,7 @@ export const Footer: React.FC = () => {
               <div>
                 <h3 className="text-base font-serif text-[#C5A880] mb-2">📜 Terms of Wholesale Sale</h3>
                 <p className="text-[#9E9A93] leading-relaxed mb-3">
-                  The flat ₹99 price is an exclusive direct-to-consumer wholesale allocation privilege. Standard MRP is ₹349. Quantities are limited to batch availability.
+                  The ₹1,500 – ₹2,500 price range is an exclusive direct-to-consumer factory wholesale privilege. Standard retail MRP ranges up to ₹6,499. Quantities are limited to batch availability.
                 </p>
               </div>
             )}
@@ -307,4 +307,3 @@ export const Footer: React.FC = () => {
     </footer>
   );
 };
-

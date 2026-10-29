@@ -18,24 +18,25 @@ const sansFont = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'LivFabs | Exclusive Ladies & Gents Ornaments at Flat ₹99 Wholesale',
+  title: 'LivFabs | Space-Saving Smart Furniture & Comfort Essentials (₹1500 - ₹2500)',
   description:
-    'Experience handcrafted luxury 18K micro-gold plated ornaments at flat ₹99 wholesale privilege (Original MRP ₹349). Fastly shipped within 12 hours with Cash on Delivery across India.',
+    'Discover multi-functional space-saving smart furniture: sofa cum beds, 5-in-1 convertible ottoman cubes, wall-mounted murphy beds, and rolling underbed storage strictly priced at ₹1,500 – ₹2,500. Fastly shipped within 12 hours with Cash on Delivery.',
   keywords: [
     'LivFabs',
-    'Wholesale Ornaments',
-    'Ladies Jewelry',
-    'Gents Jewelry',
-    'Cuban Chain',
-    'Solitaire Choker',
-    '18K Gold Plated',
-    'Anti Tarnish',
-    'Flat 99 Wholesale',
+    'Smart Furniture',
+    'Space Saving Furniture',
+    'Sofa Cum Bed',
+    'Convertible Ottoman Cube',
+    'Murphy Bed',
+    'Wall Mounted Desk',
+    'Underbed Storage with Wheels',
+    'Wholesale Furniture',
+    'Air Beds',
   ],
   openGraph: {
-    title: 'LivFabs | Exclusive Ladies & Gents Ornaments at Flat ₹99',
+    title: 'LivFabs | Space-Saving Smart Furniture & Comfort Essentials',
     description:
-      'Fastly Shipped Within 12 Hours | Flat ₹99 Wholesale Privilege on Timeless Luxury Ornaments.',
+      'Fastly Shipped Within 12 Hours | Exclusive Range ₹1500 - ₹2500 | Multi-Functional Space-Saving Designs.',
     type: 'website',
   },
 };
@@ -55,4 +56,3 @@ export default function RootLayout({
     </html>
   );
 }
-

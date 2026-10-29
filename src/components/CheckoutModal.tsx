@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { X, CheckCircle, ShieldCheck, Zap, Truck, Phone, MapPin, User, ArrowRight, Sparkles, CreditCard, Banknote } from 'lucide-react';
+import { X, CheckCircle, ShieldCheck, Zap, Truck, Phone, MapPin, User, ArrowRight, Banknote, CreditCard } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCart } from '@/context/CartContext';
 import { OrderFormValues, ConfirmedOrder } from '@/types';
@@ -40,7 +40,6 @@ export const CheckoutModal: React.FC = () => {
   if (!isCheckoutOpen) return null;
 
   // Determine items being purchased:
-  // Either a single direct "Buy Now" item, or all items in the cart
   const itemsToBuy = checkoutProduct
     ? [{ product: checkoutProduct, quantity: checkoutQuantity }]
     : cartItems;
@@ -75,7 +74,7 @@ export const CheckoutModal: React.FC = () => {
     } else if (!/^\d{10}$/.test(formData.phoneNumber.replace(/\D/g, ''))) {
       newErrors.phoneNumber = 'Please enter a valid 10-digit mobile number';
     }
-    if (!formData.streetAddress.trim()) newErrors.streetAddress = 'Complete street address is required';
+    if (!formData.streetAddress.trim()) newErrors.streetAddress = 'Complete delivery address is required';
     if (!formData.city.trim()) newErrors.city = 'City is required';
     if (!formData.pincode.trim()) {
       newErrors.pincode = 'PIN Code is required';
@@ -94,7 +93,7 @@ export const CheckoutModal: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Simulate luxury order verification & waybill allocation
+    // Simulate luxury order verification & dispatch waybill allocation
     setTimeout(() => {
       const orderId = `LF-${Math.floor(100000 + Math.random() * 900000)}`;
       const order: ConfirmedOrder = {
@@ -110,7 +109,7 @@ export const CheckoutModal: React.FC = () => {
           hour: '2-digit',
           minute: '2-digit',
         }),
-        estimatedDelivery: '2 - 3 Business Days (12h Dispatch)',
+        estimatedDelivery: '2 - 3 Business Days (12-Hour Priority Dispatch)',
       };
 
       setPlacedOrder(order);
@@ -126,7 +125,7 @@ export const CheckoutModal: React.FC = () => {
       // Celebratory luxury gold & bronze confetti
       try {
         confetti({
-          particleCount: 80,
+          particleCount: 85,
           spread: 70,
           origin: { y: 0.6 },
           colors: ['#C5A880', '#D4B489', '#F9F8F6', '#8C6E43'],
@@ -165,7 +164,7 @@ export const CheckoutModal: React.FC = () => {
             <span className="text-white/20">|</span>
             <span className="text-xs uppercase tracking-widest text-[#C5A880] font-medium flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5 fill-[#C5A880]" />
-              Express 12-Hour Priority Checkout
+              Express 12-Hour Priority Furniture Checkout
             </span>
           </div>
 
@@ -190,7 +189,7 @@ export const CheckoutModal: React.FC = () => {
               </div>
 
               <span className="text-[11px] uppercase tracking-[0.3em] text-[#C5A880] font-semibold">
-                Haute Joaillerie Atelier Confirmation
+                Smart Space Furniture Confirmation
               </span>
 
               {/* Title */}
@@ -199,7 +198,7 @@ export const CheckoutModal: React.FC = () => {
               </h2>
 
               <p className="text-xs sm:text-sm text-[#9E9A93] max-w-md mx-auto leading-relaxed">
-                Thank you for choosing LivFabs. Your exclusive wholesale selection is being hand-inspected and prepared for dispatch within 12 hours.
+                Thank you for choosing LivFabs. Your smart furniture pieces are being allocated and transit-padded for dispatch within 12 hours.
               </p>
 
               {/* Order Details Receipt Box */}
@@ -210,7 +209,7 @@ export const CheckoutModal: React.FC = () => {
                 </div>
 
                 <div className="flex justify-between items-center pb-3 border-b border-white/10">
-                  <span className="text-[#9E9A93] uppercase tracking-wider">Recipient Name</span>
+                  <span className="text-[#9E9A93] uppercase tracking-wider">Customer Name</span>
                   <span className="text-white font-medium">{placedOrder.customer.fullName} ({placedOrder.customer.phoneNumber})</span>
                 </div>
 
@@ -231,8 +230,12 @@ export const CheckoutModal: React.FC = () => {
                 <div className="flex justify-between items-center pt-1 text-sm">
                   <span className="text-white font-serif uppercase tracking-wider font-semibold">Total Amount Payable</span>
                   <div className="text-right">
-                    <span className="font-serif font-bold text-[#C5A880] text-lg">₹{placedOrder.totalAmount}</span>
-                    <span className="block text-[10px] text-emerald-400">Total Savings: ₹{placedOrder.discountSaved}</span>
+                    <span className="font-serif font-bold text-[#C5A880] text-lg">
+                      ₹{placedOrder.totalAmount.toLocaleString('en-IN')}
+                    </span>
+                    <span className="block text-[10px] text-emerald-400">
+                      Total Savings: ₹{placedOrder.discountSaved.toLocaleString('en-IN')}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -240,7 +243,7 @@ export const CheckoutModal: React.FC = () => {
               {/* 12h Dispatch Note */}
               <div className="mt-4 flex items-center gap-2 text-xs text-[#C5A880] bg-[#1A1A1A] px-4 py-2 border border-[#C5A880]/20">
                 <Truck className="w-4 h-4 shrink-0" />
-                <span>Waybill generated with Bluedart Express • Tracking SMS sent to {placedOrder.customer.phoneNumber}</span>
+                <span>Waybill generated with Bluedart Heavy Logistics • Tracking SMS sent to {placedOrder.customer.phoneNumber}</span>
               </div>
 
               {/* Action Buttons */}
@@ -275,7 +278,7 @@ export const CheckoutModal: React.FC = () => {
                     Delivery & Doorstep Information
                   </h2>
                   <p className="text-xs text-[#9E9A93] mt-0.5">
-                    Items are packed in velvet presentation cases & dispatched within 12 hours.
+                    Items are carefully flat-packed with transit edge protection & dispatched within 12 hours.
                   </p>
                 </div>
 
@@ -293,7 +296,7 @@ export const CheckoutModal: React.FC = () => {
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleChange}
-                          placeholder="e.g. Radhika Sharma"
+                          placeholder="e.g. Aakash Verma"
                           className={`w-full px-3 py-2 bg-[#121212] border text-xs text-white placeholder-[#555] focus:outline-none ${
                             errors.fullName ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#C5A880]'
                           }`}
@@ -336,7 +339,7 @@ export const CheckoutModal: React.FC = () => {
                         name="streetAddress"
                         value={formData.streetAddress}
                         onChange={handleChange}
-                        placeholder="Flat 402, Royal Palms, MG Road..."
+                        placeholder="Flat 402, Lotus Towers, Linking Road..."
                         className={`w-full px-3 py-2 bg-[#121212] border text-xs text-white placeholder-[#555] focus:outline-none ${
                           errors.streetAddress ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#C5A880]'
                         }`}
@@ -436,7 +439,7 @@ export const CheckoutModal: React.FC = () => {
                             className="accent-[#C5A880]"
                           />
                         </div>
-                        <span className="text-[10px] text-[#9E9A93]">Pay in cash at doorstep after physical inspection</span>
+                        <span className="text-[10px] text-[#9E9A93]">Pay at doorstep after physical inspection of furniture box</span>
                       </label>
 
                       <label
@@ -460,7 +463,7 @@ export const CheckoutModal: React.FC = () => {
                             className="accent-[#C5A880]"
                           />
                         </div>
-                        <span className="text-[10px] text-[#9E9A93]">GPay, PhonePe, Paytm, or Card</span>
+                        <span className="text-[10px] text-[#9E9A93]">GPay, PhonePe, Paytm, or Credit/Debit Card</span>
                       </label>
                     </div>
                   </div>
@@ -475,11 +478,11 @@ export const CheckoutModal: React.FC = () => {
                       {isSubmitting ? (
                         <>
                           <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                          <span>Reserving Wholesale Inventory...</span>
+                          <span>Reserving Smart Furniture Inventory...</span>
                         </>
                       ) : (
                         <>
-                          <span>Confirm Order • Pay ₹{totalWholesale} (COD)</span>
+                          <span>Confirm Order • Pay ₹{totalWholesale.toLocaleString('en-IN')} (COD)</span>
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
@@ -519,10 +522,10 @@ export const CheckoutModal: React.FC = () => {
                         </div>
                         <div className="text-right">
                           <span className="font-serif font-bold text-[#C5A880] text-sm">
-                            ₹{item.product.wholesalePrice * item.quantity}
+                            ₹{(item.product.wholesalePrice * item.quantity).toLocaleString('en-IN')}
                           </span>
                           <span className="block text-[10px] line-through text-[#9E9A93]">
-                            ₹{item.product.originalPrice * item.quantity}
+                            ₹{(item.product.originalPrice * item.quantity).toLocaleString('en-IN')}
                           </span>
                         </div>
                       </div>
@@ -533,12 +536,12 @@ export const CheckoutModal: React.FC = () => {
                   <div className="mt-4 pt-4 border-t border-white/10 space-y-2 text-xs">
                     <div className="flex justify-between text-[#9E9A93]">
                       <span>Original Retail MRP:</span>
-                      <span className="line-through text-white/50">₹{totalOriginal}</span>
+                      <span className="line-through text-white/50">₹{totalOriginal.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className="flex justify-between text-[#C5A880]">
                       <span>LivFabs Wholesale Privilege:</span>
-                      <span>- ₹{totalSaved} (72% Off)</span>
+                      <span>- ₹{totalSaved.toLocaleString('en-IN')}</span>
                     </div>
 
                     <div className="flex justify-between text-[#9E9A93]">
@@ -547,8 +550,8 @@ export const CheckoutModal: React.FC = () => {
                     </div>
 
                     <div className="flex justify-between text-[#9E9A93]">
-                      <span>Signature Velvet Box:</span>
-                      <span className="text-emerald-400 font-medium">COMPLIMENTARY</span>
+                      <span>Transit Edge Protection:</span>
+                      <span className="text-emerald-400 font-medium">INCLUDED</span>
                     </div>
                   </div>
                 </div>
@@ -561,7 +564,7 @@ export const CheckoutModal: React.FC = () => {
                       <span className="text-[11px] text-emerald-400">Cash on Delivery</span>
                     </div>
                     <span className="text-2xl font-serif font-bold text-[#C5A880]">
-                      ₹{totalWholesale}
+                      ₹{totalWholesale.toLocaleString('en-IN')}
                     </span>
                   </div>
                 </div>
@@ -576,4 +579,3 @@ export const CheckoutModal: React.FC = () => {
     </div>
   );
 };
-

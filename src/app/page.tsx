@@ -11,16 +11,15 @@ import { Footer } from '@/components/Footer';
 import { ProductDetailModal } from '@/components/ProductDetailModal';
 import { CheckoutModal } from '@/components/CheckoutModal';
 import { CartDrawer } from '@/components/CartDrawer';
+import { ProductCategory } from '@/types';
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<
-    'All' | 'Ladies Ornaments' | 'Gents Ornaments'
+    'All' | ProductCategory
   >('All');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleCategorySelect = (
-    cat: 'All' | 'Ladies Ornaments' | 'Gents Ornaments'
-  ) => {
+  const handleCategorySelect = (cat: 'All' | ProductCategory) => {
     setSelectedCategory(cat);
     const catalogElem = document.getElementById('catalog');
     if (catalogElem) {
@@ -66,4 +65,3 @@ export default function Home() {
     </main>
   );
 }
-

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { X, Star, Zap, ShieldCheck, Heart, Sparkles, Check, ArrowRight, Minus, Plus } from 'lucide-react';
+import { X, Star, Zap, ShieldCheck, Check, ArrowRight, Minus, Plus, Maximize2, Move } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 export const ProductDetailModal: React.FC = () => {
@@ -41,6 +41,8 @@ export const ProductDetailModal: React.FC = () => {
     setTimeout(() => setJustAdded(false), 2000);
   };
 
+  const discountAmount = product.originalPrice - product.wholesalePrice;
+
   return (
     <div
       role="dialog"
@@ -74,16 +76,16 @@ export const ProductDetailModal: React.FC = () => {
           <div className="relative aspect-square w-full overflow-hidden bg-[#0D0D0D] border border-white/5">
             <Image
               src={product.images[activeImageIndex] || product.images[0]}
-              alt={`${product.title} angle ${activeImageIndex + 1}`}
+              alt={`${product.title} perspective ${activeImageIndex + 1}`}
               fill
               priority
-              className="object-cover object-center transition-all duration-500 transform hover:scale-110 cursor-crosshair"
+              className="object-cover object-center transition-all duration-500 transform hover:scale-105 cursor-crosshair"
             />
             
             {/* Overlay Badges */}
             <div className="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none">
               <span className="bg-[#C5A880] text-[#1A1A1A] text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider">
-                Flat ₹99 Special
+                Space-Saving Innovation
               </span>
               <span className="bg-[#121212]/90 border border-emerald-500/30 text-emerald-400 text-[9px] font-medium px-2 py-0.5 uppercase tracking-wider backdrop-blur-sm flex items-center gap-1">
                 <Zap className="w-2.5 h-2.5 fill-emerald-400" />
@@ -99,7 +101,7 @@ export const ProductDetailModal: React.FC = () => {
           {/* 5-Thumbnail Fluid Selector Bar */}
           <div className="mt-4">
             <span className="text-[10px] uppercase tracking-widest text-[#9E9A93] block mb-2">
-              Artisan Gallery Angles (Select to Switch)
+              Multi-Angle Functional Views (Select to Switch)
             </span>
             <div className="grid grid-cols-5 gap-2">
               {product.images.map((imgUrl, idx) => (
@@ -114,7 +116,7 @@ export const ProductDetailModal: React.FC = () => {
                 >
                   <Image
                     src={imgUrl}
-                    alt={`Thumbnail angle ${idx + 1}`}
+                    alt={`Thumbnail view ${idx + 1}`}
                     fill
                     sizes="80px"
                     className="object-cover"
@@ -125,7 +127,7 @@ export const ProductDetailModal: React.FC = () => {
           </div>
         </div>
 
-        {/* RIGHT: Detailed Specifications & Purchase Actions */}
+        {/* RIGHT: Detailed Space-Saving Specifications & Purchase Actions */}
         <div className="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
           <div>
             {/* Category & Rating */}
@@ -145,22 +147,23 @@ export const ProductDetailModal: React.FC = () => {
               {product.title}
             </h2>
 
-            {/* Subtitle */}
-            <p className="text-xs sm:text-sm text-[#C5A880] font-light mt-1">
-              {product.subtitle}
-            </p>
+            {/* Space Saving Highlight */}
+            <div className="mt-2 p-2 bg-[#121212] border-l-2 border-[#C5A880] text-xs text-[#C5A880]">
+              <span className="font-semibold uppercase tracking-wider block text-[10px]">Space-Saving Blueprint</span>
+              <p className="text-white/90 mt-0.5">{product.spaceSavingFeature}</p>
+            </div>
 
             {/* Pricing Section */}
             <div className="mt-4 p-3.5 bg-[#121212] border border-[#C5A880]/25 flex items-baseline justify-between">
               <div>
                 <span className="text-2xl sm:text-3xl font-serif font-bold text-[#C5A880]">
-                  ₹{product.wholesalePrice}
+                  ₹{product.wholesalePrice.toLocaleString('en-IN')}
                 </span>
                 <span className="ml-3 text-sm line-through text-[#9E9A93]">
-                  ₹{product.originalPrice}
+                  ₹{product.originalPrice.toLocaleString('en-IN')}
                 </span>
                 <span className="ml-2 text-xs text-emerald-400 font-medium">
-                  Save ₹{product.originalPrice - product.wholesalePrice} (72% Off)
+                  Save ₹{discountAmount.toLocaleString('en-IN')}
                 </span>
               </div>
               <span className="text-[10px] uppercase tracking-widest text-[#C5A880] font-bold bg-[#C5A880]/15 px-2 py-1 border border-[#C5A880]/30">
@@ -173,23 +176,23 @@ export const ProductDetailModal: React.FC = () => {
               {product.description}
             </p>
 
-            {/* Luxury Specifications Accordion Grid */}
-            <div className="mt-5 pt-4 border-t border-white/10 grid grid-cols-2 gap-3 text-xs">
-              <div className="p-2.5 bg-[#141414] border border-white/5">
-                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Metal / Plating</span>
-                <span className="text-white font-medium text-[11px] mt-0.5 block">{product.specifications.plating}</span>
+            {/* Space-Saving Dimensions Grid */}
+            <div className="mt-5 pt-4 border-t border-white/10 grid grid-cols-2 gap-2.5 text-xs">
+              <div className="p-2 bg-[#141414] border border-white/5">
+                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Expanded Size</span>
+                <span className="text-white font-medium text-[11px] mt-0.5 block">{product.specifications.dimensions}</span>
               </div>
-              <div className="p-2.5 bg-[#141414] border border-white/5">
-                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Skin Compatibility</span>
-                <span className="text-emerald-400 font-medium text-[11px] mt-0.5 block">100% Hypoallergenic</span>
+              <div className="p-2 bg-[#141414] border border-white/5">
+                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Folded / Stowed Size</span>
+                <span className="text-[#C5A880] font-medium text-[11px] mt-0.5 block">{product.specifications.foldedDimensions || 'Ultra Compact'}</span>
               </div>
-              <div className="p-2.5 bg-[#141414] border border-white/5">
-                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Warranty Cover</span>
-                <span className="text-[#C5A880] font-medium text-[11px] mt-0.5 block">{product.specifications.warranty}</span>
+              <div className="p-2 bg-[#141414] border border-white/5">
+                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Weight Capacity</span>
+                <span className="text-emerald-400 font-medium text-[11px] mt-0.5 block">{product.specifications.weightCapacity}</span>
               </div>
-              <div className="p-2.5 bg-[#141414] border border-white/5">
-                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Dispatch Window</span>
-                <span className="text-white font-medium text-[11px] mt-0.5 block">⚡ Under 12 Hours</span>
+              <div className="p-2 bg-[#141414] border border-white/5">
+                <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Setup & Assembly</span>
+                <span className="text-white font-medium text-[11px] mt-0.5 block">{product.specifications.assemblyRequired}</span>
               </div>
             </div>
 
@@ -226,8 +229,10 @@ export const ProductDetailModal: React.FC = () => {
                 </button>
               </div>
               <div className="text-right">
-                <span className="text-[10px] text-[#9E9A93] uppercase block">Total Payable</span>
-                <span className="text-base font-serif font-bold text-[#C5A880]">₹{99 * quantity}</span>
+                <span className="text-[10px] text-[#9E9A93] uppercase block">Total Due</span>
+                <span className="text-base font-serif font-bold text-[#C5A880]">
+                  ₹{(product.wholesalePrice * quantity).toLocaleString('en-IN')}
+                </span>
               </div>
             </div>
 
@@ -244,7 +249,7 @@ export const ProductDetailModal: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-4 h-4 text-[#C5A880]" />
+                    <Check className="w-4 h-4 text-[#C5A880]" />
                     <span>Add to Bag</span>
                   </>
                 )}
@@ -269,4 +274,3 @@ export const ProductDetailModal: React.FC = () => {
     </div>
   );
 };
-

@@ -4,12 +4,21 @@ import React, { useState, useMemo } from 'react';
 import { MOCK_PRODUCTS } from '@/data/mockData';
 import { ProductCard } from './ProductCard';
 import { SlidersHorizontal, Sparkles } from 'lucide-react';
+import { ProductCategory } from '@/types';
 
 interface ProductCatalogProps {
-  selectedCategory: 'All' | 'Ladies Ornaments' | 'Gents Ornaments';
-  onSelectCategory: (category: 'All' | 'Ladies Ornaments' | 'Gents Ornaments') => void;
+  selectedCategory: 'All' | ProductCategory;
+  onSelectCategory: (category: 'All' | ProductCategory) => void;
   searchQuery: string;
 }
+
+const CATEGORIES: ('All' | ProductCategory)[] = [
+  'All',
+  'Smart Living',
+  'On-The-Go Comfort',
+  'Flexi Work & Dine',
+  'Storage & Utility',
+];
 
 export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   selectedCategory,
@@ -17,7 +26,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   searchQuery,
 }) => {
   const [selectedSubCategory, setSelectedSubCategory] = useState<string>('All');
-  const [sortBy, setSortBy] = useState<'featured' | 'rating' | 'reviews'>('featured');
+  const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high' | 'rating'>('featured');
 
   // Subcategories depending on current main category
   const availableSubCategories = useMemo(() => {
@@ -48,15 +57,19 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         const matchesSubtitle = product.subtitle.toLowerCase().includes(q);
         const matchesCategory = product.category.toLowerCase().includes(q);
         const matchesSubCategory = product.subCategory.toLowerCase().includes(q);
-        return matchesTitle || matchesSubtitle || matchesCategory || matchesSubCategory;
+        const matchesFeature = product.spaceSavingFeature.toLowerCase().includes(q);
+        return matchesTitle || matchesSubtitle || matchesCategory || matchesSubCategory || matchesFeature;
       }
       return true;
     }).sort((a, b) => {
+      if (sortBy === 'price-low') {
+        return a.wholesalePrice - b.wholesalePrice;
+      }
+      if (sortBy === 'price-high') {
+        return b.wholesalePrice - a.wholesalePrice;
+      }
       if (sortBy === 'rating') {
         return b.rating - a.rating;
-      }
-      if (sortBy === 'reviews') {
-        return b.reviewCount - a.reviewCount;
       }
       return 0; // featured order in mockData
     });
@@ -71,38 +84,38 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="w-8 h-[1px] bg-[#C5A880]/60" />
             <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] font-semibold">
-              The Royal Wholesale Gallery
+              The Space-Saving Furniture Atelier
             </span>
             <span className="w-8 h-[1px] bg-[#C5A880]/60" />
           </div>
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-serif font-normal text-[#F9F8F6]">
-            Curated Ornaments for Ladies & Gents
+            Architectural Multi-Function Designs
           </h2>
 
           <p className="mt-3 text-xs sm:text-sm text-[#9E9A93] max-w-xl mx-auto">
-            Every piece is strictly priced at flat <span className="text-[#C5A880] font-medium">₹99</span> (Original MRP ₹349).
+            Strictly priced between <span className="text-[#C5A880] font-medium font-serif">₹1,500 – ₹2,500</span> (Original MRP up to ₹6,499).
             Dispatched via express logistics within 12 hours.
           </p>
         </div>
 
-        {/* Primary Category Selector Tabs */}
-        <div className="flex justify-center mb-8">
-          <div className="inline-flex p-1 bg-[#1A1A1A] border border-[#C5A880]/25 rounded-none shadow-sm">
-            {(['All', 'Ladies Ornaments', 'Gents Ornaments'] as const).map((cat) => (
+        {/* Primary 4 Category Selector Tabs */}
+        <div className="flex justify-center mb-8 overflow-x-auto pb-2 scrollbar-none">
+          <div className="inline-flex p-1 bg-[#1A1A1A] border border-[#C5A880]/25 rounded-none shadow-sm whitespace-nowrap">
+            {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => {
                   onSelectCategory(cat);
                   setSelectedSubCategory('All');
                 }}
-                className={`px-4 sm:px-8 py-2.5 text-xs font-semibold uppercase tracking-[0.18em] transition-all duration-300 ${
+                className={`px-4 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 ${
                   selectedCategory === cat
                     ? 'bg-[#C5A880] text-[#1A1A1A] shadow-sm'
                     : 'text-[#F9F8F6]/70 hover:text-[#C5A880]'
                 }`}
               >
-                {cat === 'All' ? 'All Collections' : cat}
+                {cat === 'All' ? 'All Curations' : cat}
               </button>
             ))}
           </div>
@@ -142,8 +155,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 className="bg-transparent text-[#F9F8F6] text-xs focus:outline-none cursor-pointer uppercase tracking-wider"
               >
                 <option value="featured" className="bg-[#1A1A1A] text-white">Featured</option>
+                <option value="price-low" className="bg-[#1A1A1A] text-white">Price: Low to High</option>
+                <option value="price-high" className="bg-[#1A1A1A] text-white">Price: High to Low</option>
                 <option value="rating" className="bg-[#1A1A1A] text-white">Highest Rated</option>
-                <option value="reviews" className="bg-[#1A1A1A] text-white">Most Reviewed</option>
               </select>
             </div>
           </div>
@@ -159,9 +173,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         ) : (
           <div className="text-center py-20 bg-[#171717] border border-[#C5A880]/20 max-w-lg mx-auto p-8">
             <Sparkles className="w-8 h-8 text-[#C5A880] mx-auto mb-3" />
-            <h3 className="text-lg font-serif text-white">No creations found matching your search</h3>
+            <h3 className="text-lg font-serif text-white">No smart furniture found</h3>
             <p className="text-xs text-[#9E9A93] mt-2">
-              Try exploring "Ladies Ornaments" or "Gents Ornaments" or reset your search term.
+              Try exploring "Smart Living", "Flexi Work & Dine", or clear your search term.
             </p>
             <button
               onClick={() => {
@@ -179,4 +193,3 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
     </section>
   );
 };
-

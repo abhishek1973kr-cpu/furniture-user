@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Eye, ShoppingBag, Zap, Star, ShieldCheck, Check } from 'lucide-react';
+import { Eye, ShoppingBag, Zap, Star, Check, Maximize2 } from 'lucide-react';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 
@@ -27,9 +27,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     openCheckout(product, 1);
   };
 
-  // Determine display image based on hover
   const primaryImage = product.images[0];
   const secondaryImage = product.images[1] || product.images[0];
+
+  const discountPercentage = Math.round(
+    ((product.originalPrice - product.wholesalePrice) / product.originalPrice) * 100
+  );
 
   return (
     <article
@@ -39,12 +42,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       className="group relative bg-[#171717] border border-[#C5A880]/20 hover:border-[#C5A880]/60 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer shadow-sm hover:shadow-luxury"
     >
       {/* Top Media Container */}
-      <div className="relative aspect-square w-full overflow-hidden bg-[#121212]">
+      <div className="relative aspect-[4/3] sm:aspect-square w-full overflow-hidden bg-[#121212]">
         
         {/* Badges Overlay */}
         <div className="absolute top-2.5 left-2.5 z-20 flex flex-col gap-1.5 pointer-events-none">
           <span className="bg-[#C5A880] text-[#1A1A1A] text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider shadow-sm">
-            Save 72%
+            Save {discountPercentage}%
           </span>
           {product.isBestseller && (
             <span className="bg-[#121212]/90 border border-[#C5A880]/40 text-[#C5A880] text-[9px] font-medium px-2 py-0.5 uppercase tracking-wider backdrop-blur-sm">
@@ -92,10 +95,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div>
           {/* Category & Rating */}
           <div className="flex items-center justify-between text-[11px] text-[#9E9A93] mb-1.5">
-            <span className="uppercase tracking-[0.15em] text-[#C5A880]/90 font-medium">
+            <span className="uppercase tracking-[0.15em] text-[#C5A880]/90 font-medium truncate pr-2">
               {product.category}
             </span>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 shrink-0">
               <Star className="w-3 h-3 text-[#C5A880] fill-[#C5A880]" />
               <span className="text-white font-medium">{product.rating}</span>
               <span className="text-[#9E9A93]">({product.reviewCount})</span>
@@ -107,9 +110,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.title}
           </h3>
 
-          {/* Subtitle */}
-          <p className="text-xs text-[#9E9A93] font-light line-clamp-1 mt-0.5">
-            {product.subtitle}
+          {/* Space Saving Highlight */}
+          <p className="text-xs text-[#9E9A93] font-light line-clamp-1 mt-1">
+            ⚡ {product.spaceSavingFeature}
           </p>
         </div>
 
@@ -118,13 +121,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-baseline justify-between mb-3">
             <div className="flex items-baseline gap-2">
               <span className="text-xl sm:text-2xl font-serif font-bold text-[#C5A880]">
-                ₹{product.wholesalePrice}
+                ₹{product.wholesalePrice.toLocaleString('en-IN')}
               </span>
               <span className="text-xs line-through text-[#9E9A93]">
-                ₹{product.originalPrice}
+                ₹{product.originalPrice.toLocaleString('en-IN')}
               </span>
             </div>
-            <span className="text-[10px] uppercase tracking-wider text-[#C5A880]/80 font-medium bg-[#C5A880]/10 px-2 py-0.5 border border-[#C5A880]/20">
+            <span className="text-[10px] uppercase tracking-wider text-[#C5A880]/90 font-medium bg-[#C5A880]/10 px-2 py-0.5 border border-[#C5A880]/20">
               Wholesale
             </span>
           </div>
@@ -164,4 +167,3 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     </article>
   );
 };
-

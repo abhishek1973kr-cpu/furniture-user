@@ -33,16 +33,16 @@ export const ReviewsCarousel: React.FC = () => {
             <div className="inline-flex items-center gap-2 mb-2">
               <span className="w-6 h-[1px] bg-[#C5A880]" />
               <span className="text-xs uppercase tracking-[0.3em] text-[#C5A880] font-semibold">
-                Client Testimonials & Voices
+                Client Testimonials & Smart Living
               </span>
             </div>
             
             <h2 className="text-2xl sm:text-4xl font-serif text-[#F9F8F6]">
-              Praised by Over 18,500+ Connoisseurs
+              Praised by Over 32,400+ Smart Homeowners
             </h2>
 
             <p className="mt-2 text-xs sm:text-sm text-[#9E9A93] max-w-xl">
-              Authentic experiences from verified clients across Mumbai, Bangalore, Delhi, and Hyderabad who embraced our ₹99 wholesale privilege.
+              Authentic experiences from verified buyers across Mumbai, Bangalore, Delhi, Hyderabad, and Pune who unlocked luxury space-saving with our ₹1,500 – ₹2,500 wholesale collection.
             </p>
           </div>
 
@@ -141,4 +141,3 @@ export const ReviewsCarousel: React.FC = () => {
     </section>
   );
 };
-

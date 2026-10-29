@@ -1,61 +1,64 @@
-# LivFabs — Haute Joaillerie & Wholesale Atelier Storefront
+# LivFabs — Space-Saving Smart Furniture & Comfort Essentials
 
-An ultra-luxury, mobile-first e-commerce storefront for **LivFabs**, showcasing curated **Ladies Ornaments** and **Gents Ornaments** at an exclusive flat wholesale price of **₹99** (Original MRP ₹349), with guaranteed **12-Hour Priority Dispatch** and **Cash on Delivery (COD)**.
+An ultra-luxury, mobile-first e-commerce storefront website for **LivFabs**, showcasing curated **Space-Saving Smart Furniture & Comfort Essentials** strictly within the factory wholesale price range of **₹1,500 – ₹2,500** (Original MRP up to ₹6,499), with guaranteed **12-Hour Priority Dispatch** and **Cash on Delivery (COD)**.
 
 Built as a **100% standalone frontend prototype** with zero external backend or Firebase dependencies, using Next.js 14 (App Router), TypeScript, and Tailwind CSS.
 
 ---
 
-## 💎 Design & Brand Guidelines
+## 💎 Brand & Aesthetic ("Classic & Timeless Luxury")
 
 - **Brand Name**: LivFabs
 - **Color Palette**:
   - Deep Rich Charcoal / Off-Black (`#1A1A1A`, `#141414`, `#121212`)
   - Warm Ivory / Classic Cream (`#F9F8F6`)
-  - Muted Royal Gold (`#C5A880`) for wholesale prices, luxury seals, accents, and badges
+  - Muted Royal Gold (`#C5A880`) for prices, badges, and accents
 - **Typography**:
-  - Headings: *Cormorant Garamond* (Elegant classical serif)
+  - Headings: *Cormorant Garamond* (Classical luxury serif)
   - Body & UI: *Plus Jakarta Sans* (Clean, modern geometric sans)
-- **Borders & Elevation**: Thin, subtle luxury hairline borders (`1px border-[#C5A880]/20`) with soft gold glow shadows.
+- **Borders & Elevation**: Thin luxury borders (`1px border-[#C5A880]/20`) with gold glow accents.
 
 ---
 
-## ⚡ Key Features
+## 🛋️ Product Catalog (4 Distinct Categories)
 
-1. **Top Infinite Scrolling Marquee**:
-   - Loop: *"⚡ LivFabs | Fastly Shipped Within 12 Hours | Exclusive Ladies & Gents Ornaments at Flat ₹99 Wholesale Price"*
-   - Smooth continuous CSS animation with pause-on-hover.
+1. **Smart Living**:
+   - Velvet Cloud Modular Sofa Cum Bed (MRP ₹5,999 -> ₹2,499)
+   - 5-in-1 Rubik Convertible Ottoman Cube (MRP ₹4,999 -> ₹1,999)
+   - Hydraulic Studio Wall-Mounted Murphy Bed Kit (MRP ₹6,499 -> ₹2,399)
 
-2. **Mobile-First Luxury Experience**:
-   - Native-app feel with generous whitespace, sticky header, mobile drawer menu, and instant search filter.
-   - Real-time countdown timer for the next 12-hour dispatch batch cutoff.
+2. **On-The-Go Comfort**:
+   - AeroPlush Deluxe Queen Inflatable Air Bed with Electric Pump (MRP ₹4,499 -> ₹1,899)
+   - AeroCloud Ergonomic Inflatable Lounger (MRP ₹3,999 -> ₹1,599)
+   - OrthoRest 4-in-1 Foldable Wedge Pillow (MRP ₹3,799 -> ₹1,699)
 
-3. **Curated Product Catalog**:
-   - Filter between **"All Collections"**, **"Ladies Ornaments"**, and **"Gents Ornaments"**.
-   - Subcategory pills (Chokers, Drops, Bangles, Cuban Chains, Signet Rings, Kadas, Brooches).
-   - Struck-through MRP ₹349 with glowing Royal Gold **₹99 Wholesale Price** and **"SAVE 72%"** badge.
-   - Secondary angle preview on hover.
+3. **Flexi Work & Dine**:
+   - Drop-Leaf Wall-Mounted Smart Work Table (MRP ₹4,899 -> ₹1,799)
+   - ErgoPro Multi-Slot Smart Laptop Bed Desk (MRP ₹3,699 -> ₹1,549)
+   - Telescopic Extendable 4-to-6 Seater Dining Table (MRP ₹5,999 -> ₹2,299)
 
-4. **Product Detail Fluid 5-Thumbnail Gallery**:
-   - Seamless interactive image switching across 5 distinct high-resolution artisan photography angles.
-   - Zoom hover effect, material specifications (18K micro-gold electroplate, anti-tarnish, hypoallergenic), star ratings, and quantity selector.
+4. **Storage & Utility**:
+   - GlideMaster Under-Bed Rolling Storage Chest - Twin Pack (MRP ₹3,899 -> ₹1,649)
+   - ArmorVault Rolling Under-Bed Metal Drawer Trunk (MRP ₹4,199 -> ₹1,849)
 
-5. **Centered Half-Screen Checkout Modal (~60-70% size)**:
-   - **Zero full-page redirects**: Opens a centered half-screen modal with a dark blurred backdrop (`backdrop-blur-md bg-black/80`).
-   - Form inputs: Full Name, 10-Digit Mobile Number, Full Street Address, City, State, and 6-digit PIN code.
-   - Payment method: **Cash on Delivery (COD)** preselected with doorstep inspection guarantee, plus UPI/Card option.
-   - Dynamic item breakdown: Subtotal, Wholesale Privilege Savings, Free 12-Hour Shipping, Total Due.
-   - **Order Confirmation Success Screen**: Luxury seal, confetti burst, unique Order Reference ID (e.g. `LF-884219`), delivery timeframe (2-3 business days), and direct WhatsApp dispatch tracking button.
+*Every single wholesale price is strictly between ₹1,500 and ₹2,500!*
 
-6. **Side-Scrolling Swipable Reviews Carousel**:
-   - Horizontal snap-scrolling carousel featuring verified buyer testimonials from Mumbai, Bangalore, Hyderabad, Delhi, Pune, and Kolkata with customer avatars and item previews.
+---
 
-7. **Slide-Over Luxury Cart Drawer**:
-   - Multi-item management, quantity adjustment, real-time savings calculation, and single-click checkout trigger.
+## ⚡ Core Features
 
-8. **Professional Luxury Footer**:
-   - LivFabs atelier address on Linking Road, Bandra West, Mumbai.
-   - Helpline telephone, concierge email, and interactive modal dialogs for Shipping Policy, 7-Day Replacement, 6-Month Warranty, and Privacy.
+- **Top Scrolling Marquee**:
+  `"⚡ LivFabs | Space-Saving Smart Furniture & Comfort Essentials | Exclusive Range ₹1500 - ₹2500 | Fastly Shipped Within 12 Hours"`
+- **Fluid 5-Thumbnail Gallery Switching Animation**:
+  Smooth interactive angle switching across 5 photography angles per product with zoom hover and space-saving specifications.
+- **Centered Half-Screen Modal Popup (~60-70% height/width)**:
+  Zero full-page redirects. Dark blurred backdrop overlay (`bg-black/80 backdrop-blur-md`). Full Name, 10-digit Phone, Street Address, City, State, PIN code, and Cash on Delivery (COD) preselected.
+- **Confirmation Success Screen**:
+  Confetti celebration, unique Order Reference ID (e.g., `LF-884219`), 12-hour dispatch waybill note, and WhatsApp tracking simulation button.
+- **Side-Scrolling Reviews Carousel**:
+  Horizontal swipable carousel with verified buyer testimonials from Mumbai, Bangalore, Delhi, Hyderabad, and Pune.
+- **Slide-Over Luxury Cart Drawer**:
+  Quantity modification, subtotal calculation, and instant checkout launch.
 
 ---
 
@@ -76,4 +79,3 @@ To create an optimized production build:
 npm run build
 npm run start
 ```
-

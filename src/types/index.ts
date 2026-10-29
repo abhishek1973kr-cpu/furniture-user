@@ -1,22 +1,30 @@
+export type ProductCategory =
+  | 'Smart Living'
+  | 'On-The-Go Comfort'
+  | 'Flexi Work & Dine'
+  | 'Storage & Utility';
+
 export interface Product {
   id: string;
   title: string;
   subtitle: string;
-  category: 'Ladies Ornaments' | 'Gents Ornaments';
+  category: ProductCategory;
   subCategory: string;
-  originalPrice: number; // MRP ₹349
-  wholesalePrice: number; // ₹99
+  originalPrice: number; // e.g. 4999 - 6999
+  wholesalePrice: number; // strictly between 1500 and 2500 (e.g. 1799, 1999, 2199, 2499)
   rating: number;
   reviewCount: number;
-  images: string[]; // Array of 5 high-resolution mock images
+  images: string[]; // Exactly 5 high-resolution mock images per product
   description: string;
+  spaceSavingFeature: string;
   specifications: {
     material: string;
-    plating: string;
-    finish: string;
+    dimensions: string;
+    foldedDimensions?: string;
+    weightCapacity: string;
     warranty: string;
     dispatchTime: string;
-    hypoallergenic: boolean;
+    assemblyRequired: string;
   };
   features: string[];
   inStock: boolean;
@@ -64,4 +72,3 @@ export interface ConfirmedOrder {
   orderedAt: string;
   estimatedDelivery: string;
 }
-
