@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import { ArrowRight, Sparkles, ShieldCheck, Zap, Clock, Star, Maximize2 } from 'lucide-react';
 import { ProductCategory } from '@/types';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 interface HeroProps {
   onExplore: (category: 'All' | ProductCategory) => void;
@@ -108,12 +108,13 @@ export const Hero: React.FC<HeroProps> = ({ onExplore }) => {
             className="group relative cursor-pointer overflow-hidden border border-[#C5A880]/30 bg-[#FFFFFF] hover:border-[#8C6E43] transition-all duration-500 shadow-md rounded-3xl"
           >
             <div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-3xl">
-              <Image
+              <LuxuryImage
                 src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop"
                 alt="Smart Living Modular Sofa Cum Bed"
                 fill
                 priority
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105 rounded-3xl"
+                fallbackTitle="Smart Living Modular Sofa Cum Bed"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent rounded-3xl" />
             </div>
@@ -149,12 +150,13 @@ export const Hero: React.FC<HeroProps> = ({ onExplore }) => {
             className="group relative cursor-pointer overflow-hidden border border-[#C5A880]/30 bg-[#FFFFFF] hover:border-[#8C6E43] transition-all duration-500 shadow-md rounded-3xl"
           >
             <div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-3xl">
-              <Image
+              <LuxuryImage
                 src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1000&auto=format&fit=crop"
                 alt="Flexi Work and Dine Smart Tables"
                 fill
                 priority
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105 rounded-3xl"
+                fallbackTitle="Flexi Work and Dine Smart Tables"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent rounded-3xl" />
             </div>

@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import {
   X,
   LogOut,
@@ -18,6 +17,7 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import { fetchUserOrders } from '@/services/firebaseService';
 import { UserOrder } from '@/types';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 export const ProfileModal: React.FC = () => {
   const { user, isProfileModalOpen, closeProfileModal, signOutUser } = useAuth();
@@ -119,11 +119,12 @@ export const ProfileModal: React.FC = () => {
               {/* Avatar */}
               <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-[#8C6E43] shrink-0 bg-[#FFFFFF] shadow-sm">
                 {user.photoURL ? (
-                  <Image
+                  <LuxuryImage
                     src={user.photoURL}
                     alt={user.displayName || 'Google Profile'}
                     fill
                     className="object-cover"
+                    fallbackTitle={user.displayName || 'User'}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-[#8C6E43] text-white font-serif font-bold text-xl">
@@ -220,11 +221,12 @@ export const ProfileModal: React.FC = () => {
                           <div className="flex items-center gap-2.5 min-w-0">
                             {item.image && (
                               <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-white border border-[#C5A880]/30 shrink-0">
-                                <Image
+                                <LuxuryImage
                                   src={item.image}
                                   alt={item.title || item.name || 'Furniture Piece'}
                                   fill
                                   className="object-cover"
+                                  fallbackTitle={item.title || item.name}
                                 />
                               </div>
                             )}

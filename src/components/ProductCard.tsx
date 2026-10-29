@@ -1,10 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { Eye, ShoppingBag, Zap, Star, Check } from 'lucide-react';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 interface ProductCardProps {
   product: Product;
@@ -64,14 +64,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </span>
         </div>
 
-        {/* Image Transition (Fluid thumbnail on hover) */}
+        {/* Image Transition (Fluid thumbnail on hover with robust direct URL & fallback support) */}
         <div className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
-          <Image
+          <LuxuryImage
             src={isHovered ? secondaryImage : primaryImage}
             alt={product.title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-center transition-all duration-500"
+            className="object-cover object-center transition-all duration-500 rounded-t-3xl"
+            fallbackTitle={product.title}
           />
         </div>
 

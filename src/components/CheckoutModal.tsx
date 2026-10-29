@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { X, CheckCircle, ShieldCheck, Zap, Truck, Phone, MapPin, User, ArrowRight, Banknote, CreditCard, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { OrderFormValues, ConfirmedOrder } from '@/types';
 import { createFirestoreOrder } from '@/services/firebaseService';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 export const CheckoutModal: React.FC = () => {
   const {
@@ -595,11 +595,12 @@ export const CheckoutModal: React.FC = () => {
                     {itemsToBuy.map((item, idx) => (
                       <div key={idx} className="py-2.5 flex items-center gap-3">
                         <div className="relative w-12 h-12 bg-[#FFFFFF] border border-[#C5A880]/30 shrink-0 rounded-xl overflow-hidden shadow-sm">
-                          <Image
+                          <LuxuryImage
                             src={item.product.images[0]}
                             alt={item.product.title}
                             fill
                             className="object-cover"
+                            fallbackTitle={item.product.title}
                           />
                         </div>
                         <div className="flex-1 min-w-0 text-xs">

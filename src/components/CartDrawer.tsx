@@ -1,9 +1,9 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Zap, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -92,11 +92,12 @@ export const CartDrawer: React.FC = () => {
                 >
                   {/* Thumbnail (Rounded-xl) */}
                   <div className="relative w-20 h-20 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-xl overflow-hidden shrink-0">
-                    <Image
+                    <LuxuryImage
                       src={item.product.images[0]}
                       alt={item.product.title}
                       fill
                       className="object-cover rounded-xl"
+                      fallbackTitle={item.product.title}
                     />
                   </div>
 

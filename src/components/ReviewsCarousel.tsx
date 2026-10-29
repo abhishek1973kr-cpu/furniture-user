@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import { Star, ChevronLeft, ChevronRight, CheckCircle, Quote, Sparkles } from 'lucide-react';
 import { MOCK_REVIEWS } from '@/data/mockData';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 export const ReviewsCarousel: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -105,11 +105,12 @@ export const ReviewsCarousel: React.FC = () => {
               <div className="pt-4 border-t border-[#C5A880]/20 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="relative w-11 h-11 rounded-full overflow-hidden border border-[#C5A880]/40 shrink-0 shadow-sm">
-                    <Image
+                    <LuxuryImage
                       src={review.avatar}
                       alt={review.name}
                       fill
                       className="object-cover"
+                      fallbackTitle={review.name}
                     />
                   </div>
                   <div>
@@ -124,11 +125,12 @@ export const ReviewsCarousel: React.FC = () => {
                 {/* Purchased Item Thumbnail (Smooth Rounded-xl) */}
                 {review.itemImage && (
                   <div className="relative w-11 h-11 bg-[#F5F2EB] border border-[#C5A880]/30 shrink-0 rounded-xl overflow-hidden shadow-sm" title={review.productName}>
-                    <Image
+                    <LuxuryImage
                       src={review.itemImage}
                       alt={review.productName}
                       fill
                       className="object-cover rounded-xl"
+                      fallbackTitle={review.productName}
                     />
                   </div>
                 )}

@@ -17,21 +17,60 @@ const ORDERS_COLLECTION = 'orders';
 
 /**
  * Maps a Firestore document data object into the Storefront's Product model
- * Handles both admin formats and up to 8 images in the gallery array
+ * Reads direct image URLs (strings) directly from the `inventoryItems` document
+ * No Firebase Storage or getDownloadURL logic needed.
  */
 export function mapFirestoreDocToProduct(id: string, data: any): Product {
-  // Normalize images array (handles 8-image array from admin panel)
+  // Read direct image URLs from all possible admin panel fields
   let images: string[] = [];
-  if (Array.isArray(data.images) && data.images.length > 0) {
-    images = data.images.filter((img: any) => typeof img === 'string' && img.trim().length > 0);
-  } else if (data.image) {
-    images = [data.image];
+
+  const candidateArrays = [
+    data.images,
+    data.imageUrls,
+    data.photos,
+    data.pictures,
+    data.gallery,
+  ];
+
+  for (const candidate of candidateArrays) {
+    if (Array.isArray(candidate) && candidate.length > 0) {
+      for (const item of candidate) {
+        if (typeof item === 'string' && item.trim().length > 0) {
+          images.push(item.trim());
+        } else if (item && typeof item === 'object') {
+          const directUrl = item.url || item.imageUrl || item.src || item.downloadURL || item.link;
+          if (typeof directUrl === 'string' && directUrl.trim().length > 0) {
+            images.push(directUrl.trim());
+          }
+        }
+      }
+    }
   }
 
-  // If fewer than 1 image, provide luxury fallback
+  // Also check single image string fields
+  const singleImageFields = [
+    data.image,
+    data.imageUrl,
+    data.photo,
+    data.thumbnail,
+    data.picture,
+    data.mainImage,
+  ];
+
+  for (const singleField of singleImageFields) {
+    if (typeof singleField === 'string' && singleField.trim().length > 0) {
+      const trimmed = singleField.trim();
+      if (!images.includes(trimmed)) {
+        images.unshift(trimmed); // Put primary single image first
+      }
+    }
+  }
+
+  // If images array is still empty or invalid, provide luxury fallback items
   if (images.length === 0) {
     images = [
       'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=1000&auto=format&fit=crop',
     ];
   }
 

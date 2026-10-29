@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import {
   X,
   Star,
@@ -17,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
+import { LuxuryImage } from '@/components/LuxuryImage';
 
 interface ProductReview {
   id: string;
@@ -206,14 +206,15 @@ export const ProductDetailModal: React.FC = () => {
           {/* LEFT: 8-Image Gallery with Fluid Switching Animation */}
           <div className="w-full md:w-1/2 p-5 sm:p-6 flex flex-col justify-between bg-[#FDFBF7] border-b md:border-b-0 md:border-r border-[#C5A880]/20">
             
-            {/* Main Large Image Display (Rounded-2xl) */}
+            {/* Main Large Image Display (Rounded-2xl with direct URL & fallback support) */}
             <div className="relative aspect-square w-full overflow-hidden bg-[#F4EFEB] border border-[#C5A880]/25 rounded-2xl shadow-inner">
-              <Image
+              <LuxuryImage
                 src={product.images[activeImageIndex] || product.images[0]}
                 alt={`${product.title} perspective ${activeImageIndex + 1}`}
                 fill
                 priority
                 className="object-cover object-center transition-all duration-500 transform hover:scale-105 cursor-crosshair rounded-2xl"
+                fallbackTitle={product.title}
               />
               
               {/* Overlay Badges (Pills) */}
@@ -248,12 +249,13 @@ export const ProductDetailModal: React.FC = () => {
                         : 'border-[#C5A880]/30 opacity-70 hover:opacity-100 hover:border-[#8C6E43]'
                     }`}
                   >
-                    <Image
+                    <LuxuryImage
                       src={imgUrl}
                       alt={`Thumbnail view ${idx + 1}`}
                       fill
                       sizes="80px"
                       className="object-cover rounded-xl"
+                      fallbackTitle={`Angle ${idx + 1}`}
                     />
                   </button>
                 ))}
