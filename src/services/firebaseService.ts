@@ -5,9 +5,11 @@ import {
   serverTimestamp,
   query,
   orderBy,
+  where,
+  getDocs,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { Product, CartItem, OrderFormValues, ProductCategory } from '@/types';
+import { Product, CartItem, OrderFormValues, ProductCategory, UserProfile, UserOrder } from '@/types';
 import { MOCK_PRODUCTS } from '@/data/mockData';
 
 const INVENTORY_COLLECTION = 'inventoryItems';
@@ -171,7 +173,8 @@ export async function createFirestoreOrder(
   formData: OrderFormValues,
   itemsToBuy: CartItem[],
   totalAmount: number,
-  discountSaved: number
+  discountSaved: number,
+  user?: UserProfile | null
 ): Promise<{ orderId: string; success: boolean }> {
   const generatedId = `LF-${Math.floor(100000 + Math.random() * 900000)}`;
   const now = new Date();
@@ -193,7 +196,7 @@ export async function createFirestoreOrder(
     subtotal: item.product.wholesalePrice * item.quantity,
   }));
 
-  // Exact payload required by user guidelines
+  // Exact payload required by user guidelines + Google Account Order Linking
   const orderDocData = {
     // Required user fields
     customerName: formData.fullName.trim(),
@@ -210,11 +213,21 @@ export async function createFirestoreOrder(
     totalPrice: totalAmount,
     status: 'Pending', // Initial status of "Pending"
 
+    // 3. User & Google Account Linking
+    userId: user ? user.uid : null,
+    uid: user ? user.uid : null,
+    userEmail: user?.email || formData.email || null,
+    userName: user?.displayName || formData.fullName.trim(),
+    googleAccountName: user?.displayName || null,
+    googleAccountEmail: user?.email || null,
+    googlePhotoURL: user?.photoURL || null,
+
     // Additional helper & backward-compatible aliases for admin panels
     orderId: generatedId,
     fullName: formData.fullName.trim(),
     phoneNumber: formData.phoneNumber.trim(),
     customerPhone: formData.phoneNumber.trim(),
+    email: user?.email || formData.email || '',
     streetAddress: formData.streetAddress.trim(),
     city: formData.city.trim(),
     state: formData.state,
@@ -263,6 +276,55 @@ export async function createFirestoreOrder(
         ? 'Permission Denied: Your Firestore rules do not permit writing to the "orders" collection.'
         : err?.message || 'Failed to save order to Firebase. Please try again.';
     throw new Error(errorMsg);
+  }
+}
+
+/**
+ * 4. Profile/Dashboard:
+ * Fetches user's order history dynamically from Firestore 'orders' collection using their uid
+ */
+export async function fetchUserOrders(userId: string): Promise<UserOrder[]> {
+  if (!db || !userId) return [];
+
+  try {
+    const ordersCol = collection(db, ORDERS_COLLECTION);
+
+    // Try query with order and sort
+    try {
+      const q = query(ordersCol, where('userId', '==', userId));
+      const snapshot = await getDocs(q);
+      const orders: UserOrder[] = [];
+
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        orders.push({
+          id: docSnap.id,
+          orderId: data.orderId || `LF-${docSnap.id.slice(0, 6).toUpperCase()}`,
+          totalPrice: Number(data.totalPrice || data.totalAmount || 0),
+          status: data.status || 'Pending',
+          orderDate: data.orderDate || 'Recent',
+          orderDateTime: data.orderDateTime,
+          items: Array.isArray(data.items) ? data.items : [],
+          paymentMethod: data.paymentMethod || 'COD',
+          fullAddress: data.fullAddress || '',
+        });
+      });
+
+      // Sort in-memory by date descending
+      orders.sort((a, b) => {
+        const dateA = a.orderDateTime ? new Date(a.orderDateTime).getTime() : 0;
+        const dateB = b.orderDateTime ? new Date(b.orderDateTime).getTime() : 0;
+        return dateB - dateA;
+      });
+
+      return orders;
+    } catch (queryErr) {
+      console.warn('Query for userId failed, trying fallback by email:', queryErr);
+      return [];
+    }
+  } catch (err) {
+    console.error('Failed to fetch user orders from Firestore:', err);
+    return [];
   }
 }
 

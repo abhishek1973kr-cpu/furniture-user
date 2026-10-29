@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShoppingBag, Search, Menu, X, Sparkles, PhoneCall } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Sparkles, PhoneCall, User as UserIcon } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { ProductCategory } from '@/types';
 
 interface HeaderProps {
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
   setSearchQuery,
 }) => {
   const { totalItems, openCart } = useCart();
+  const { user, openAuthModal, openProfileModal } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -137,6 +139,41 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="text-[11px] tracking-widest font-medium">Concierge</span>
             </a>
 
+            {/* Google Profile or Sign In Button */}
+            {user ? (
+              <button
+                onClick={openProfileModal}
+                className="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-full bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] transition-all shadow-sm group"
+                title={`Signed in as ${user.displayName || user.email}`}
+                aria-label="My Account"
+              >
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt={user.displayName || 'User Profile'}
+                    className="w-6 h-6 rounded-full object-cover border border-[#C5A880]/60"
+                  />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-[#8C6E43] text-[#FDFBF7] flex items-center justify-center text-[10px] font-semibold">
+                    {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <span className="hidden md:inline text-xs font-medium max-w-[90px] truncate text-[#1A1A1A]">
+                  {user.displayName?.split(' ')[0] || 'Account'}
+                </span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+              </button>
+            ) : (
+              <button
+                onClick={openAuthModal}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4EFEB] border border-[#C5A880]/40 hover:border-[#8C6E43] text-[#1A1A1A] hover:text-[#8C6E43] transition-all text-xs tracking-wider uppercase font-medium shadow-sm"
+                aria-label="Sign In with Google"
+              >
+                <UserIcon className="w-3.5 h-3.5 text-[#8C6E43]" />
+                <span className="hidden md:inline text-[11px] font-semibold">Sign In</span>
+              </button>
+            )}
+
             {/* Shopping Bag Button (Pill Rounded-full) */}
             <button
               onClick={openCart}
@@ -230,6 +267,55 @@ export const Header: React.FC<HeaderProps> = ({
             >
               Client Reviews (4.9★)
             </button>
+
+            {/* Mobile Google Account / Sign-In Trigger */}
+            <div className="pt-2">
+              {user ? (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openProfileModal();
+                  }}
+                  className="w-full p-3 rounded-2xl bg-[#F4EFEB] border border-[#C5A880]/40 flex items-center justify-between text-left hover:border-[#8C6E43] transition-all shadow-sm"
+                >
+                  <div className="flex items-center gap-3">
+                    {user.photoURL ? (
+                      <img
+                        src={user.photoURL}
+                        alt={user.displayName || 'User Profile'}
+                        className="w-9 h-9 rounded-full object-cover border border-[#C5A880]"
+                      />
+                    ) : (
+                      <div className="w-9 h-9 rounded-full bg-[#8C6E43] text-[#FDFBF7] flex items-center justify-center text-xs font-semibold">
+                        {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-xs font-semibold text-[#1A1A1A] truncate max-w-[150px]">
+                        {user.displayName || 'My Account'}
+                      </p>
+                      <p className="text-[10px] text-[#7E7870] truncate max-w-[150px]">
+                        {user.email}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[11px] font-semibold text-[#8C6E43] uppercase tracking-wider">
+                    My Orders →
+                  </span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openAuthModal();
+                  }}
+                  className="w-full py-3 px-4 rounded-2xl bg-[#1A1A1A] text-[#FDFBF7] flex items-center justify-center gap-2.5 text-xs uppercase tracking-wider font-semibold shadow-md hover:bg-[#8C6E43] transition-all"
+                >
+                  <UserIcon className="w-4 h-4 text-[#C5A880]" />
+                  <span>Continue with Google</span>
+                </button>
+              )}
+            </div>
 
             <div className="pt-2 flex flex-col gap-3">
               <div className="p-4 bg-[#F4EFEB] border border-[#C5A880]/30 rounded-2xl flex items-center gap-3">

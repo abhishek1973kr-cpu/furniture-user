@@ -100,3 +100,31 @@ export interface ConfirmedOrder {
   orderedAt: string;
   estimatedDelivery: string;
 }
+
+export interface UserProfile {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  photoURL: string | null;
+}
+
+export interface UserOrder {
+  id: string;
+  orderId: string;
+  totalPrice: number;
+  totalAmount?: number;
+  status: string;
+  orderDate: string;
+  orderDateTime?: string;
+  items: Array<{
+    id: string;
+    title: string;
+    name?: string;
+    price: number;
+    quantity: number;
+    image: string;
+    category?: string;
+  }>;
+  paymentMethod: string;
+  fullAddress: string;
+}

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { X, CheckCircle, ShieldCheck, Zap, Truck, Phone, MapPin, User, ArrowRight, Banknote, CreditCard, AlertCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { OrderFormValues, ConfirmedOrder } from '@/types';
 import { createFirestoreOrder } from '@/services/firebaseService';
 
@@ -19,6 +20,8 @@ export const CheckoutModal: React.FC = () => {
     setConfirmedOrder,
   } = useCart();
 
+  const { user } = useAuth();
+
   // Form State
   const [formData, setFormData] = useState<OrderFormValues>({
     fullName: '',
@@ -32,6 +35,17 @@ export const CheckoutModal: React.FC = () => {
     paymentMethod: 'cod',
     orderNotes: '',
   });
+
+  // Pre-fill user data from Google Account if logged in
+  React.useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        fullName: prev.fullName || user.displayName || '',
+        email: prev.email || user.email || '',
+      }));
+    }
+  }, [user]);
 
   const [errors, setErrors] = useState<Partial<Record<keyof OrderFormValues, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -105,7 +119,8 @@ export const CheckoutModal: React.FC = () => {
         formData,
         itemsToBuy,
         totalWholesale,
-        totalSaved
+        totalSaved,
+        user
       );
 
       // 2. If the order saves successfully, stop the spinner and show the success screen
@@ -302,6 +317,23 @@ export const CheckoutModal: React.FC = () => {
                     Items are carefully flat-packed with transit edge protection & dispatched within 12 hours.
                   </p>
                 </div>
+
+                {/* Google Linked Account Badge */}
+                {user && (
+                  <div className="mb-4 px-4 py-2.5 rounded-2xl bg-[#F5F2EB] border border-[#C5A880]/40 flex items-center justify-between text-xs animate-fade-in-up">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-[#8C6E43] text-white flex items-center justify-center text-[10px] font-bold">
+                        {user.displayName?.charAt(0) || 'G'}
+                      </div>
+                      <span className="text-[#1A1A1A] font-medium">
+                        Order will be linked to Google Account: <strong className="text-[#8C6E43]">{user.email}</strong>
+                      </span>
+                    </div>
+                    <span className="text-[10px] text-emerald-800 font-semibold uppercase bg-emerald-100 px-2 py-0.5 rounded-full">
+                      Linked
+                    </span>
+                  </div>
+                )}
 
                 {/* Visible Error Alert / Toast */}
                 {submitError && (

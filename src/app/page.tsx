@@ -11,6 +11,8 @@ import { Footer } from '@/components/Footer';
 import { ProductDetailModal } from '@/components/ProductDetailModal';
 import { CheckoutModal } from '@/components/CheckoutModal';
 import { CartDrawer } from '@/components/CartDrawer';
+import { AuthModal } from '@/components/AuthModal';
+import { ProfileModal } from '@/components/ProfileModal';
 import { ProductCategory } from '@/types';
 
 export default function Home() {
@@ -62,6 +64,8 @@ export default function Home() {
       <ProductDetailModal />
       <CheckoutModal />
       <CartDrawer />
+      <AuthModal />
+      <ProfileModal />
     </main>
   );
 }
