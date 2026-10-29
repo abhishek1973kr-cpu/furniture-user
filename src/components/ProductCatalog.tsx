@@ -99,9 +99,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           </p>
         </div>
 
-        {/* Primary 4 Category Selector Tabs */}
+        {/* Primary 4 Category Selector Tabs (Fully Rounded Pills) */}
         <div className="flex justify-center mb-8 overflow-x-auto pb-2 scrollbar-none">
-          <div className="inline-flex p-1 bg-[#1A1A1A] border border-[#C5A880]/25 rounded-none shadow-sm whitespace-nowrap">
+          <div className="inline-flex p-1.5 bg-[#1A1A1A] border border-[#C5A880]/25 rounded-full shadow-sm whitespace-nowrap">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -109,9 +109,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   onSelectCategory(cat);
                   setSelectedSubCategory('All');
                 }}
-                className={`px-4 sm:px-6 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] transition-all duration-300 ${
+                className={`px-5 sm:px-7 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] rounded-full transition-all duration-300 ${
                   selectedCategory === cat
-                    ? 'bg-[#C5A880] text-[#1A1A1A] shadow-sm'
+                    ? 'bg-[#C5A880] text-[#1A1A1A] shadow-goldGlow'
                     : 'text-[#F9F8F6]/70 hover:text-[#C5A880]'
                 }`}
               >
@@ -124,15 +124,15 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         {/* Secondary Subcategory Filters & Sorting Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 mb-8 border-b border-[#C5A880]/15">
           
-          {/* Subcategory scrollable tags */}
+          {/* Subcategory scrollable tags (Rounded-full pills) */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
             {availableSubCategories.map((sub) => (
               <button
                 key={sub}
                 onClick={() => setSelectedSubCategory(sub)}
-                className={`px-3 py-1.5 text-[11px] uppercase tracking-wider whitespace-nowrap transition-colors border ${
+                className={`px-4 py-2 text-[11px] uppercase tracking-wider whitespace-nowrap transition-all rounded-full border ${
                   selectedSubCategory === sub
-                    ? 'bg-[#C5A880]/15 border-[#C5A880] text-[#C5A880]'
+                    ? 'bg-[#C5A880]/15 border-[#C5A880] text-[#C5A880] shadow-sm'
                     : 'bg-[#171717] border-white/5 text-[#9E9A93] hover:text-[#F9F8F6] hover:border-[#C5A880]/30'
                 }`}
               >
@@ -141,13 +141,13 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
             ))}
           </div>
 
-          {/* Right: Results Count & Sort Dropdown */}
+          {/* Right: Results Count & Sort Dropdown (Curvy Pill) */}
           <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 text-xs">
             <span className="text-[#9E9A93] tracking-wide">
               Showing <strong className="text-white font-medium">{filteredProducts.length}</strong> creations
             </span>
 
-            <div className="flex items-center gap-2 bg-[#1A1A1A] border border-[#C5A880]/25 px-3 py-1.5">
+            <div className="flex items-center gap-2 bg-[#1A1A1A] border border-[#C5A880]/25 px-4 py-2 rounded-full shadow-sm">
               <SlidersHorizontal className="w-3.5 h-3.5 text-[#C5A880]" />
               <select
                 value={sortBy}
@@ -171,7 +171,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-[#171717] border border-[#C5A880]/20 max-w-lg mx-auto p-8">
+          <div className="text-center py-20 bg-[#171717] border border-[#C5A880]/20 rounded-3xl max-w-lg mx-auto p-8 shadow-luxury">
             <Sparkles className="w-8 h-8 text-[#C5A880] mx-auto mb-3" />
             <h3 className="text-lg font-serif text-white">No smart furniture found</h3>
             <p className="text-xs text-[#9E9A93] mt-2">
@@ -182,7 +182,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 onSelectCategory('All');
                 setSelectedSubCategory('All');
               }}
-              className="mt-6 px-6 py-2.5 bg-[#C5A880] text-[#1A1A1A] text-xs uppercase tracking-widest font-semibold"
+              className="mt-6 px-7 py-3 bg-[#C5A880] text-[#1A1A1A] text-xs uppercase tracking-widest font-semibold rounded-full shadow-goldGlow hover:bg-[#D4B489] transition-all"
             >
               Reset Filters
             </button>

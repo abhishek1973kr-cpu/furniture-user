@@ -46,18 +46,18 @@ export const ReviewsCarousel: React.FC = () => {
             </p>
           </div>
 
-          {/* Left & Right Swiper Controls */}
+          {/* Left & Right Swiper Controls (Pill Rounded-full) */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => scroll('left')}
-              className="p-3 bg-[#121212] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#F9F8F6] hover:text-[#C5A880] transition-colors shadow-sm"
+              className="p-3.5 bg-[#121212] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#F9F8F6] hover:text-[#C5A880] rounded-full transition-all shadow-sm"
               aria-label="Previous review"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="p-3 bg-[#121212] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#F9F8F6] hover:text-[#C5A880] transition-colors shadow-sm"
+              className="p-3.5 bg-[#121212] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#F9F8F6] hover:text-[#C5A880] rounded-full transition-all shadow-sm"
               aria-label="Next review"
             >
               <ChevronRight className="w-5 h-5" />
@@ -65,7 +65,7 @@ export const ReviewsCarousel: React.FC = () => {
           </div>
         </div>
 
-        {/* Side-Scrolling Swipable Container */}
+        {/* Side-Scrolling Swipable Container with Rounded-3xl Cards */}
         <div
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory scroll-smooth"
@@ -74,12 +74,12 @@ export const ReviewsCarousel: React.FC = () => {
           {MOCK_REVIEWS.map((review) => (
             <div
               key={review.id}
-              className="w-[85vw] sm:w-[420px] shrink-0 snap-start bg-[#141414] border border-[#C5A880]/20 p-6 sm:p-7 flex flex-col justify-between hover:border-[#C5A880]/50 transition-all duration-300 shadow-sm"
+              className="w-[85vw] sm:w-[420px] shrink-0 snap-start bg-[#141414] border border-[#C5A880]/20 p-7 sm:p-8 flex flex-col justify-between hover:border-[#C5A880]/50 transition-all duration-300 shadow-luxury rounded-3xl"
             >
               <div>
                 {/* Top Row: Stars & Date */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 bg-[#1A1A1A] px-3 py-1 rounded-full border border-white/5">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
@@ -104,7 +104,7 @@ export const ReviewsCarousel: React.FC = () => {
               {/* Bottom: Client Profile & Product Badge */}
               <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#C5A880]/40 shrink-0">
+                  <div className="relative w-11 h-11 rounded-full overflow-hidden border border-[#C5A880]/40 shrink-0 shadow-sm">
                     <Image
                       src={review.avatar}
                       alt={review.name}
@@ -115,20 +115,20 @@ export const ReviewsCarousel: React.FC = () => {
                   <div>
                     <div className="flex items-center gap-1.5">
                       <h4 className="text-xs font-serif font-medium text-white">{review.name}</h4>
-                      <CheckCircle className="w-3 h-3 text-[#C5A880]" />
+                      <CheckCircle className="w-3.5 h-3.5 text-[#C5A880]" />
                     </div>
                     <span className="text-[10px] text-[#9E9A93]">{review.city}</span>
                   </div>
                 </div>
 
-                {/* Purchased Item Thumbnail */}
+                {/* Purchased Item Thumbnail (Smooth Rounded-xl) */}
                 {review.itemImage && (
-                  <div className="relative w-10 h-10 bg-[#0D0D0D] border border-white/10 shrink-0 rounded-none overflow-hidden" title={review.productName}>
+                  <div className="relative w-11 h-11 bg-[#0D0D0D] border border-white/10 shrink-0 rounded-xl overflow-hidden shadow-sm" title={review.productName}>
                     <Image
                       src={review.itemImage}
                       alt={review.productName}
                       fill
-                      className="object-cover"
+                      className="object-cover rounded-xl"
                     />
                   </div>
                 )}

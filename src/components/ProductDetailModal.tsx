@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { X, Star, Zap, ShieldCheck, Check, ArrowRight, Minus, Plus, Maximize2, Move } from 'lucide-react';
+import { X, Star, Zap, ShieldCheck, Check, ArrowRight, Minus, Plus } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 export const ProductDetailModal: React.FC = () => {
@@ -57,8 +57,8 @@ export const ProductDetailModal: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Modal Card */}
-      <div className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-[#171717] border border-[#C5A880]/30 shadow-2xl z-10 text-[#F9F8F6] flex flex-col md:flex-row">
+      {/* Modal Card with Smooth Rounded-3xl Corners */}
+      <div className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto bg-[#171717] border border-[#C5A880]/30 shadow-2xl z-10 text-[#F9F8F6] flex flex-col md:flex-row rounded-3xl overflow-hidden">
         
         {/* Close Button */}
         <button
@@ -70,37 +70,37 @@ export const ProductDetailModal: React.FC = () => {
         </button>
 
         {/* LEFT: 5-Image Gallery with Fluid Switching Animation */}
-        <div className="w-full md:w-1/2 p-4 sm:p-6 flex flex-col justify-between bg-[#141414] border-b md:border-b-0 md:border-r border-[#C5A880]/20">
+        <div className="w-full md:w-1/2 p-5 sm:p-6 flex flex-col justify-between bg-[#141414] border-b md:border-b-0 md:border-r border-[#C5A880]/20">
           
-          {/* Main Large Image Display */}
-          <div className="relative aspect-square w-full overflow-hidden bg-[#0D0D0D] border border-white/5">
+          {/* Main Large Image Display (Rounded-2xl) */}
+          <div className="relative aspect-square w-full overflow-hidden bg-[#0D0D0D] border border-white/5 rounded-2xl shadow-inner">
             <Image
               src={product.images[activeImageIndex] || product.images[0]}
               alt={`${product.title} perspective ${activeImageIndex + 1}`}
               fill
               priority
-              className="object-cover object-center transition-all duration-500 transform hover:scale-105 cursor-crosshair"
+              className="object-cover object-center transition-all duration-500 transform hover:scale-105 cursor-crosshair rounded-2xl"
             />
             
-            {/* Overlay Badges */}
+            {/* Overlay Badges (Pills) */}
             <div className="absolute top-3 left-3 flex flex-col gap-1.5 pointer-events-none">
-              <span className="bg-[#C5A880] text-[#1A1A1A] text-[10px] font-bold px-2 py-0.5 uppercase tracking-wider">
+              <span className="bg-[#C5A880] text-[#1A1A1A] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
                 Space-Saving Innovation
               </span>
-              <span className="bg-[#121212]/90 border border-emerald-500/30 text-emerald-400 text-[9px] font-medium px-2 py-0.5 uppercase tracking-wider backdrop-blur-sm flex items-center gap-1">
+              <span className="bg-[#121212]/90 border border-emerald-500/30 text-emerald-400 text-[9px] font-medium px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm flex items-center gap-1">
                 <Zap className="w-2.5 h-2.5 fill-emerald-400" />
                 12-Hour Priority Dispatch
               </span>
             </div>
 
-            <div className="absolute bottom-2.5 right-2.5 bg-black/75 px-2 py-0.5 text-[10px] text-[#C5A880] border border-[#C5A880]/30 font-mono">
+            <div className="absolute bottom-3 right-3 bg-black/75 px-2.5 py-1 text-[10px] text-[#C5A880] border border-[#C5A880]/30 rounded-full font-mono">
               {activeImageIndex + 1} / {product.images.length}
             </div>
           </div>
 
           {/* 5-Thumbnail Fluid Selector Bar */}
           <div className="mt-4">
-            <span className="text-[10px] uppercase tracking-widest text-[#9E9A93] block mb-2">
+            <span className="text-[10px] uppercase tracking-widest text-[#9E9A93] block mb-2 font-medium">
               Multi-Angle Functional Views (Select to Switch)
             </span>
             <div className="grid grid-cols-5 gap-2">
@@ -108,9 +108,9 @@ export const ProductDetailModal: React.FC = () => {
                 <button
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`relative aspect-square overflow-hidden border transition-all duration-200 ${
+                  className={`relative aspect-square overflow-hidden rounded-xl border transition-all duration-200 ${
                     activeImageIndex === idx
-                      ? 'border-[#C5A880] ring-1 ring-[#C5A880] scale-95 opacity-100 shadow-goldGlow'
+                      ? 'border-[#C5A880] ring-2 ring-[#C5A880] scale-95 opacity-100 shadow-goldGlow'
                       : 'border-white/10 opacity-60 hover:opacity-100 hover:border-[#C5A880]/60'
                   }`}
                 >
@@ -119,7 +119,7 @@ export const ProductDetailModal: React.FC = () => {
                     alt={`Thumbnail view ${idx + 1}`}
                     fill
                     sizes="80px"
-                    className="object-cover"
+                    className="object-cover rounded-xl"
                   />
                 </button>
               ))}
@@ -135,7 +135,7 @@ export const ProductDetailModal: React.FC = () => {
               <span className="uppercase tracking-[0.2em] text-[#C5A880] font-semibold">
                 {product.category} • {product.subCategory}
               </span>
-              <div className="flex items-center gap-1 bg-[#121212] px-2 py-0.5 border border-[#C5A880]/20">
+              <div className="flex items-center gap-1 bg-[#121212] px-3 py-1 rounded-full border border-[#C5A880]/20">
                 <Star className="w-3.5 h-3.5 text-[#C5A880] fill-[#C5A880]" />
                 <span className="text-white font-bold">{product.rating}</span>
                 <span className="text-[#9E9A93]">({product.reviewCount} verified)</span>
@@ -147,14 +147,14 @@ export const ProductDetailModal: React.FC = () => {
               {product.title}
             </h2>
 
-            {/* Space Saving Highlight */}
-            <div className="mt-2 p-2 bg-[#121212] border-l-2 border-[#C5A880] text-xs text-[#C5A880]">
+            {/* Space Saving Highlight (Rounded-2xl) */}
+            <div className="mt-3 p-3 bg-[#121212] border border-[#C5A880]/25 rounded-2xl text-xs text-[#C5A880] shadow-sm">
               <span className="font-semibold uppercase tracking-wider block text-[10px]">Space-Saving Blueprint</span>
               <p className="text-white/90 mt-0.5">{product.spaceSavingFeature}</p>
             </div>
 
-            {/* Pricing Section */}
-            <div className="mt-4 p-3.5 bg-[#121212] border border-[#C5A880]/25 flex items-baseline justify-between">
+            {/* Pricing Section (Rounded-2xl) */}
+            <div className="mt-4 p-4 bg-[#121212] border border-[#C5A880]/25 rounded-2xl flex items-baseline justify-between shadow-sm">
               <div>
                 <span className="text-2xl sm:text-3xl font-serif font-bold text-[#C5A880]">
                   ₹{product.wholesalePrice.toLocaleString('en-IN')}
@@ -166,7 +166,7 @@ export const ProductDetailModal: React.FC = () => {
                   Save ₹{discountAmount.toLocaleString('en-IN')}
                 </span>
               </div>
-              <span className="text-[10px] uppercase tracking-widest text-[#C5A880] font-bold bg-[#C5A880]/15 px-2 py-1 border border-[#C5A880]/30">
+              <span className="text-[10px] uppercase tracking-widest text-[#C5A880] font-bold bg-[#C5A880]/15 px-3 py-1 rounded-full border border-[#C5A880]/30">
                 Wholesale Price
               </span>
             </div>
@@ -176,21 +176,21 @@ export const ProductDetailModal: React.FC = () => {
               {product.description}
             </p>
 
-            {/* Space-Saving Dimensions Grid */}
+            {/* Space-Saving Dimensions Grid (Rounded-xl) */}
             <div className="mt-5 pt-4 border-t border-white/10 grid grid-cols-2 gap-2.5 text-xs">
-              <div className="p-2 bg-[#141414] border border-white/5">
+              <div className="p-2.5 bg-[#141414] border border-white/5 rounded-xl">
                 <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Expanded Size</span>
                 <span className="text-white font-medium text-[11px] mt-0.5 block">{product.specifications.dimensions}</span>
               </div>
-              <div className="p-2 bg-[#141414] border border-white/5">
+              <div className="p-2.5 bg-[#141414] border border-white/5 rounded-xl">
                 <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Folded / Stowed Size</span>
                 <span className="text-[#C5A880] font-medium text-[11px] mt-0.5 block">{product.specifications.foldedDimensions || 'Ultra Compact'}</span>
               </div>
-              <div className="p-2 bg-[#141414] border border-white/5">
+              <div className="p-2.5 bg-[#141414] border border-white/5 rounded-xl">
                 <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Weight Capacity</span>
                 <span className="text-emerald-400 font-medium text-[11px] mt-0.5 block">{product.specifications.weightCapacity}</span>
               </div>
-              <div className="p-2 bg-[#141414] border border-white/5">
+              <div className="p-2.5 bg-[#141414] border border-white/5 rounded-xl">
                 <span className="text-[#9E9A93] text-[10px] uppercase block tracking-wider">Setup & Assembly</span>
                 <span className="text-white font-medium text-[11px] mt-0.5 block">{product.specifications.assemblyRequired}</span>
               </div>
@@ -210,20 +210,20 @@ export const ProductDetailModal: React.FC = () => {
           {/* Action Footer: Quantity Selector, Add to Bag, Buy Now */}
           <div className="mt-6 pt-5 border-t border-[#C5A880]/20">
             
-            {/* Quantity Selector */}
+            {/* Quantity Selector with Rounded-full pill */}
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs uppercase tracking-wider text-[#9E9A93]">Quantity:</span>
-              <div className="flex items-center border border-[#C5A880]/30 bg-[#121212]">
+              <div className="flex items-center border border-[#C5A880]/30 bg-[#121212] rounded-full px-1">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="p-2 text-[#9E9A93] hover:text-[#C5A880] transition-colors"
+                  className="p-2 text-[#9E9A93] hover:text-[#C5A880] transition-colors rounded-full"
                 >
                   <Minus className="w-3.5 h-3.5" />
                 </button>
-                <span className="px-4 text-xs font-bold text-white font-mono">{quantity}</span>
+                <span className="px-3 text-xs font-bold text-white font-mono">{quantity}</span>
                 <button
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="p-2 text-[#9E9A93] hover:text-[#C5A880] transition-colors"
+                  className="p-2 text-[#9E9A93] hover:text-[#C5A880] transition-colors rounded-full"
                 >
                   <Plus className="w-3.5 h-3.5" />
                 </button>
@@ -236,11 +236,11 @@ export const ProductDetailModal: React.FC = () => {
               </div>
             </div>
 
-            {/* Buttons Grid */}
+            {/* Buttons Grid (Pills) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <button
                 onClick={handleAddToCart}
-                className="py-3 px-4 border border-[#C5A880]/50 hover:border-[#C5A880] text-[#F9F8F6] text-xs font-semibold uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-2 hover:bg-white/5"
+                className="py-3.5 px-5 border border-[#C5A880]/50 hover:border-[#C5A880] text-[#F9F8F6] text-xs font-semibold uppercase tracking-[0.16em] rounded-full transition-all flex items-center justify-center gap-2 hover:bg-white/5"
               >
                 {justAdded ? (
                   <>
@@ -257,14 +257,14 @@ export const ProductDetailModal: React.FC = () => {
 
               <button
                 onClick={handleBuyNow}
-                className="py-3 px-4 bg-[#C5A880] hover:bg-[#D4B489] text-[#1A1A1A] text-xs font-bold uppercase tracking-[0.18em] transition-all shadow-goldGlow flex items-center justify-center gap-2"
+                className="py-3.5 px-5 bg-[#C5A880] hover:bg-[#D4B489] text-[#1A1A1A] text-xs font-bold uppercase tracking-[0.18em] rounded-full transition-all shadow-goldGlow flex items-center justify-center gap-2"
               >
                 <span>Buy Now (COD)</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
 
-            <p className="mt-2 text-center text-[11px] text-[#9E9A93]">
+            <p className="mt-2.5 text-center text-[11px] text-[#9E9A93]">
               🔒 Pay with Cash on Delivery at doorstep • Fastly shipped within 12 hours
             </p>
           </div>

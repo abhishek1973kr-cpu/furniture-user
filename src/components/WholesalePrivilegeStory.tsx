@@ -32,7 +32,7 @@ export const WholesalePrivilegeStory: React.FC = () => {
             </p>
 
             <div className="mt-8 space-y-3">
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-[#171717]/60 border border-white/5">
                 <CheckCircle2 className="w-5 h-5 text-[#C5A880] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-white">80% Floor Area Reclaimed</h4>
@@ -40,7 +40,7 @@ export const WholesalePrivilegeStory: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-[#171717]/60 border border-white/5">
                 <CheckCircle2 className="w-5 h-5 text-[#C5A880] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-white">Fast 12-Hour Priority Dispatch</h4>
@@ -48,7 +48,7 @@ export const WholesalePrivilegeStory: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-[#171717]/60 border border-white/5">
                 <CheckCircle2 className="w-5 h-5 text-[#C5A880] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-white">100% Cash On Delivery Assurance</h4>
@@ -58,26 +58,26 @@ export const WholesalePrivilegeStory: React.FC = () => {
             </div>
           </div>
 
-          {/* Luxury Comparison Card */}
-          <div className="p-6 sm:p-8 bg-[#171717] border border-[#C5A880]/30 shadow-luxury relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-[#C5A880] text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1">
+          {/* Luxury Comparison Card (Rounded-3xl) */}
+          <div className="p-7 sm:p-9 bg-[#171717] border border-[#C5A880]/30 shadow-luxury relative overflow-hidden rounded-3xl">
+            <div className="absolute top-0 right-0 bg-[#C5A880] text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl">
               Atelier Direct
             </div>
 
-            <h3 className="text-xl font-serif text-white mb-6">Commercial Showroom vs. LivFabs Smart Direct</h3>
+            <h3 className="text-xl sm:text-2xl font-serif text-white mb-6">Commercial Showroom vs. LivFabs Smart Direct</h3>
 
             <div className="space-y-4 text-xs">
-              <div className="p-3 bg-[#121212] border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 bg-[#121212] border border-white/5 rounded-2xl flex items-center justify-between">
                 <span className="text-[#9E9A93]">Showroom Rent & Display Floor Markup</span>
                 <span className="text-red-400 font-medium">+ ₹2,800 Added Cost</span>
               </div>
 
-              <div className="p-3 bg-[#121212] border border-white/5 flex items-center justify-between">
+              <div className="p-3.5 bg-[#121212] border border-white/5 rounded-2xl flex items-center justify-between">
                 <span className="text-[#9E9A93]">Wholesale Distributor & Dealer Margins</span>
                 <span className="text-red-400 font-medium">+ ₹1,650 Added Cost</span>
               </div>
 
-              <div className="p-3 bg-[#C5A880]/15 border border-[#C5A880]/40 flex items-center justify-between">
+              <div className="p-4 bg-[#C5A880]/15 border border-[#C5A880]/40 rounded-2xl flex items-center justify-between shadow-sm">
                 <div className="flex items-center gap-2">
                   <Maximize2 className="w-4 h-4 text-[#C5A880]" />
                   <span className="text-white font-medium">LivFabs Direct Factory Privilege</span>

@@ -39,18 +39,18 @@ export const Footer: React.FC = () => {
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} className="flex w-full sm:w-auto">
+          <form onSubmit={handleSubscribe} className="flex w-full sm:w-auto items-center p-1 bg-[#1A1A1A] border border-[#C5A880]/30 rounded-full shadow-sm">
             <input
               type="email"
               required
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
               placeholder="Enter your VIP email address..."
-              className="w-full sm:w-72 px-4 py-3 bg-[#1A1A1A] border border-[#C5A880]/30 text-xs text-white placeholder-[#777] focus:outline-none focus:border-[#C5A880]"
+              className="w-full sm:w-72 px-5 py-2.5 bg-transparent text-xs text-white placeholder-[#777] focus:outline-none rounded-full"
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-[#C5A880] hover:bg-[#D4B489] text-[#1A1A1A] text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap"
+              className="px-6 py-2.5 bg-[#C5A880] hover:bg-[#D4B489] text-[#1A1A1A] text-xs font-bold uppercase tracking-widest rounded-full transition-all whitespace-nowrap shadow-sm"
             >
               {subscribed ? 'Subscribed' : 'Join VIP'}
             </button>
@@ -146,7 +146,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="pt-2">
-                <span className="inline-block px-3 py-1 bg-[#1A1A1A] border border-[#C5A880]/30 text-[10px] text-[#C5A880] uppercase tracking-wider">
+                <span className="inline-block px-3.5 py-1.5 bg-[#1A1A1A] border border-[#C5A880]/30 text-[10px] text-[#C5A880] uppercase tracking-wider rounded-full shadow-sm">
                   ⚡ 12-Hour Dispatch Active
                 </span>
               </div>
@@ -222,7 +222,7 @@ export const Footer: React.FC = () => {
 
           <button
             onClick={scrollToTop}
-            className="p-2.5 bg-[#1A1A1A] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#C5A880] transition-colors flex items-center gap-1.5 text-[11px] uppercase tracking-wider"
+            className="p-3 bg-[#1A1A1A] border border-[#C5A880]/30 hover:border-[#C5A880] text-[#C5A880] rounded-full transition-all flex items-center gap-1.5 text-[11px] uppercase tracking-wider shadow-sm"
             aria-label="Scroll to top of storefront"
           >
             <span>Top</span>
@@ -232,17 +232,17 @@ export const Footer: React.FC = () => {
 
       </div>
 
-      {/* Policy Modal Overlay if triggered */}
+      {/* Policy Modal Overlay if triggered (Rounded-3xl) */}
       {activePolicyModal && (
         <div
           role="dialog"
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in-up"
         >
-          <div className="relative w-full max-w-lg bg-[#171717] border border-[#C5A880]/40 p-6 text-white text-xs">
+          <div className="relative w-full max-w-lg bg-[#171717] border border-[#C5A880]/40 p-7 text-white text-xs rounded-3xl shadow-2xl">
             <button
               onClick={() => setActivePolicyModal(null)}
-              className="absolute top-4 right-4 text-[#9E9A93] hover:text-white"
+              className="absolute top-5 right-5 text-[#9E9A93] hover:text-white p-1 rounded-full"
             >
               ✕
             </button>
@@ -297,7 +297,7 @@ export const Footer: React.FC = () => {
 
             <button
               onClick={() => setActivePolicyModal(null)}
-              className="mt-6 w-full py-2 bg-[#C5A880] text-black font-semibold uppercase tracking-widest text-[11px]"
+              className="mt-6 w-full py-3 bg-[#C5A880] text-black font-semibold uppercase tracking-widest text-[11px] rounded-full shadow-goldGlow hover:bg-[#D4B489] transition-all"
             >
               Understood
             </button>
