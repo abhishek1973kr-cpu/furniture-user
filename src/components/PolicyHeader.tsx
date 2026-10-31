@@ -25,11 +25,11 @@ export const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, subtitle }) =
 
         <div className="flex items-center gap-3 sm:gap-5">
           <a
-            href="tel:+919820054321"
+            href="tel:+917488574616"
             className="hidden md:flex items-center gap-1.5 text-xs text-[#55504A] hover:text-[#8C6E43] transition-colors"
           >
             <Phone className="w-3.5 h-3.5 text-[#8C6E43]" />
-            <span>+91 98200 54321</span>
+            <span>+91 74885 74616</span>
           </a>
 
           <Link

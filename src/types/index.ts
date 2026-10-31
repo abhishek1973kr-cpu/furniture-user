@@ -111,6 +111,7 @@ export interface UserProfile {
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
+  phoneNumber?: string | null;
 }
 
 export interface UserOrder {

@@ -80,24 +80,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onSelectCatego
           </span>
         </button>
 
-        {/* 4. WhatsApp Concierge */}
-        <a
-          href="https://wa.me/919820054321?text=Hello%20LivFabs,%20I%20have%20an%20inquiry%20regarding%20Space-Saving%20Smart%20Furniture"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center justify-center py-1 px-2.5 text-[#55504A] hover:text-[#8C6E43] transition-colors rounded-xl active:scale-95 group focus:outline-none"
-          aria-label="Chat with Concierge on WhatsApp"
-        >
-          <div className="relative">
-            <MessageCircle className="w-5 h-5 text-emerald-600 transition-transform group-hover:scale-110" />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          </div>
-          <span className="text-[10px] font-medium tracking-wider uppercase mt-1 text-[#55504A]">
-            Concierge
-          </span>
-        </a>
-
-        {/* 5. Google Account Profile / Sign In */}
+        {/* 4. Account Profile / Sign In */}
         {user ? (
           <button
             onClick={openProfileModal}
@@ -124,7 +107,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onSelectCatego
           </button>
         ) : (
           <button
-            onClick={openAuthModal}
+            onClick={() => openAuthModal()}
             className="flex flex-col items-center justify-center py-1 px-2.5 text-[#55504A] hover:text-[#8C6E43] transition-colors rounded-xl active:scale-95 group focus:outline-none"
             aria-label="Sign In with Google"
           >

@@ -534,7 +534,7 @@ export const CheckoutModal: React.FC = () => {
               {/* Action Buttons (Pill Shaped) */}
               <div className="mt-6 flex flex-col sm:flex-row gap-3 w-full max-w-md">
                 <a
-                  href={`https://wa.me/919820054321?text=Hello%20LivFabs,%20I%20just%20placed%20Order%20${placedOrder.orderId}%20for%20₹${placedOrder.totalAmount}.%20Please%20share%20the%2012-hour%20dispatch%20tracking%20details.`}
+                  href={`https://wa.me/917488574616?text=Hello%20LivFabs,%20I%20just%20placed%20Order%20${placedOrder.orderId}%20for%20₹${placedOrder.totalAmount}.%20Please%20share%20the%2012-hour%20dispatch%20tracking%20details.`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-5 bg-emerald-50 border border-emerald-300 text-emerald-800 hover:bg-emerald-100 text-xs font-semibold uppercase tracking-wider rounded-full flex items-center justify-center gap-2 transition-all shadow-sm"
@@ -699,7 +699,7 @@ export const CheckoutModal: React.FC = () => {
                         value={formData.alternatePhone || ''}
                         onChange={handleChange}
                         maxLength={10}
-                        placeholder="e.g. 9820054321 (Optional emergency/courier contact)"
+                        placeholder="e.g. 7488574616 (Optional emergency/courier contact)"
                         className="w-full px-4 py-3 sm:py-2.5 bg-[#F8F5EE] border border-[#C5A880]/30 focus:border-[#8C6E43] text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all"
                       />
                       <Phone className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />

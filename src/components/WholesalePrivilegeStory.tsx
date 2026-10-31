@@ -14,45 +14,45 @@ export const WholesalePrivilegeStory: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 mb-3">
               <span className="w-8 h-[1px] bg-[#C5A880]" />
-              <span className="text-xs uppercase tracking-[0.3em] text-[#8C6E43] font-semibold">
-                The LivFabs Furniture Atelier
+              <span className="text-xs uppercase tracking-[0.25em] text-[#8C6E43] font-semibold">
+                Direct Factory Promise
               </span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-serif text-[#1A1A1A] leading-[1.2]">
-              Why Showrooms Charge ₹7,000+ for Smart Furniture?
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#1A1A1A] leading-[1.2]">
+              Why Pay Extra at Showrooms for Smart Furniture?
             </h2>
 
-            <p className="mt-5 text-sm sm:text-base text-[#55504A] font-normal leading-relaxed">
-              Traditional high-street furniture retailers lease massive multi-thousand square-foot showrooms in prime commercial zones, incurring crippling overheads passed down to you as 400% retail markups.
+            <p className="mt-4 text-sm sm:text-base text-[#55504A] font-normal leading-relaxed">
+              Market ke bade showrooms me showroom rent aur distributor commission jodkar prices 2x to 3x badha diye jaate hain.
             </p>
 
-            <p className="mt-3 text-sm sm:text-base text-[#55504A] font-normal leading-relaxed">
-              At <strong className="text-[#1A1A1A] font-semibold">LivFabs</strong>, our smart multi-functional furniture is flat-packed directly at our precision robotic ateliers and shipped straight to your apartment door within 12 hours. By eliminating middlemen and showroom leases, we deliver architectural space-saving comfort directly at <strong className="text-[#8C6E43] font-serif font-bold text-lg">honest factory wholesale rates</strong>.
+            <p className="mt-2.5 text-sm sm:text-base text-[#55504A] font-normal leading-relaxed">
+              <strong className="text-[#1A1A1A] font-semibold">LivFabs</strong> me sabhi space-saving multi-functional furniture seedha hamari factory se aapke ghar dispatch hote hain. Middlemen aur showroom costs hatakar aapko milta hai <strong className="text-[#8C6E43] font-serif font-bold text-lg">Direct Wholesale Price</strong>, 12-hour fast shipping, aur doorstep Cash on Delivery!
             </p>
 
-            <div className="mt-8 space-y-3">
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#C5A880]/25 shadow-sm">
+            <div className="mt-7 space-y-3">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#C5A880]/25 shadow-xs">
                 <CheckCircle2 className="w-5 h-5 text-[#8C6E43] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">80% Floor Area Reclaimed</h4>
-                  <p className="text-xs text-[#55504A]">Dual-fold mechanisms and nesting engineering liberate square footage instantly in 1BHKs and studios.</p>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">80% Space Saving</h4>
+                  <p className="text-xs text-[#55504A]">Easy folding design jo 1BHK aur compact rooms me turant jagah khali kar deta hai.</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#C5A880]/25 shadow-sm">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#C5A880]/25 shadow-xs">
                 <CheckCircle2 className="w-5 h-5 text-[#8C6E43] shrink-0 mt-0.5" />
                 <div>
                   <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">Fast 12-Hour Priority Dispatch</h4>
-                  <p className="text-xs text-[#55504A]">Zero waiting. Orders pass transit padding inspection and dispatch via express logistics within 12 hours.</p>
+                  <p className="text-xs text-[#55504A]">Hafte bhar ka intezaar nahi. Order confirm hote hi 12 hours ke andar express dispatch.</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#C5A880]/25 shadow-sm">
+              <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-[#FFFFFF] border border-[#C5A880]/25 shadow-xs">
                 <CheckCircle2 className="w-5 h-5 text-[#8C6E43] shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">100% Cash On Delivery Assurance</h4>
-                  <p className="text-xs text-[#55504A]">Inspect the heavy-duty build and finish right at your doorstep before paying.</p>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">100% Cash On Delivery Available</h4>
+                  <p className="text-xs text-[#55504A]">Apne doorstep par box check karein, uske baad cash ya UPI se payment karein.</p>
                 </div>
               </div>
             </div>

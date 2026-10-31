@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Eye, ShoppingBag, Zap, Star, Check } from 'lucide-react';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { LuxuryImage } from '@/components/LuxuryImage';
 
 interface ProductCardProps {
@@ -12,6 +13,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { openProductDetail, openCheckout, addToCart } = useCart();
+  const { user, openAuthModal } = useAuth();
   const [isHovered, setIsHovered] = useState(false);
   const [addedAnimation, setAddedAnimation] = useState(false);
 
@@ -24,7 +26,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleBuyNow = (e: React.MouseEvent) => {
     e.stopPropagation();
-    openCheckout(product, 1);
+    if (!user) {
+      openAuthModal(() => {
+        openCheckout(product, 1);
+      });
+    } else {
+      openCheckout(product, 1);
+    }
   };
 
   const primaryImage = product.images[0];

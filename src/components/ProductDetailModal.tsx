@@ -159,7 +159,13 @@ export const ProductDetailModal: React.FC = () => {
 
   const handleBuyNow = () => {
     closeProductDetail();
-    openCheckout(product, quantity);
+    if (!user) {
+      openAuthModal(() => {
+        openCheckout(product, quantity);
+      });
+    } else {
+      openCheckout(product, quantity);
+    }
   };
 
   const handleAddToCart = () => {
@@ -196,7 +202,7 @@ export const ProductDetailModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="product-detail-title"
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in-up"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/75 backdrop-blur-md animate-fade-in-up"
     >
       {/* Background click to dismiss */}
       <div
@@ -205,28 +211,32 @@ export const ProductDetailModal: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Modal Card with Smooth Rounded-t-3xl on Mobile & Rounded-3xl on Desktop */}
+      {/* Modal Card - Fixed mobile cut-off & standard responsive bottom-sheet height */}
       <div
         id="product-detail-modal-card"
-        className="relative w-full max-w-4xl h-[92vh] sm:h-auto sm:max-h-[90vh] overflow-y-auto bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] rounded-t-3xl sm:rounded-3xl flex flex-col"
+        className="relative w-full max-w-4xl h-[86vh] sm:h-auto sm:max-h-[88vh] overflow-y-auto bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] rounded-t-3xl sm:rounded-3xl flex flex-col"
       >
         
         {/* Mobile Pull-Down Drag Indicator */}
         <div className="w-12 h-1.5 bg-[#C5A880]/40 rounded-full mx-auto my-2 sm:hidden shrink-0" />
 
-        {/* Sticky Close Button in Top Right */}
-        <div className="sticky top-0 z-40 flex justify-end p-3 pointer-events-none">
+        {/* Sticky Header Bar with Title and Close Button */}
+        <div className="sticky top-0 z-30 flex items-center justify-between px-5 py-3 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#C5A880]/20 shrink-0">
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#8C6E43]">
+            Quick Product View
+          </span>
+
           <button
             onClick={closeProductDetail}
-            className="pointer-events-auto p-2 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF]/95 hover:bg-[#F5F2EB] border border-[#C5A880]/40 rounded-full transition-colors shadow-md backdrop-blur-sm active:scale-95"
+            className="p-1.5 text-[#7E7870] hover:text-[#1A1A1A] bg-[#F5F2EB] hover:bg-[#EAE4D8] border border-[#C5A880]/40 rounded-full transition-colors active:scale-95 cursor-pointer shadow-xs"
             aria-label="Close product view"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* ================= SECTION 1: PRODUCT HERO & SPECIFICATIONS ================= */}
-        <div className="flex flex-col md:flex-row -mt-12 border-b border-[#C5A880]/20">
+        <div className="flex flex-col md:flex-row border-b border-[#C5A880]/20">
           
           {/* LEFT: 8-Image Gallery with Fluid Switching Animation */}
           <div className="w-full md:w-1/2 p-5 sm:p-6 flex flex-col justify-between bg-[#FDFBF7] border-b md:border-b-0 md:border-r border-[#C5A880]/20">
@@ -633,7 +643,7 @@ export const ProductDetailModal: React.FC = () => {
                 {/* Prominent Login with Google Button */}
                 <button
                   type="button"
-                  onClick={openAuthModal}
+                  onClick={() => openAuthModal()}
                   className="inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#FFFFFF] hover:bg-[#FDFBF7] border border-[#C5A880]/50 hover:border-[#8C6E43] rounded-full text-xs font-semibold text-[#1A1A1A] transition-all shadow-md group cursor-pointer"
                 >
                   <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24">

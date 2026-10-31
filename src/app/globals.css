@@ -37,6 +37,15 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Fix for iPhone / iOS Safari auto-zoom on input focus */
+@media screen and (max-width: 768px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
 /* Custom Luxury Gold Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

@@ -3,6 +3,7 @@
 import React from 'react';
 import { X, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Zap, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 import { LuxuryImage } from '@/components/LuxuryImage';
 
 export const CartDrawer: React.FC = () => {
@@ -17,12 +18,19 @@ export const CartDrawer: React.FC = () => {
     totalSaved,
     openCheckout,
   } = useCart();
+  const { user, openAuthModal } = useAuth();
 
   if (!isCartOpen) return null;
 
   const handleProceedToCheckout = () => {
     closeCart();
-    openCheckout();
+    if (!user) {
+      openAuthModal(() => {
+        openCheckout();
+      });
+    } else {
+      openCheckout();
+    }
   };
 
   return (
@@ -34,13 +42,14 @@ export const CartDrawer: React.FC = () => {
     >
       {/* Blurred dark backdrop */}
       <div
-        className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
         onClick={closeCart}
         aria-hidden="true"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
-        <div className="w-screen max-w-md bg-[#FFFFFF] border-l border-[#C5A880]/30 shadow-2xl flex flex-col text-[#1A1A1A] animate-fade-in-up rounded-l-3xl overflow-hidden">
+      {/* Side Slider Panel - Leaving visible backdrop on mobile so it doesn't take 100% full screen */}
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
+        <div className="w-[85vw] sm:w-[420px] max-w-md bg-[#FFFFFF] border-l border-[#C5A880]/30 shadow-2xl flex flex-col text-[#1A1A1A] animate-fade-in-up rounded-l-3xl overflow-hidden">
           
           {/* Header */}
           <div className="p-5 border-b border-[#C5A880]/20 bg-[#F8F5EE] flex items-center justify-between">

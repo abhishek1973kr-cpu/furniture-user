@@ -69,10 +69,10 @@ export default function ContactUsPage() {
                       Customer Service Helpline:
                     </strong>
                     <a
-                      href="tel:+919820054321"
+                      href="tel:+917488574616"
                       className="text-[#8C6E43] font-semibold hover:underline block"
                     >
-                      +91 98200 54321 (Toll-Free Priority Desk)
+                      +91 74885 74616 (Call & WhatsApp Priority Desk)
                     </a>
                     <span className="text-[11px] text-[#7E7870] mt-0.5 block">
                       Direct phone & WhatsApp support
