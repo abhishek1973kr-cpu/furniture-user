@@ -7,6 +7,9 @@ import {
   orderBy,
   where,
   getDocs,
+  doc,
+  getDoc,
+  setDoc,
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import { Product, CartItem, OrderFormValues, ProductCategory, UserProfile, UserOrder } from '@/types';
@@ -14,6 +17,69 @@ import { MOCK_PRODUCTS } from '@/data/mockData';
 
 const INVENTORY_COLLECTION = 'inventoryItems';
 const ORDERS_COLLECTION = 'orders';
+const USERS_COLLECTION = 'users';
+
+/**
+ * 5. Firestore Sync:
+ * On successful login (Google or Phone OTP), check if the user exists in the `users` Firestore collection.
+ * If not, create a new document with their UID, phone/email, and creation date.
+ */
+export async function syncUserWithFirestore(user: {
+  uid: string;
+  email?: string | null;
+  phoneNumber?: string | null;
+  displayName?: string | null;
+  photoURL?: string | null;
+}): Promise<void> {
+  if (!db || !user?.uid) return;
+
+  try {
+    const userDocRef = doc(db, USERS_COLLECTION, user.uid);
+    const userSnap = await getDoc(userDocRef);
+
+    const now = new Date();
+    const formattedDate = now.toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    if (!userSnap.exists()) {
+      // Create new user profile document in Firestore
+      await setDoc(userDocRef, {
+        uid: user.uid,
+        email: user.email || null,
+        phoneNumber: user.phoneNumber || null,
+        displayName: user.displayName || 'LivFabs Patron',
+        photoURL: user.photoURL || null,
+        createdAt: serverTimestamp(),
+        creationDate: formattedDate,
+        createdAtIso: now.toISOString(),
+        authProvider: user.phoneNumber ? 'phone' : 'google',
+        role: 'customer',
+      });
+      console.log('New user registered & synced to Firestore users collection:', user.uid);
+    } else {
+      // Update last active metadata
+      await setDoc(
+        userDocRef,
+        {
+          lastLoginAt: serverTimestamp(),
+          lastLoginDate: formattedDate,
+          displayName: user.displayName || userSnap.data()?.displayName,
+          email: user.email || userSnap.data()?.email,
+          phoneNumber: user.phoneNumber || userSnap.data()?.phoneNumber,
+          photoURL: user.photoURL || userSnap.data()?.photoURL,
+        },
+        { merge: true }
+      );
+    }
+  } catch (err) {
+    console.warn('Firestore user sync notice:', err);
+  }
+}
 
 /**
  * Maps a Firestore document data object into the Storefront's Product model

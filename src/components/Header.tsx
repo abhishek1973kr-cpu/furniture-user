@@ -146,9 +146,9 @@ export const Header: React.FC<HeaderProps> = ({
             {user ? (
               <button
                 onClick={openProfileModal}
-                className="hidden sm:flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-full bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] transition-all shadow-xs group"
-                title={`Signed in as ${user.displayName || user.email}`}
-                aria-label="My Account"
+                className="hidden sm:flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] transition-all shadow-xs group cursor-pointer"
+                title={`Signed in as ${user.displayName || user.email || 'LivFabs Patron'}`}
+                aria-label="My Profile"
               >
                 {user.photoURL ? (
                   <img
@@ -161,19 +161,19 @@ export const Header: React.FC<HeaderProps> = ({
                     {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
                   </div>
                 )}
-                <span className="text-xs font-medium max-w-[85px] truncate text-[#1A1A1A]">
-                  {user.displayName?.split(' ')[0] || 'Orders'}
+                <span className="text-xs font-semibold text-[#1A1A1A]">
+                  My Profile
                 </span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
               </button>
             ) : (
               <button
                 onClick={() => openAuthModal()}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4EFEB] border border-[#C5A880]/40 hover:border-[#8C6E43] text-[#1A1A1A] hover:text-[#8C6E43] transition-all text-xs tracking-wider uppercase font-medium shadow-xs"
-                aria-label="Sign In"
+                className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F4EFEB] border border-[#C5A880]/40 hover:border-[#8C6E43] text-[#1A1A1A] hover:text-[#8C6E43] transition-all text-xs tracking-wider uppercase font-semibold shadow-xs cursor-pointer"
+                aria-label="Login"
               >
                 <UserIcon className="w-3.5 h-3.5 text-[#8C6E43]" />
-                <span className="text-[11px] font-semibold">Sign In</span>
+                <span className="text-[11px] font-semibold">Login</span>
               </button>
             )}
 

@@ -102,18 +102,18 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onSelectCatego
               <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 border border-white" />
             </div>
             <span className="text-[10px] font-medium tracking-wider uppercase mt-1 text-[#1A1A1A] max-w-[48px] truncate">
-              {user.displayName?.split(' ')[0] || 'Account'}
+              {user.displayName?.split(' ')[0] || 'Profile'}
             </span>
           </button>
         ) : (
           <button
             onClick={() => openAuthModal()}
             className="flex flex-col items-center justify-center py-1 px-2.5 text-[#55504A] hover:text-[#8C6E43] transition-colors rounded-xl active:scale-95 group focus:outline-none"
-            aria-label="Sign In with Google"
+            aria-label="Login or Sign In"
           >
             <UserIcon className="w-5 h-5 text-[#55504A] transition-transform group-hover:scale-110 group-hover:text-[#8C6E43]" />
             <span className="text-[10px] font-medium tracking-wider uppercase mt-1 text-[#55504A]">
-              Sign In
+              Login
             </span>
           </button>
         )}
