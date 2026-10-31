@@ -59,50 +59,26 @@ export const Hero: React.FC<HeroProps> = ({ onExplore }) => {
             Reclaim up to 80% of your apartment floor space with multi-functional modular sofa beds, 5-in-1 ottoman cubes, wall-mounted work desks, and rolling underbed storage.
           </p>
 
-          {/* Action CTAs (Pill Rounded-full) */}
+          {/* Action CTAs (Pill Rounded-full) - Unified All Collections */}
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
-              onClick={() => onExplore('Smart Living')}
-              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-[#FDFBF7] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md flex items-center justify-center gap-2 group"
+              onClick={() => onExplore('All')}
+              className="w-full sm:w-auto px-8 py-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-[#FDFBF7] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md flex items-center justify-center gap-2 group cursor-pointer"
             >
-              <span>Explore Smart Living</span>
+              <span>Explore All Smart Furniture</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
 
             <button
-              onClick={() => onExplore('Flexi Work & Dine')}
-              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#FFFFFF] hover:bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
+              onClick={() => {
+                onExplore('All');
+                const catalogElem = document.getElementById('catalog');
+                if (catalogElem) catalogElem.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="w-full sm:w-auto px-8 py-4 bg-[#FFFFFF] hover:bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>Explore Flexi Work & Dine</span>
-              <ArrowRight className="w-4 h-4 text-[#8C6E43]" />
-            </button>
-          </div>
-
-          {/* Quick Mobile Category Chips Slider (1-Tap thumb navigation) */}
-          <div className="mt-6 flex items-center justify-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:hidden">
-            <button
-              onClick={() => onExplore('Smart Living')}
-              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
-            >
-              🛋️ Smart Living
-            </button>
-            <button
-              onClick={() => onExplore('On-The-Go Comfort')}
-              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
-            >
-              🛏️ On-The-Go
-            </button>
-            <button
-              onClick={() => onExplore('Flexi Work & Dine')}
-              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
-            >
-              💼 Flexi Work
-            </button>
-            <button
-              onClick={() => onExplore('Storage & Utility')}
-              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
-            >
-              📦 Storage
+              <span>View All Wholesale Inventory</span>
+              <Sparkles className="w-4 h-4 text-[#8C6E43]" />
             </button>
           </div>
 
@@ -123,93 +99,52 @@ export const Hero: React.FC<HeroProps> = ({ onExplore }) => {
 
             <span className="hidden sm:inline text-black/20">•</span>
             <span className="text-[10px] sm:text-[11px] text-[#8C6E43] font-semibold tracking-wide w-full sm:w-auto text-center">
-              ⚡ Orders placed now dispatch today
+              ⚡ Orders placed now dispatch today via heavy express logistics
             </span>
           </div>
         </div>
 
-        {/* Featured Showcase Grid Cards with Generous Rounded-3xl Corners */}
-        <div className="mt-14 sm:mt-18 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
-          {/* Showcase Card 1: Smart Living */}
+        {/* Featured Showcase: Unified All Collections Atelier Showcase (Category 01 & 02 Removed) */}
+        <div className="mt-12 sm:mt-16 max-w-5xl mx-auto">
           <div
-            onClick={() => onExplore('Smart Living')}
+            onClick={() => onExplore('All')}
             className="group relative cursor-pointer overflow-hidden border border-[#C5A880]/30 bg-[#FFFFFF] hover:border-[#8C6E43] transition-all duration-500 shadow-md rounded-3xl"
           >
-            <div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-3xl">
+            <div className="relative h-64 sm:h-80 md:h-96 w-full overflow-hidden rounded-3xl">
               <LuxuryImage
-                src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1000&auto=format&fit=crop"
-                alt="Smart Living Modular Sofa Cum Bed"
+                src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=1200&auto=format&fit=crop"
+                alt="All LivFabs Space-Saving Smart Furniture Collections"
                 fill
                 priority
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105 rounded-3xl"
-                fallbackTitle="Smart Living Modular Sofa Cum Bed"
+                fallbackTitle="All LivFabs Smart Furniture Collections"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent rounded-3xl" />
             </div>
 
-            <div className="absolute bottom-0 inset-x-0 p-6 flex items-end justify-between">
+            <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 flex items-end justify-between">
               <div>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[#E3CEB2] font-semibold">
-                  Category 01
+                  All Collections
                 </span>
-                <h3 className="text-xl sm:text-2xl font-serif text-[#F9F8F6] mt-1 group-hover:text-[#E3CEB2] transition-colors">
-                  Smart Living
+                <h3 className="text-xl sm:text-3xl font-serif text-[#F9F8F6] mt-1 group-hover:text-[#E3CEB2] transition-colors font-medium">
+                  Complete Space-Saving Furniture Curations
                 </h3>
-                <p className="text-xs text-white/80 mt-1">
-                  Sofa cum beds, 5-in-1 ottoman cube & wall murphy beds
+                <p className="text-xs sm:text-sm text-white/80 mt-1 max-w-xl">
+                  Modular velvet sofa cum beds, 5-in-1 ottoman cubes, wall-mounted drop-leaf desks, and rolling underbed trunks.
                 </p>
                 <div className="mt-3 flex items-center gap-3">
-                  <span className="text-lg font-serif font-bold text-[#E3CEB2]">Smart Innovations</span>
+                  <span className="text-base sm:text-lg font-serif font-bold text-[#E3CEB2]">
+                    Direct Factory Wholesale
+                  </span>
                   <span className="text-[10px] px-3 py-1 bg-[#C5A880]/30 text-white border border-[#C5A880]/50 font-medium rounded-full backdrop-blur-sm">
-                    FACTORY DIRECT
+                    100% Cash on Delivery
                   </span>
                 </div>
               </div>
 
-              <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white group-hover:bg-[#C5A880] group-hover:text-black transition-colors shrink-0 shadow-md">
-                <ArrowRight className="w-4 h-4" />
-              </div>
-            </div>
-          </div>
-
-          {/* Showcase Card 2: Flexi Work & Dine */}
-          <div
-            onClick={() => onExplore('Flexi Work & Dine')}
-            className="group relative cursor-pointer overflow-hidden border border-[#C5A880]/30 bg-[#FFFFFF] hover:border-[#8C6E43] transition-all duration-500 shadow-md rounded-3xl"
-          >
-            <div className="relative h-72 sm:h-80 w-full overflow-hidden rounded-3xl">
-              <LuxuryImage
-                src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?q=80&w=1000&auto=format&fit=crop"
-                alt="Flexi Work and Dine Smart Tables"
-                fill
-                priority
-                className="object-cover object-center transition-transform duration-700 group-hover:scale-105 rounded-3xl"
-                fallbackTitle="Flexi Work and Dine Smart Tables"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent rounded-3xl" />
-            </div>
-
-            <div className="absolute bottom-0 inset-x-0 p-6 flex items-end justify-between">
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-[#E3CEB2] font-semibold">
-                  Category 02
-                </span>
-                <h3 className="text-xl sm:text-2xl font-serif text-[#F9F8F6] mt-1 group-hover:text-[#E3CEB2] transition-colors">
-                  Flexi Work & Dine
-                </h3>
-                <p className="text-xs text-white/80 mt-1">
-                  Wall drop-leaf tables, bed desks & extendable dining sets
-                </p>
-                <div className="mt-3 flex items-center gap-3">
-                  <span className="text-lg font-serif font-bold text-[#E3CEB2]">Space-Saving Tables</span>
-                  <span className="text-[10px] px-3 py-1 bg-[#C5A880]/30 text-white border border-[#C5A880]/50 font-medium rounded-full backdrop-blur-sm">
-                    FACTORY DIRECT
-                  </span>
-                </div>
-              </div>
-
-              <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white group-hover:bg-[#C5A880] group-hover:text-black transition-colors shrink-0 shadow-md">
-                <ArrowRight className="w-4 h-4" />
+              <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white group-hover:bg-[#C5A880] group-hover:text-black transition-colors shrink-0 shadow-md">
+                <ArrowRight className="w-5 h-5" />
               </div>
             </div>
           </div>

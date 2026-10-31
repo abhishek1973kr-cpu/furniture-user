@@ -139,3 +139,4 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({ onSelectCatego
     </nav>
   );
 };
+

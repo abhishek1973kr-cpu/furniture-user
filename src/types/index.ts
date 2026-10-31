@@ -53,6 +53,7 @@ export interface CartItem {
 export interface OrderFormValues {
   fullName: string;
   phoneNumber: string;
+  alternatePhone?: string;
   email?: string;
   streetAddress: string;
   landmark?: string;
@@ -78,6 +79,7 @@ export interface FirestoreOrderPayload {
   customerName: string;
   phone: string;
   phoneNumber: string;
+  alternatePhone?: string;
   fullAddress: string;
   paymentMethod: 'COD' | string;
   orderDate: string;

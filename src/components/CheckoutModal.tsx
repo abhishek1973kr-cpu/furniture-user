@@ -9,6 +9,45 @@ import { OrderFormValues, ConfirmedOrder } from '@/types';
 import { createFirestoreOrder } from '@/services/firebaseService';
 import { LuxuryImage } from '@/components/LuxuryImage';
 
+const ALL_INDIAN_STATES = [
+  'Andhra Pradesh',
+  'Arunachal Pradesh',
+  'Assam',
+  'Bihar',
+  'Chhattisgarh',
+  'Delhi (NCR)',
+  'Goa',
+  'Gujarat',
+  'Haryana',
+  'Himachal Pradesh',
+  'Jammu and Kashmir',
+  'Jharkhand',
+  'Karnataka',
+  'Kerala',
+  'Ladakh',
+  'Madhya Pradesh',
+  'Maharashtra',
+  'Manipur',
+  'Meghalaya',
+  'Mizoram',
+  'Nagaland',
+  'Odisha',
+  'Punjab',
+  'Rajasthan',
+  'Sikkim',
+  'Tamil Nadu',
+  'Telangana',
+  'Tripura',
+  'Uttar Pradesh',
+  'Uttarakhand',
+  'West Bengal',
+  'Andaman and Nicobar Islands',
+  'Chandigarh',
+  'Dadra and Nagar Haveli and Daman and Diu',
+  'Lakshadweep',
+  'Puducherry',
+];
+
 export const CheckoutModal: React.FC = () => {
   const {
     isCheckoutOpen,
@@ -26,6 +65,7 @@ export const CheckoutModal: React.FC = () => {
   const [formData, setFormData] = useState<OrderFormValues>({
     fullName: '',
     phoneNumber: '',
+    alternatePhone: '',
     email: '',
     streetAddress: '',
     landmark: '',
@@ -137,7 +177,7 @@ export const CheckoutModal: React.FC = () => {
           hour: '2-digit',
           minute: '2-digit',
         }),
-        estimatedDelivery: '2 - 3 Business Days (12-Hour Priority Dispatch)',
+        estimatedDelivery: '5 – 7 Business Days (12-Hour Priority Dispatch)',
       };
 
       setPlacedOrder(order);
@@ -435,6 +475,31 @@ export const CheckoutModal: React.FC = () => {
                     </div>
                   </div>
 
+                  {/* Alternate Phone Number (Optional) */}
+                  <div>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <label className="block text-[11px] uppercase tracking-wider text-[#55504A] font-medium">
+                        Alternate Mobile Number
+                      </label>
+                      <span className="text-[10px] text-[#8C6E43] font-semibold uppercase tracking-wider bg-[#F5F2EB] px-2.5 py-0.5 rounded-full border border-[#C5A880]/30">
+                        Optional
+                      </span>
+                    </div>
+                    <div className="relative">
+                      <input
+                        type="tel"
+                        inputMode="tel"
+                        name="alternatePhone"
+                        value={formData.alternatePhone || ''}
+                        onChange={handleChange}
+                        maxLength={10}
+                        placeholder="e.g. 9820054321 (Optional emergency/courier contact)"
+                        className="w-full px-4 py-3 sm:py-2.5 bg-[#F8F5EE] border border-[#C5A880]/30 focus:border-[#8C6E43] text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all"
+                      />
+                      <Phone className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
+                    </div>
+                  </div>
+
                   {/* Street Address */}
                   <div>
                     <label className="block text-[11px] uppercase tracking-wider text-[#55504A] font-medium mb-1.5">
@@ -457,7 +522,7 @@ export const CheckoutModal: React.FC = () => {
                   </div>
 
                   {/* City, State, PIN code */}
-                  <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div>
                       <label className="block text-[11px] uppercase tracking-wider text-[#55504A] font-medium mb-1.5">
                         City *
@@ -467,7 +532,7 @@ export const CheckoutModal: React.FC = () => {
                         name="city"
                         value={formData.city}
                         onChange={handleChange}
-                        placeholder="Mumbai"
+                        placeholder="e.g. Mumbai / Delhi"
                         className={`w-full px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                           errors.city ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                         }`}
@@ -477,25 +542,19 @@ export const CheckoutModal: React.FC = () => {
 
                     <div>
                       <label className="block text-[11px] uppercase tracking-wider text-[#55504A] font-medium mb-1.5">
-                        State
+                        State (All India) *
                       </label>
                       <select
                         name="state"
                         value={formData.state}
                         onChange={handleChange}
-                        className="w-full px-2 sm:px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border border-[#C5A880]/30 text-sm sm:text-xs text-[#1A1A1A] rounded-xl focus:outline-none focus:border-[#8C6E43] transition-all"
+                        className="w-full px-2 sm:px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border border-[#C5A880]/30 text-sm sm:text-xs text-[#1A1A1A] rounded-xl focus:outline-none focus:border-[#8C6E43] transition-all cursor-pointer"
                       >
-                        <option value="Maharashtra">Maharashtra</option>
-                        <option value="Karnataka">Karnataka</option>
-                        <option value="Delhi">Delhi NCR</option>
-                        <option value="Telangana">Telangana</option>
-                        <option value="Tamil Nadu">Tamil Nadu</option>
-                        <option value="Gujarat">Gujarat</option>
-                        <option value="Rajasthan">Rajasthan</option>
-                        <option value="West Bengal">West Bengal</option>
-                        <option value="Uttar Pradesh">Uttar Pradesh</option>
-                        <option value="Punjab">Punjab</option>
-                        <option value="Other">All Other States</option>
+                        {ALL_INDIAN_STATES.map((st) => (
+                          <option key={st} value={st} className="bg-[#FFFFFF] text-[#1A1A1A]">
+                            {st}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
@@ -510,7 +569,7 @@ export const CheckoutModal: React.FC = () => {
                         maxLength={6}
                         value={formData.pincode}
                         onChange={handleChange}
-                        placeholder="400050"
+                        placeholder="e.g. 400050"
                         className={`w-full px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                           errors.pincode ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                         }`}
@@ -518,6 +577,45 @@ export const CheckoutModal: React.FC = () => {
                       {errors.pincode && <p className="text-[10px] text-red-600 mt-1">{errors.pincode}</p>}
                     </div>
                   </div>
+
+                  {/* 5 se 7 Din Delivery Reassurance Banner (Triggered when 6-digit PIN is entered) */}
+                  {formData.pincode.trim().length === 6 ? (
+                    <div className="p-3.5 bg-emerald-50/90 border border-emerald-300 rounded-2xl flex items-start gap-3 animate-fade-in-up shadow-xs">
+                      <div className="w-8 h-8 rounded-full bg-emerald-100 border border-emerald-300 flex items-center justify-center shrink-0 text-emerald-800">
+                        <Truck className="w-4 h-4 text-emerald-700" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-emerald-950 text-xs sm:text-sm flex items-center gap-1">
+                            ⚡ 5 se 7 Din me Delivery Hogi (5 – 7 Days)
+                          </span>
+                          <span className="text-[10px] font-mono font-semibold bg-emerald-200/80 px-2 py-0.5 rounded-full text-emerald-900">
+                            PIN: {formData.pincode}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-emerald-850 mt-0.5 leading-relaxed">
+                          Aapke PIN code <strong>{formData.pincode}</strong> par standard logistics se <strong>5 se 7 din</strong> lagenge.
+                        </p>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-emerald-800 font-medium">
+                          <span className="flex items-center gap-1 font-semibold text-emerald-950">
+                            <Zap className="w-3 h-3 fill-emerald-600 text-emerald-600" />
+                            12 Ghante Me Dispatch Guaranteed
+                          </span>
+                          <span>•</span>
+                          <span className="font-semibold text-emerald-950">
+                            100% Cash on Delivery Available
+                          </span>
+                          <span>•</span>
+                          <span>Free Doorstep Inspection</span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1.5 text-[11px] text-[#7E7870] px-1">
+                      <Truck className="w-3.5 h-3.5 text-[#8C6E43] shrink-0" />
+                      <span>PIN code enter karein — standard delivery me 5 se 7 din lagenge.</span>
+                    </div>
+                  )}
 
                   {/* Payment Selection: Cash on Delivery preselected (Rounded-2xl cards) */}
                   <div className="pt-2">

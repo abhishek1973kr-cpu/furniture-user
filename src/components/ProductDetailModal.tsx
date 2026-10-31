@@ -106,8 +106,10 @@ export const ProductDetailModal: React.FC = () => {
   const {
     selectedProductForDetail,
     closeProductDetail,
+    openProductDetail,
     addToCart,
     openCheckout,
+    products,
   } = useCart();
 
   const { user, openAuthModal } = useAuth();
@@ -121,6 +123,23 @@ export const ProductDetailModal: React.FC = () => {
   const [newRating, setNewRating] = useState<number>(5);
   const [newComment, setNewComment] = useState<string>('');
   const [reviewSuccess, setReviewSuccess] = useState(false);
+
+  // Filter other inventory products from Firebase collection (excluding current product)
+  const otherProducts = React.useMemo(() => {
+    if (!selectedProductForDetail) return [];
+    return products.filter((p) => p.id !== selectedProductForDetail.id);
+  }, [products, selectedProductForDetail]);
+
+  const handleSelectOtherProduct = (otherProd: typeof products[0]) => {
+    openProductDetail(otherProd);
+    setActiveImageIndex(0);
+    setQuantity(1);
+    setJustAdded(false);
+    const modalContainer = document.getElementById('product-detail-modal-card');
+    if (modalContainer) {
+      modalContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Reset image index when opened with a new product
   useEffect(() => {
@@ -187,7 +206,10 @@ export const ProductDetailModal: React.FC = () => {
       />
 
       {/* Modal Card with Smooth Rounded-t-3xl on Mobile & Rounded-3xl on Desktop */}
-      <div className="relative w-full max-w-4xl h-[92vh] sm:h-auto sm:max-h-[90vh] overflow-y-auto bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] rounded-t-3xl sm:rounded-3xl flex flex-col">
+      <div
+        id="product-detail-modal-card"
+        className="relative w-full max-w-4xl h-[92vh] sm:h-auto sm:max-h-[90vh] overflow-y-auto bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] rounded-t-3xl sm:rounded-3xl flex flex-col"
+      >
         
         {/* Mobile Pull-Down Drag Indicator */}
         <div className="w-12 h-1.5 bg-[#C5A880]/40 rounded-full mx-auto my-2 sm:hidden shrink-0" />
@@ -410,6 +432,80 @@ export const ProductDetailModal: React.FC = () => {
 
           </div>
         </div>
+
+        {/* ================= SECTION: MORE SMART FURNITURE CREATIONS (OTHER PRODUCTS) ================= */}
+        {otherProducts.length > 0 && (
+          <div className="p-5 sm:p-8 bg-[#F8F5EE] border-b border-[#C5A880]/20">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#C5A880]/20 mb-5">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#8C6E43] font-bold">
+                    LivFabs Atelier Curations
+                  </span>
+                  <span className="bg-[#FFFFFF] border border-[#C5A880]/40 text-[#8C6E43] text-[9px] font-semibold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    Direct Wholesale
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-2xl font-serif text-[#1A1A1A] font-semibold mt-1">
+                  Explore More Space-Saving Creations
+                </h3>
+              </div>
+              <span className="text-xs text-[#7E7870]">
+                {otherProducts.length} more multi-functional designs
+              </span>
+            </div>
+
+            {/* Other Products Touch Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+              {otherProducts.slice(0, 6).map((otherProd) => (
+                <div
+                  key={otherProd.id}
+                  onClick={() => handleSelectOtherProduct(otherProd)}
+                  className="group bg-[#FFFFFF] border border-[#C5A880]/30 hover:border-[#8C6E43] rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition-all shadow-xs hover:shadow-md cursor-pointer active:scale-95"
+                >
+                  <div>
+                    {/* Image */}
+                    <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-[#F4EFEB] mb-2.5">
+                      <LuxuryImage
+                        src={otherProd.images[0]}
+                        alt={otherProd.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                        fallbackTitle={otherProd.title}
+                      />
+                      <span className="absolute top-2 left-2 bg-[#1A1A1A]/85 text-[#FDFBF7] text-[9px] font-semibold px-2 py-0.5 rounded-full backdrop-blur-xs">
+                        12h Dispatch
+                      </span>
+                    </div>
+
+                    {/* Category & Title */}
+                    <span className="text-[9px] uppercase tracking-wider text-[#8C6E43] font-semibold block truncate">
+                      {otherProd.category}
+                    </span>
+                    <h4 className="text-xs sm:text-sm font-serif font-semibold text-[#1A1A1A] line-clamp-1 group-hover:text-[#8C6E43] transition-colors mt-0.5">
+                      {otherProd.title}
+                    </h4>
+                  </div>
+
+                  {/* Price & Action */}
+                  <div className="mt-3 pt-2.5 border-t border-[#C5A880]/15 flex items-baseline justify-between">
+                    <div>
+                      <span className="text-sm sm:text-base font-serif font-bold text-[#8C6E43]">
+                        ₹{otherProd.wholesalePrice.toLocaleString('en-IN')}
+                      </span>
+                      <span className="ml-1.5 text-[10px] line-through text-[#7E7870]">
+                        ₹{otherProd.originalPrice.toLocaleString('en-IN')}
+                      </span>
+                    </div>
+                    <span className="text-[10px] uppercase font-bold text-[#1A1A1A] group-hover:text-[#8C6E43] transition-colors flex items-center gap-1">
+                      View →
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* ================= SECTION 2: CUSTOMER REVIEWS & WRITE A REVIEW ================= */}
         <div className="p-6 sm:p-10 bg-[#FDFBF7]">

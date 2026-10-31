@@ -240,6 +240,7 @@ export async function createFirestoreOrder(
     // Required user fields
     customerName: formData.fullName.trim(),
     phone: formData.phoneNumber.trim(),
+    alternatePhone: formData.alternatePhone?.trim() || null,
     fullAddress: fullAddress,
     paymentMethod: 'COD', // Cash on Delivery option
     orderDate: now.toLocaleDateString('en-IN', {
