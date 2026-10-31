@@ -17,8 +17,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [addedAnimation, setAddedAnimation] = useState(false);
 
+  const isOutOfStock =
+    product.stockQuantity !== undefined ? product.stockQuantity <= 0 : !product.inStock;
+
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isOutOfStock) return;
     addToCart(product, 1);
     setAddedAnimation(true);
     setTimeout(() => setAddedAnimation(false), 1500);
@@ -26,6 +30,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleBuyNow = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (isOutOfStock) return;
     if (!user) {
       openAuthModal(() => {
         openCheckout(product, 1);
@@ -64,12 +69,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
 
-        {/* 12h Dispatch Badge Top Right (Pill Shaped) */}
+        {/* 12h Dispatch / Out of Stock Badge Top Right (Pill Shaped) */}
         <div className="absolute top-3 right-3 z-20 pointer-events-none">
-          <span className="inline-flex items-center gap-1.5 bg-white/95 border border-emerald-500/40 text-emerald-800 text-[9px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
-            <Zap className="w-2.5 h-2.5 fill-emerald-600 text-emerald-600" />
-            12h Dispatch
-          </span>
+          {isOutOfStock ? (
+            <span className="inline-flex items-center gap-1.5 bg-stone-900/90 text-stone-200 border border-stone-600/50 text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
+              Out of Stock
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 bg-white/95 border border-emerald-500/40 text-emerald-800 text-[9px] font-semibold px-3 py-1 rounded-full uppercase tracking-wider backdrop-blur-sm shadow-sm">
+              <Zap className="w-2.5 h-2.5 fill-emerald-600 text-emerald-600" />
+              12h Dispatch
+            </span>
+          )}
         </div>
 
         {/* Image Transition (Fluid thumbnail on hover with robust direct URL & fallback support) */}
@@ -141,36 +152,46 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           </div>
 
-          {/* Action Buttons: Fully Pill-Shaped with Mobile-First 44px Touch Targets */}
-          <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+          {/* Action Buttons: If Out of Stock, Replace with Inactive Greyed-Out Button */}
+          {isOutOfStock ? (
             <button
-              onClick={handleAddToCart}
-              className={`py-3 sm:py-2.5 px-3 text-xs sm:text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 active:scale-95 ${
-                addedAnimation
-                  ? 'bg-emerald-700 border-emerald-700 text-white'
-                  : 'bg-transparent border-[#C5A880]/50 text-[#1A1A1A] hover:bg-[#F5F2EB] hover:border-[#8C6E43]'
-              }`}
+              disabled
+              onClick={(e) => e.stopPropagation()}
+              className="w-full py-3 sm:py-2.5 px-4 bg-[#EAE6DF] text-[#8C827A] border border-[#D5CEC2] text-xs font-bold uppercase tracking-wider rounded-full cursor-not-allowed opacity-80 flex items-center justify-center gap-1.5 shadow-2xs select-none"
             >
-              {addedAnimation ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-white" />
-                  <span>Added</span>
-                </>
-              ) : (
-                <>
-                  <ShoppingBag className="w-3.5 h-3.5 text-[#8C6E43]" />
-                  <span>Add to Bag</span>
-                </>
-              )}
+              <span>Out of Stock</span>
             </button>
+          ) : (
+            <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
+              <button
+                onClick={handleAddToCart}
+                className={`py-3 sm:py-2.5 px-3 text-xs sm:text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 active:scale-95 ${
+                  addedAnimation
+                    ? 'bg-emerald-700 border-emerald-700 text-white'
+                    : 'bg-transparent border-[#C5A880]/50 text-[#1A1A1A] hover:bg-[#F5F2EB] hover:border-[#8C6E43]'
+                }`}
+              >
+                {addedAnimation ? (
+                  <>
+                    <Check className="w-3.5 h-3.5 text-white" />
+                    <span>Added</span>
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="w-3.5 h-3.5 text-[#8C6E43]" />
+                    <span>Add to Bag</span>
+                  </>
+                )}
+              </button>
 
-            <button
-              onClick={handleBuyNow}
-              className="py-3 sm:py-2.5 px-3 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs sm:text-[11px] font-bold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md active:scale-95"
-            >
-              <span>Buy Now (COD)</span>
-            </button>
-          </div>
+              <button
+                onClick={handleBuyNow}
+                className="py-3 sm:py-2.5 px-3 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs sm:text-[11px] font-bold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md active:scale-95"
+              >
+                <span>Buy Now (COD)</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </article>

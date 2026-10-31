@@ -200,7 +200,16 @@ export function mapFirestoreDocToProduct(id: string, data: any): Product {
           'Fast 12-hour priority dispatch with transit edge protection',
           '100% Cash on Delivery available at doorstep',
         ],
-    inStock: data.stock !== undefined ? Number(data.stock) > 0 : true,
+    stockQuantity: (() => {
+      const raw = data.stockQuantity !== undefined ? data.stockQuantity : (data.stock !== undefined ? data.stock : (data.quantity !== undefined ? data.quantity : 10));
+      const parsed = Number(raw);
+      return !isNaN(parsed) ? parsed : 0;
+    })(),
+    inStock: (() => {
+      const raw = data.stockQuantity !== undefined ? data.stockQuantity : (data.stock !== undefined ? data.stock : (data.quantity !== undefined ? data.quantity : 10));
+      const parsed = Number(raw);
+      return !isNaN(parsed) ? parsed > 0 : true;
+    })(),
     isBestseller: Boolean(data.featured || data.isBestseller),
     isNewArrival: Boolean(data.isNewArrival),
   };
@@ -286,6 +295,8 @@ export async function createFirestoreOrder(
     razorpaySignature?: string;
     paymentStatus?: string;
     paymentMethodName?: string;
+    advancePaid?: number;
+    remainingBalance?: number;
   }
 ): Promise<{ orderId: string; success: boolean }> {
   const generatedId = `LF-${Math.floor(100000 + Math.random() * 900000)}`;
@@ -325,6 +336,8 @@ export async function createFirestoreOrder(
     razorpayPaymentId: paymentDetails?.razorpayPaymentId || null,
     razorpayOrderId: paymentDetails?.razorpayOrderId || null,
     razorpaySignature: paymentDetails?.razorpaySignature || null,
+    advancePaid: paymentDetails?.advancePaid || 0,
+    remainingBalance: paymentDetails?.remainingBalance !== undefined ? paymentDetails.remainingBalance : (isOnlinePayment ? 0 : totalAmount),
     orderDate: now.toLocaleDateString('en-IN', {
       day: 'numeric',
       month: 'short',

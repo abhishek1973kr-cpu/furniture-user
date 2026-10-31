@@ -3,7 +3,6 @@ import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import { AuthProvider } from '@/context/AuthContext';
-import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -62,7 +61,6 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             {children}
-            <FloatingWhatsApp />
           </CartProvider>
         </AuthProvider>
       </body>

@@ -156,8 +156,10 @@ export const ProductDetailModal: React.FC = () => {
   if (!selectedProductForDetail) return null;
 
   const product = selectedProductForDetail;
+  const isOutOfStock = product.stockQuantity !== undefined ? product.stockQuantity <= 0 : !product.inStock;
 
   const handleBuyNow = () => {
+    if (isOutOfStock) return;
     closeProductDetail();
     if (!user) {
       openAuthModal(() => {
@@ -169,6 +171,7 @@ export const ProductDetailModal: React.FC = () => {
   };
 
   const handleAddToCart = () => {
+    if (isOutOfStock) return;
     addToCart(product, quantity);
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 2000);
@@ -378,66 +381,81 @@ export const ProductDetailModal: React.FC = () => {
               </ul>
             </div>
 
-            {/* Action Footer: Quantity Selector, Add to Bag, Buy Now */}
+            {/* Action Footer: Quantity Selector, Add to Bag, Buy Now or Out of Stock */}
             <div className="mt-6 pt-5 border-t border-[#C5A880]/20">
-              
-              {/* Quantity Selector with Rounded-full pill */}
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-xs uppercase tracking-wider text-[#55504A] font-medium">Quantity:</span>
-                <div className="flex items-center border border-[#C5A880]/40 bg-[#F8F5EE] rounded-full px-1">
+              {isOutOfStock ? (
+                <div className="space-y-2.5">
                   <button
-                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="p-2 text-[#7E7870] hover:text-[#1A1A1A] transition-colors rounded-full"
+                    disabled
+                    className="w-full py-4 px-6 bg-[#EAE6DF] text-[#8C827A] border border-[#D5CEC2] text-xs font-bold uppercase tracking-[0.2em] rounded-full cursor-not-allowed opacity-80 flex items-center justify-center gap-2 shadow-2xs select-none"
                   >
-                    <Minus className="w-3.5 h-3.5" />
+                    <span>Currently Out of Stock</span>
                   </button>
-                  <span className="px-3 text-xs font-bold text-[#1A1A1A] font-mono">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity((q) => q + 1)}
-                    className="p-2 text-[#7E7870] hover:text-[#1A1A1A] transition-colors rounded-full"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
+                  <p className="text-center text-[11px] text-[#7E7870]">
+                    This space-saving creation is temporarily sold out in our warehouse. Restocking in progress.
+                  </p>
                 </div>
-                <div className="text-right">
-                  <span className="text-[10px] text-[#7E7870] uppercase block">Total Due</span>
-                  <span className="text-base font-serif font-bold text-[#8C6E43]">
-                    ₹{(product.wholesalePrice * quantity).toLocaleString('en-IN')}
-                  </span>
-                </div>
-              </div>
+              ) : (
+                <>
+                  {/* Quantity Selector with Rounded-full pill */}
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs uppercase tracking-wider text-[#55504A] font-medium">Quantity:</span>
+                    <div className="flex items-center border border-[#C5A880]/40 bg-[#F8F5EE] rounded-full px-1">
+                      <button
+                        onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                        className="p-2 text-[#7E7870] hover:text-[#1A1A1A] transition-colors rounded-full"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <span className="px-3 text-xs font-bold text-[#1A1A1A] font-mono">{quantity}</span>
+                      <button
+                        onClick={() => setQuantity((q) => q + 1)}
+                        className="p-2 text-[#7E7870] hover:text-[#1A1A1A] transition-colors rounded-full"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-[#7E7870] uppercase block">Total Due</span>
+                      <span className="text-base font-serif font-bold text-[#8C6E43]">
+                        ₹{(product.wholesalePrice * quantity).toLocaleString('en-IN')}
+                      </span>
+                    </div>
+                  </div>
 
-              {/* Buttons Grid (Pills) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <button
-                  onClick={handleAddToCart}
-                  className="py-3.5 px-5 border border-[#C5A880]/60 hover:border-[#8C6E43] text-[#1A1A1A] text-xs font-semibold uppercase tracking-[0.16em] rounded-full transition-all flex items-center justify-center gap-2 hover:bg-[#F5F2EB]"
-                >
-                  {justAdded ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-600" />
-                      <span>Added to Bag!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Check className="w-4 h-4 text-[#8C6E43]" />
-                      <span>Add to Bag</span>
-                    </>
-                  )}
-                </button>
+                  {/* Buttons Grid (Pills) */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      onClick={handleAddToCart}
+                      className="py-3.5 px-5 border border-[#C5A880]/60 hover:border-[#8C6E43] text-[#1A1A1A] text-xs font-semibold uppercase tracking-[0.16em] rounded-full transition-all flex items-center justify-center gap-2 hover:bg-[#F5F2EB]"
+                    >
+                      {justAdded ? (
+                        <>
+                          <Check className="w-4 h-4 text-emerald-600" />
+                          <span>Added to Bag!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Check className="w-4 h-4 text-[#8C6E43]" />
+                          <span>Add to Bag</span>
+                        </>
+                      )}
+                    </button>
 
-                <button
-                  onClick={handleBuyNow}
-                  className="py-3.5 px-5 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs font-bold uppercase tracking-[0.18em] rounded-full transition-all shadow-md flex items-center justify-center gap-2"
-                >
-                  <span>Buy Now (COD)</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
+                    <button
+                      onClick={handleBuyNow}
+                      className="py-3.5 px-5 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs font-bold uppercase tracking-[0.18em] rounded-full transition-all shadow-md flex items-center justify-center gap-2"
+                    >
+                      <span>Buy Now (COD)</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
 
-              <p className="mt-2.5 text-center text-[11px] text-[#7E7870]">
-                🔒 Pay with Cash on Delivery at doorstep • Fastly shipped within 12 hours
-              </p>
+                  <p className="mt-2.5 text-center text-[11px] text-[#7E7870]">
+                    🔒 Pay with Cash on Delivery at doorstep • Fastly shipped within 12 hours
+                  </p>
+                </>
+              )}
             </div>
 
           </div>

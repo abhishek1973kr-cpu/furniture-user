@@ -101,6 +101,10 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [cartItems]);
 
   const addToCart = (product: Product, quantity = 1) => {
+    const isOutOfStock =
+      product.stockQuantity !== undefined ? product.stockQuantity <= 0 : !product.inStock;
+    if (isOutOfStock) return;
+
     setCartItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {
@@ -148,6 +152,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const openCheckout = (product?: Product, quantity = 1) => {
     if (product) {
+      const isOutOfStock =
+        product.stockQuantity !== undefined ? product.stockQuantity <= 0 : !product.inStock;
+      if (isOutOfStock) return;
       setCheckoutProduct(product);
       setCheckoutQuantity(quantity);
     } else {

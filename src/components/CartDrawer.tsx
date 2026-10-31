@@ -22,7 +22,12 @@ export const CartDrawer: React.FC = () => {
 
   if (!isCartOpen) return null;
 
+  const hasOutOfStockItem = cartItems.some(
+    (item) => (item.product.stockQuantity !== undefined ? item.product.stockQuantity <= 0 : !item.product.inStock)
+  );
+
   const handleProceedToCheckout = () => {
+    if (hasOutOfStockItem) return;
     closeCart();
     if (!user) {
       openAuthModal(() => {
@@ -119,15 +124,22 @@ export const CartDrawer: React.FC = () => {
                         </h4>
                         <button
                           onClick={() => removeFromCart(item.product.id)}
-                          className="text-[#7E7870] hover:text-red-600 p-1 rounded-full transition-colors"
+                          className="text-[#7E7870] hover:text-red-600 p-1 rounded-full transition-colors cursor-pointer"
                           title="Remove item"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       </div>
-                      <span className="text-[10px] text-[#8C6E43] font-semibold uppercase tracking-wider block mt-0.5">
-                        {item.product.category}
-                      </span>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className="text-[10px] text-[#8C6E43] font-semibold uppercase tracking-wider block">
+                          {item.product.category}
+                        </span>
+                        {(item.product.stockQuantity !== undefined ? item.product.stockQuantity <= 0 : !item.product.inStock) && (
+                          <span className="text-[9px] font-bold uppercase tracking-wider bg-red-100 text-red-700 px-2 py-0.2 rounded-full border border-red-300">
+                            Out of Stock
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Price and Quantity modifier with pill shape */}
@@ -188,12 +200,23 @@ export const CartDrawer: React.FC = () => {
               </div>
 
               <button
+                disabled={hasOutOfStockItem}
                 onClick={handleProceedToCheckout}
-                className="w-full py-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full transition-all shadow-md flex items-center justify-center gap-2"
+                className={`w-full py-4 text-xs font-bold uppercase tracking-[0.2em] rounded-full transition-all shadow-md flex items-center justify-center gap-2 ${
+                  hasOutOfStockItem
+                    ? 'bg-stone-300 text-stone-500 cursor-not-allowed border border-stone-400'
+                    : 'bg-[#1A1A1A] hover:bg-[#8C6E43] text-white cursor-pointer active:scale-98'
+                }`}
               >
-                <span>Proceed to Checkout</span>
-                <ArrowRight className="w-4 h-4" />
+                <span>{hasOutOfStockItem ? 'Item(s) Out of Stock' : 'Proceed to Checkout'}</span>
+                {!hasOutOfStockItem && <ArrowRight className="w-4 h-4" />}
               </button>
+
+              {hasOutOfStockItem && (
+                <p className="text-[11px] text-red-600 text-center font-medium">
+                  Please remove out-of-stock item(s) from your bag to proceed.
+                </p>
+              )}
 
               <div className="text-center">
                 <span className="text-[10px] text-[#55504A] flex items-center justify-center gap-1">

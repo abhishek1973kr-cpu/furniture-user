@@ -28,6 +28,7 @@ export interface Product {
   };
   features: string[];
   inStock: boolean;
+  stockQuantity?: number;
   isBestseller?: boolean;
   isNewArrival?: boolean;
 }
@@ -104,6 +105,8 @@ export interface ConfirmedOrder {
   paymentId?: string;
   razorpayOrderId?: string;
   paymentStatus?: string;
+  advancePaid?: number;
+  remainingBalance?: number;
 }
 
 export interface UserProfile {
