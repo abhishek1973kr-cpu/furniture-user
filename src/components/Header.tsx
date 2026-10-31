@@ -303,7 +303,7 @@ export const Header: React.FC<HeaderProps> = ({
                   className="mt-3.5 w-full py-3 px-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white rounded-full text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                 >
                   <UserIcon className="w-3.5 h-3.5 text-[#C5A880]" />
-                  <span>Login / Sign In (Google & OTP)</span>
+                  <span>Continue with Google</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
