@@ -60,3 +60,4 @@ export const PolicyHeader: React.FC<PolicyHeaderProps> = ({ title, subtitle }) =
     </div>
   );
 };
+

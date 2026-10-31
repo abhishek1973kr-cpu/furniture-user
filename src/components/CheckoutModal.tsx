@@ -189,7 +189,7 @@ export const CheckoutModal: React.FC = () => {
         }
 
         // Create Order on Server
-        const orderResponse = await fetch('/api/razorpay/create-order', {
+        const orderResponse = await fetch('/api/create-order', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -215,15 +215,18 @@ export const CheckoutModal: React.FC = () => {
           return;
         }
 
+        const razorpayKey = orderData.key_id || orderData.keyId || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+        const razorpayOrderId = orderData.order_id || orderData.orderId;
+
         // Open Razorpay Standard Checkout Popup
         const razorpayOptions = {
-          key: orderData.keyId,
+          key: razorpayKey,
           amount: orderData.amount,
           currency: orderData.currency || 'INR',
           name: 'LivFabs Smart Living',
           description: `Order (${itemsToBuy.length} items) • 12-Hour Priority Dispatch`,
           image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=200&auto=format&fit=crop',
-          order_id: orderData.orderId,
+          order_id: razorpayOrderId,
           prefill: {
             name: formData.fullName.trim(),
             email: formData.email?.trim() || user?.email || '',
@@ -250,7 +253,7 @@ export const CheckoutModal: React.FC = () => {
               setIsSubmitting(true);
 
               // Verify payment signature on backend
-              const verifyResponse = await fetch('/api/razorpay/verify-payment', {
+              const verifyResponse = await fetch('/api/verify-payment', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(paymentResponse),
@@ -258,7 +261,7 @@ export const CheckoutModal: React.FC = () => {
 
               const verifyData = await verifyResponse.json();
               if (!verifyResponse.ok || !verifyData.success) {
-                throw new Error('Payment signature verification failed. Please contact support.');
+                throw new Error(verifyData.error || 'Payment signature verification failed.');
               }
 
               // Save order to Firestore with payment details
