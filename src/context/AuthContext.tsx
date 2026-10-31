@@ -21,6 +21,7 @@ interface AuthContextType {
   isAuthLoading: boolean;
   isAuthModalOpen: boolean;
   isProfileModalOpen: boolean;
+  setUserProfile: (profile: UserProfile | null) => void;
   openAuthModal: (onSuccess?: () => void) => void;
   closeAuthModal: () => void;
   openProfileModal: () => void;
@@ -352,6 +353,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const setUserProfile = (profile: UserProfile | null) => {
+    setUser(profile);
+    if (profile) {
+      try {
+        localStorage.setItem('livfabs_user_session', JSON.stringify(profile));
+      } catch {}
+    } else {
+      try {
+        localStorage.removeItem('livfabs_user_session');
+      } catch {}
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -360,6 +374,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthLoading,
         isAuthModalOpen,
         isProfileModalOpen,
+        setUserProfile,
         openAuthModal,
         closeAuthModal,
         openProfileModal,
