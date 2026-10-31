@@ -48,6 +48,27 @@ const ALL_INDIAN_STATES = [
   'Puducherry',
 ];
 
+/**
+ * Dynamically loads the official Razorpay Standard Checkout SDK
+ */
+const loadRazorpayScript = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    if (typeof window !== 'undefined' && (window as any).Razorpay) {
+      resolve(true);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => resolve(true);
+    script.onerror = () => {
+      console.error('Failed to load Razorpay checkout.js script');
+      resolve(false);
+    };
+    document.body.appendChild(script);
+  });
+};
+
 export const CheckoutModal: React.FC = () => {
   const {
     isCheckoutOpen,
@@ -153,7 +174,182 @@ export const CheckoutModal: React.FC = () => {
     setIsSubmitting(true);
     setSubmitError(null);
 
-    // 1. try/catch block around the Firestore addDoc/setDoc logic
+    // ==========================================
+    // Flow 1: Online Payment via Razorpay
+    // ==========================================
+    if (formData.paymentMethod === 'upi') {
+      try {
+        const scriptLoaded = await loadRazorpayScript();
+        if (!scriptLoaded) {
+          setIsSubmitting(false);
+          setSubmitError(
+            'Unable to initialize Razorpay checkout script. Please check your internet connection or try again.'
+          );
+          return;
+        }
+
+        // Create Order on Server
+        const orderResponse = await fetch('/api/razorpay/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: totalWholesale,
+            currency: 'INR',
+            notes: {
+              customerName: formData.fullName.trim(),
+              phone: formData.phoneNumber.trim(),
+              city: formData.city.trim(),
+              itemsCount: itemsToBuy.length,
+            },
+          }),
+        });
+
+        const orderData = await orderResponse.json();
+
+        if (!orderResponse.ok || !orderData.success) {
+          setIsSubmitting(false);
+          const errorMsg =
+            orderData.error ||
+            'Could not initiate Razorpay payment. Please verify Razorpay keys in .env.local.';
+          setSubmitError(errorMsg);
+          return;
+        }
+
+        // Open Razorpay Standard Checkout Popup
+        const razorpayOptions = {
+          key: orderData.keyId,
+          amount: orderData.amount,
+          currency: orderData.currency || 'INR',
+          name: 'LivFabs Smart Living',
+          description: `Order (${itemsToBuy.length} items) • 12-Hour Priority Dispatch`,
+          image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=200&auto=format&fit=crop',
+          order_id: orderData.orderId,
+          prefill: {
+            name: formData.fullName.trim(),
+            email: formData.email?.trim() || user?.email || '',
+            contact: formData.phoneNumber.trim(),
+          },
+          notes: {
+            deliveryAddress: `${formData.streetAddress.trim()}, ${formData.city.trim()}, ${formData.state} - ${formData.pincode.trim()}`,
+          },
+          theme: {
+            color: '#8C6E43', // LivFabs signature luxury gold
+          },
+          modal: {
+            ondismiss: () => {
+              // Gracefully stop loading spinner if user closes payment modal
+              setIsSubmitting(false);
+            },
+          },
+          handler: async (paymentResponse: {
+            razorpay_payment_id: string;
+            razorpay_order_id: string;
+            razorpay_signature: string;
+          }) => {
+            try {
+              setIsSubmitting(true);
+
+              // Verify payment signature on backend
+              const verifyResponse = await fetch('/api/razorpay/verify-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(paymentResponse),
+              });
+
+              const verifyData = await verifyResponse.json();
+              if (!verifyResponse.ok || !verifyData.success) {
+                throw new Error('Payment signature verification failed. Please contact support.');
+              }
+
+              // Save order to Firestore with payment details
+              const { orderId } = await createFirestoreOrder(
+                formData,
+                itemsToBuy,
+                totalWholesale,
+                totalSaved,
+                user,
+                {
+                  razorpayPaymentId: paymentResponse.razorpay_payment_id,
+                  razorpayOrderId: paymentResponse.razorpay_order_id,
+                  razorpaySignature: paymentResponse.razorpay_signature,
+                  paymentStatus: 'PAID',
+                  paymentMethodName: 'Online (Razorpay / UPI / Card)',
+                }
+              );
+
+              const order: ConfirmedOrder = {
+                orderId,
+                customer: formData,
+                items: itemsToBuy,
+                totalAmount: totalWholesale,
+                discountSaved: totalSaved,
+                orderedAt: new Date().toLocaleDateString('en-IN', {
+                  day: 'numeric',
+                  month: 'short',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
+                estimatedDelivery: '5 – 7 Business Days (12-Hour Priority Dispatch)',
+                paymentId: paymentResponse.razorpay_payment_id,
+                razorpayOrderId: paymentResponse.razorpay_order_id,
+                paymentStatus: 'PAID',
+              };
+
+              setPlacedOrder(order);
+              setConfirmedOrder(order);
+              setIsSubmitting(false);
+              setIsSuccess(true);
+
+              if (!checkoutProduct) {
+                clearCart();
+              }
+
+              try {
+                confetti({
+                  particleCount: 90,
+                  spread: 75,
+                  origin: { y: 0.6 },
+                  colors: ['#8C6E43', '#C5A880', '#D4B489', '#1A1A1A'],
+                });
+              } catch {
+                // ignore
+              }
+            } catch (err: any) {
+              console.error('Online order completion error:', err);
+              setIsSubmitting(false);
+              setSubmitError(
+                err?.message ||
+                  'Payment was received but recording the order encountered an issue. Please contact support.'
+              );
+            }
+          },
+        };
+
+        const rzp = new (window as any).Razorpay(razorpayOptions);
+        rzp.on('payment.failed', (failResponse: any) => {
+          setIsSubmitting(false);
+          setSubmitError(
+            `Payment declined: ${
+              failResponse.error?.description || 'Transaction could not be completed.'
+            }`
+          );
+        });
+
+        rzp.open();
+      } catch (err: any) {
+        console.error('Razorpay flow initiation error:', err);
+        setIsSubmitting(false);
+        setSubmitError(
+          err?.message || 'Failed to initialize online payment. Please check your connection or choose COD.'
+        );
+      }
+      return;
+    }
+
+    // ==========================================
+    // Flow 2: Cash On Delivery (COD)
+    // ==========================================
     try {
       const { orderId } = await createFirestoreOrder(
         formData,
@@ -163,7 +359,6 @@ export const CheckoutModal: React.FC = () => {
         user
       );
 
-      // 2. If the order saves successfully, stop the spinner and show the success screen
       const order: ConfirmedOrder = {
         orderId,
         customer: formData,
@@ -200,8 +395,6 @@ export const CheckoutModal: React.FC = () => {
         // ignore
       }
     } catch (err: any) {
-      // 3. If the save fails (e.g., due to Firestore rules or connection), STOP the loading spinner instantly
-      // and show a visible alert/toast with the error message so the user is not stuck waiting
       console.error('Failed to submit order to Firestore:', err);
       setIsSubmitting(false);
       const errorMsg =
@@ -301,10 +494,20 @@ export const CheckoutModal: React.FC = () => {
 
                 <div className="flex justify-between items-center pb-3 border-b border-[#C5A880]/20">
                   <span className="text-[#55504A] uppercase tracking-wider font-medium">Payment Method</span>
-                  <span className="text-emerald-700 font-semibold">
-                    {placedOrder.customer.paymentMethod === 'cod' ? 'Cash on Delivery (Pay at Doorstep)' : 'UPI / Online Verified'}
+                  <span className="text-emerald-700 font-semibold flex items-center gap-1.5">
+                    <CheckCircle className="w-3.5 h-3.5" />
+                    {placedOrder.customer.paymentMethod === 'cod' ? 'Cash on Delivery (Pay at Doorstep)' : 'Paid Online via Razorpay'}
                   </span>
                 </div>
+
+                {placedOrder.paymentId && (
+                  <div className="flex justify-between items-center pb-3 border-b border-[#C5A880]/20">
+                    <span className="text-[#55504A] uppercase tracking-wider font-medium">Razorpay Payment ID</span>
+                    <span className="font-mono text-xs font-semibold text-[#8C6E43] bg-[#F5F0E6] px-2 py-0.5 rounded">
+                      {placedOrder.paymentId}
+                    </span>
+                  </div>
+                )}
 
                 <div className="flex justify-between items-center pt-1 text-sm">
                   <span className="text-[#1A1A1A] font-serif uppercase tracking-wider font-bold">Total Amount Payable</span>
@@ -684,11 +887,19 @@ export const CheckoutModal: React.FC = () => {
                       {isSubmitting ? (
                         <>
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          <span>Reserving Smart Furniture Inventory...</span>
+                          <span>
+                            {formData.paymentMethod === 'upi'
+                              ? 'Opening Secure Razorpay Portal...'
+                              : 'Reserving Smart Furniture Inventory...'}
+                          </span>
                         </>
                       ) : (
                         <>
-                          <span>Confirm Order • Pay ₹{totalWholesale.toLocaleString('en-IN')} (COD)</span>
+                          <span>
+                            {formData.paymentMethod === 'upi'
+                              ? `Pay ₹${totalWholesale.toLocaleString('en-IN')} with Razorpay / UPI`
+                              : `Confirm Order • Pay ₹${totalWholesale.toLocaleString('en-IN')} (COD)`}
+                          </span>
                           <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         </>
                       )}
@@ -701,16 +912,22 @@ export const CheckoutModal: React.FC = () => {
                         <span className="text-[#C5A880] font-normal">|</span>
                         <span className="font-semibold">7-Day Easy Returns</span>
                         <span className="text-[#C5A880] font-normal">|</span>
-                        <span className="font-semibold">Secure Cash on Delivery</span>
+                        <span className="font-semibold">
+                          {formData.paymentMethod === 'upi' ? '256-Bit SSL Razorpay Security' : 'Secure Cash on Delivery'}
+                        </span>
                       </p>
                       <p className="text-[10px] text-[#55504A] mt-1 font-medium">
-                        Doorstep inspection guaranteed. Zero prepayment risk.
+                        {formData.paymentMethod === 'upi'
+                          ? 'Instant automated order confirmation with 100% refund guarantee upon return.'
+                          : 'Doorstep inspection guaranteed. Zero prepayment risk.'}
                       </p>
                     </div>
 
                     <p className="text-[11px] text-[#55504A] text-center mt-2.5 flex items-center justify-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5 text-[#8C6E43]" />
-                      Zero prepayment risk • 12-hour dispatch guarantee
+                      {formData.paymentMethod === 'upi'
+                        ? 'Official Razorpay Checkout • Instant 12-hour dispatch receipt'
+                        : 'Zero prepayment risk • 12-hour dispatch guarantee'}
                     </p>
                   </div>
 

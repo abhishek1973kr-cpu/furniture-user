@@ -101,6 +101,9 @@ export interface ConfirmedOrder {
   discountSaved: number;
   orderedAt: string;
   estimatedDelivery: string;
+  paymentId?: string;
+  razorpayOrderId?: string;
+  paymentStatus?: string;
 }
 
 export interface UserProfile {

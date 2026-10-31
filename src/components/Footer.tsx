@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, ShieldCheck, Zap, Sparkles, Check, ArrowUp, RefreshCw, FileText, Lock } from 'lucide-react';
+import Link from 'next/link';
+import { Mail, Phone, MapPin, ShieldCheck, Zap, Sparkles, Check, ArrowUp, RefreshCw, FileText, Lock, CreditCard, ExternalLink } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
@@ -160,7 +161,7 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Col 4: Essential Legal Policies & Guarantees */}
+          {/* Col 4: Essential Legal Policies & Guarantees (Razorpay Compliance) */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8C6E43] mb-4">
               Trust & Legal Policies
@@ -168,57 +169,68 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2.5 text-xs text-[#55504A]">
               {/* 100% Refund Policy */}
               <li>
-                <button
-                  onClick={() => setActivePolicyModal('refund')}
+                <Link
+                  href="/refund-policy"
                   className="hover:text-[#1A1A1A] transition-colors text-left font-semibold text-[#8C6E43] flex items-center gap-1.5 group"
                 >
                   <RefreshCw className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform" />
-                  <span>★ 100% Refund Policy</span>
-                </button>
+                  <span>★ 100% Refund & Returns</span>
+                </Link>
               </li>
 
               {/* Privacy Policy */}
               <li>
-                <button
-                  onClick={() => setActivePolicyModal('privacy')}
+                <Link
+                  href="/privacy-policy"
                   className="hover:text-[#1A1A1A] transition-colors text-left flex items-center gap-1.5"
                 >
                   <Lock className="w-3.5 h-3.5 text-[#8C6E43]" />
-                  <span>Privacy Policy</span>
-                </button>
+                  <span>Privacy Policy (SSL & Payment Data)</span>
+                </Link>
               </li>
 
               {/* Terms of Service */}
               <li>
-                <button
-                  onClick={() => setActivePolicyModal('terms')}
+                <Link
+                  href="/terms-and-conditions"
                   className="hover:text-[#1A1A1A] transition-colors text-left flex items-center gap-1.5"
                 >
                   <FileText className="w-3.5 h-3.5 text-[#8C6E43]" />
-                  <span>Terms of Service</span>
-                </button>
+                  <span>Terms & Conditions</span>
+                </Link>
               </li>
 
               {/* 12-Hour Shipping Policy */}
               <li>
-                <button
-                  onClick={() => setActivePolicyModal('shipping')}
+                <Link
+                  href="/shipping-policy"
                   className="hover:text-[#1A1A1A] transition-colors text-left flex items-center gap-1.5"
                 >
                   <Zap className="w-3.5 h-3.5 text-[#8C6E43]" />
-                  <span>12-Hour Priority Shipping Policy</span>
-                </button>
+                  <span>Shipping & Delivery Policy</span>
+                </Link>
               </li>
 
-              {/* 2-Year Mechanism Warranty */}
+              {/* Contact Us */}
               <li>
-                <button
-                  onClick={() => setActivePolicyModal('warranty')}
+                <Link
+                  href="/contact-us"
+                  className="hover:text-[#1A1A1A] transition-colors text-left flex items-center gap-1.5"
+                >
+                  <MapPin className="w-3.5 h-3.5 text-[#8C6E43]" />
+                  <span>Contact Us & Registered Office</span>
+                </Link>
+              </li>
+
+              {/* About Us */}
+              <li>
+                <Link
+                  href="/about-us"
                   className="hover:text-[#1A1A1A] transition-colors text-left flex items-center gap-1.5"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-[#8C6E43]" />
-                  <span>2-Year Mechanism & Frame Warranty</span>
-                </button>
+                  <span>About LivFabs Smart Atelier</span>
+                </Link>
               </li>
             </ul>
 
@@ -227,45 +239,79 @@ export const Footer: React.FC = () => {
                 Zero Risk Promise
               </span>
               <p className="text-[11px] text-[#55504A] mt-0.5">
-                Inspect items upon delivery with Cash on Delivery. 7-Day easy returns guaranteed.
+                Inspect items upon delivery with Cash on Delivery. 7-Day easy returns and instant Razorpay refund guarantee.
               </p>
             </div>
           </div>
 
         </div>
 
+        {/* Razorpay Verified Payment Badges Row */}
+        <div className="py-6 border-t border-[#C5A880]/20 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-[#8C6E43]" />
+            <span className="text-xs font-semibold text-[#1A1A1A]">
+              100% Secure Checkout Powered by Razorpay
+            </span>
+            <span className="text-[#C5A880]">|</span>
+            <span className="text-xs text-[#55504A]">256-Bit SSL Bank Grade Encryption</span>
+          </div>
+          
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-[#55504A]">
+            <span className="px-2.5 py-1 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full">UPI (GPay / PhonePe)</span>
+            <span className="px-2.5 py-1 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full">Visa & Mastercard</span>
+            <span className="px-2.5 py-1 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full">RuPay</span>
+            <span className="px-2.5 py-1 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full">NetBanking</span>
+            <span className="px-2.5 py-1 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full text-[#8C6E43]">Cash on Delivery</span>
+          </div>
+        </div>
+
         {/* Bottom Trust & Copyright Row with Direct Policy Links */}
-        <div className="pt-8 border-t border-[#C5A880]/20 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#55504A]">
+        <div className="pt-6 border-t border-[#C5A880]/20 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#55504A]">
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-center sm:text-left">
-            <span className="text-[#8C6E43] font-serif font-semibold">LivFabs Luxury Headquarters</span>
+            <span className="text-[#8C6E43] font-serif font-semibold">LivFabs Smart Living Private Limited</span>
             <span>•</span>
-            <span>Cyber City, India</span>
+            <span>Registered in Mumbai, India</span>
             <span>•</span>
             <span>© {new Date().getFullYear()} All Rights Reserved.</span>
           </div>
 
           {/* Quick Legal Policy Links */}
-          <div className="flex items-center gap-3 text-[11px]">
-            <button
-              onClick={() => setActivePolicyModal('refund')}
+          <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 text-[11px]">
+            <Link
+              href="/refund-policy"
               className="hover:text-[#8C6E43] transition-colors underline font-medium"
             >
               100% Refund Policy
-            </button>
+            </Link>
             <span>•</span>
-            <button
-              onClick={() => setActivePolicyModal('privacy')}
+            <Link
+              href="/privacy-policy"
               className="hover:text-[#8C6E43] transition-colors underline font-medium"
             >
               Privacy Policy
-            </button>
+            </Link>
             <span>•</span>
-            <button
-              onClick={() => setActivePolicyModal('terms')}
+            <Link
+              href="/terms-and-conditions"
               className="hover:text-[#8C6E43] transition-colors underline font-medium"
             >
               Terms of Service
-            </button>
+            </Link>
+            <span>•</span>
+            <Link
+              href="/shipping-policy"
+              className="hover:text-[#8C6E43] transition-colors underline font-medium"
+            >
+              Shipping Policy
+            </Link>
+            <span>•</span>
+            <Link
+              href="/contact-us"
+              className="hover:text-[#8C6E43] transition-colors underline font-medium"
+            >
+              Contact Us
+            </Link>
           </div>
 
           <button

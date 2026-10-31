@@ -213,7 +213,14 @@ export async function createFirestoreOrder(
   itemsToBuy: CartItem[],
   totalAmount: number,
   discountSaved: number,
-  user?: UserProfile | null
+  user?: UserProfile | null,
+  paymentDetails?: {
+    razorpayPaymentId?: string;
+    razorpayOrderId?: string;
+    razorpaySignature?: string;
+    paymentStatus?: string;
+    paymentMethodName?: string;
+  }
 ): Promise<{ orderId: string; success: boolean }> {
   const generatedId = `LF-${Math.floor(100000 + Math.random() * 900000)}`;
   const now = new Date();
@@ -235,6 +242,10 @@ export async function createFirestoreOrder(
     subtotal: item.product.wholesalePrice * item.quantity,
   }));
 
+  const isOnlinePayment = formData.paymentMethod === 'upi' || !!paymentDetails?.razorpayPaymentId;
+  const paymentMethodLabel = paymentDetails?.paymentMethodName || (isOnlinePayment ? 'Online (Razorpay / UPI / Card)' : 'COD');
+  const paymentStatusLabel = paymentDetails?.paymentStatus || (isOnlinePayment ? 'PAID' : 'Pending (Cash On Delivery)');
+
   // Exact payload required by user guidelines + Google Account Order Linking
   const orderDocData = {
     // Required user fields
@@ -242,7 +253,12 @@ export async function createFirestoreOrder(
     phone: formData.phoneNumber.trim(),
     alternatePhone: formData.alternatePhone?.trim() || null,
     fullAddress: fullAddress,
-    paymentMethod: 'COD', // Cash on Delivery option
+    paymentMethod: paymentMethodLabel,
+    paymentStatus: paymentStatusLabel,
+    isPaid: isOnlinePayment,
+    razorpayPaymentId: paymentDetails?.razorpayPaymentId || null,
+    razorpayOrderId: paymentDetails?.razorpayOrderId || null,
+    razorpaySignature: paymentDetails?.razorpaySignature || null,
     orderDate: now.toLocaleDateString('en-IN', {
       day: 'numeric',
       month: 'short',
@@ -251,7 +267,7 @@ export async function createFirestoreOrder(
     orderDateTime: now.toISOString(),
     items: orderedItems,
     totalPrice: totalAmount,
-    status: 'Pending', // Initial status of "Pending"
+    status: isOnlinePayment ? 'Confirmed' : 'Pending', // Online orders start as Confirmed/Paid
 
     // 3. User & Google Account Linking
     userId: user ? user.uid : null,
