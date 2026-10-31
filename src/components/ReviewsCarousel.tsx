@@ -68,13 +68,13 @@ export const ReviewsCarousel: React.FC = () => {
         {/* Side-Scrolling Swipable Container with Rounded-3xl Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory scroll-smooth"
+          className="flex gap-4 sm:gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory scroll-smooth touch-pan-x"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {MOCK_REVIEWS.map((review) => (
             <div
               key={review.id}
-              className="w-[85vw] sm:w-[420px] shrink-0 snap-start bg-[#FFFFFF] border border-[#C5A880]/25 p-7 sm:p-8 flex flex-col justify-between hover:border-[#8C6E43] transition-all duration-300 shadow-sm hover:shadow-md rounded-3xl"
+              className="w-[85vw] sm:w-[420px] shrink-0 snap-start bg-[#FFFFFF] border border-[#C5A880]/25 p-5 sm:p-8 flex flex-col justify-between hover:border-[#8C6E43] transition-all duration-300 shadow-sm hover:shadow-md rounded-3xl"
             >
               <div>
                 {/* Top Row: Stars & Date */}

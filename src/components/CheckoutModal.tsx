@@ -183,30 +183,33 @@ export const CheckoutModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="checkout-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in-up"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in-up"
     >
       {/* Dark backdrop click */}
       <div className="fixed inset-0" onClick={handleClose} aria-hidden="true" />
 
-      {/* Centered Half-Screen Modal Popup with Smooth Generous Rounded-3xl Corners */}
-      <div className="relative w-full md:w-[70vw] lg:w-[65vw] max-w-4xl h-full md:h-[75vh] max-h-[85vh] bg-[#FFFFFF] border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] flex flex-col rounded-3xl overflow-hidden">
+      {/* Centered Half-Screen Modal / Mobile Bottom-Sheet with Smooth Rounded Corners */}
+      <div className="relative w-full md:w-[70vw] lg:w-[65vw] max-w-4xl h-[95vh] sm:h-auto md:h-[75vh] max-h-[95vh] sm:max-h-[85vh] bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] flex flex-col rounded-t-3xl sm:rounded-3xl overflow-hidden">
         
+        {/* Mobile Pull-Down Drag Bar */}
+        <div className="w-12 h-1.5 bg-[#C5A880]/40 rounded-full mx-auto my-2 sm:hidden shrink-0" />
+
         {/* Header Bar */}
-        <div className="px-6 py-4 border-b border-[#C5A880]/20 bg-[#F8F5EE] flex items-center justify-between shrink-0 rounded-t-3xl">
-          <div className="flex items-center gap-3">
+        <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#C5A880]/20 bg-[#F8F5EE] flex items-center justify-between shrink-0 rounded-t-3xl">
+          <div className="flex items-center gap-2 sm:gap-3">
             <span className="text-sm sm:text-base font-serif font-semibold uppercase tracking-[0.2em] text-[#1A1A1A]">
               Liv<span className="text-[#8C6E43]">Fabs</span>
             </span>
             <span className="text-black/20">|</span>
-            <span className="text-xs uppercase tracking-widest text-[#8C6E43] font-semibold flex items-center gap-1.5">
+            <span className="text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest text-[#8C6E43] font-semibold flex items-center gap-1 sm:gap-1.5">
               <Zap className="w-3.5 h-3.5 fill-[#8C6E43]" />
-              Express 12-Hour Priority Furniture Checkout
+              Express 12h Priority Checkout
             </span>
           </div>
 
           <button
             onClick={handleClose}
-            className="p-1.5 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full transition-colors"
+            className="p-1.5 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full transition-colors active:scale-95"
             aria-label="Close checkout"
           >
             <X className="w-5 h-5" />
@@ -354,10 +357,41 @@ export const CheckoutModal: React.FC = () => {
                   </div>
                 )}
 
+                {/* Quick Mobile Order Overview Strip */}
+                <div className="md:hidden mb-4 p-3.5 bg-[#F8F5EE] border border-[#C5A880]/40 rounded-2xl flex items-center justify-between shadow-xs">
+                  <div className="flex items-center gap-2.5">
+                    <div className="relative w-11 h-11 rounded-xl overflow-hidden bg-white border border-[#C5A880]/40 shrink-0">
+                      <LuxuryImage
+                        src={itemsToBuy[0]?.product.images[0]}
+                        alt={itemsToBuy[0]?.product.title}
+                        fill
+                        className="object-cover"
+                        fallbackTitle={itemsToBuy[0]?.product.title}
+                      />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-[#1A1A1A] truncate max-w-[160px]">
+                        {itemsToBuy[0]?.product.title}
+                      </p>
+                      <span className="text-[10px] text-[#7E7870] block">
+                        {itemsToBuy.length > 1 ? `+${itemsToBuy.length - 1} more items` : `Qty: ${itemsToBuy[0]?.quantity}`}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm font-serif font-bold text-[#8C6E43]">
+                      ₹{totalWholesale.toLocaleString('en-IN')}
+                    </span>
+                    <span className="text-[9px] uppercase tracking-wider block text-emerald-700 font-semibold">
+                      COD Free
+                    </span>
+                  </div>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                   
                   {/* Name & Phone */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                     <div>
                       <label className="block text-[11px] uppercase tracking-wider text-[#55504A] font-medium mb-1.5">
                         Full Name *
@@ -369,11 +403,11 @@ export const CheckoutModal: React.FC = () => {
                           value={formData.fullName}
                           onChange={handleChange}
                           placeholder="e.g. Aakash Verma"
-                          className={`w-full px-4 py-2.5 bg-[#F8F5EE] border text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
+                          className={`w-full px-4 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                             errors.fullName ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                           }`}
                         />
-                        <User className="w-3.5 h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
+                        <User className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
                       </div>
                       {errors.fullName && <p className="text-[10px] text-red-600 mt-1">{errors.fullName}</p>}
                     </div>
@@ -385,16 +419,17 @@ export const CheckoutModal: React.FC = () => {
                       <div className="relative">
                         <input
                           type="tel"
+                          inputMode="tel"
                           name="phoneNumber"
                           value={formData.phoneNumber}
                           onChange={handleChange}
                           maxLength={10}
                           placeholder="9820012345"
-                          className={`w-full px-4 py-2.5 bg-[#F8F5EE] border text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
+                          className={`w-full px-4 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                             errors.phoneNumber ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                           }`}
                         />
-                        <Phone className="w-3.5 h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
+                        <Phone className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
                       </div>
                       {errors.phoneNumber && <p className="text-[10px] text-red-600 mt-1">{errors.phoneNumber}</p>}
                     </div>
@@ -412,17 +447,17 @@ export const CheckoutModal: React.FC = () => {
                         value={formData.streetAddress}
                         onChange={handleChange}
                         placeholder="Flat 402, Lotus Towers, Linking Road..."
-                        className={`w-full px-4 py-2.5 bg-[#F8F5EE] border text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
+                        className={`w-full px-4 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                           errors.streetAddress ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                         }`}
                       />
-                      <MapPin className="w-3.5 h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
+                      <MapPin className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-[#8C827A] absolute right-3.5 top-3.5 pointer-events-none" />
                     </div>
                     {errors.streetAddress && <p className="text-[10px] text-red-600 mt-1">{errors.streetAddress}</p>}
                   </div>
 
                   {/* City, State, PIN code */}
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
                     <div>
                       <label className="block text-[11px] uppercase tracking-wider text-[#55504A] font-medium mb-1.5">
                         City *
@@ -433,7 +468,7 @@ export const CheckoutModal: React.FC = () => {
                         value={formData.city}
                         onChange={handleChange}
                         placeholder="Mumbai"
-                        className={`w-full px-3 py-2.5 bg-[#F8F5EE] border text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
+                        className={`w-full px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                           errors.city ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                         }`}
                       />
@@ -448,7 +483,7 @@ export const CheckoutModal: React.FC = () => {
                         name="state"
                         value={formData.state}
                         onChange={handleChange}
-                        className="w-full px-3 py-2.5 bg-[#F8F5EE] border border-[#C5A880]/30 text-xs text-[#1A1A1A] rounded-xl focus:outline-none focus:border-[#8C6E43] transition-all"
+                        className="w-full px-2 sm:px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border border-[#C5A880]/30 text-sm sm:text-xs text-[#1A1A1A] rounded-xl focus:outline-none focus:border-[#8C6E43] transition-all"
                       >
                         <option value="Maharashtra">Maharashtra</option>
                         <option value="Karnataka">Karnataka</option>
@@ -470,12 +505,13 @@ export const CheckoutModal: React.FC = () => {
                       </label>
                       <input
                         type="text"
+                        inputMode="numeric"
                         name="pincode"
                         maxLength={6}
                         value={formData.pincode}
                         onChange={handleChange}
                         placeholder="400050"
-                        className={`w-full px-3 py-2.5 bg-[#F8F5EE] border text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
+                        className={`w-full px-3 py-3 sm:py-2.5 bg-[#F8F5EE] border text-sm sm:text-xs text-[#1A1A1A] placeholder-[#8C827A] rounded-xl focus:outline-none focus:bg-[#FFFFFF] transition-all ${
                           errors.pincode ? 'border-red-500' : 'border-[#C5A880]/30 focus:border-[#8C6E43]'
                         }`}
                       />

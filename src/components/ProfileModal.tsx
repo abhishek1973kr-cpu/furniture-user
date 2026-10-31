@@ -81,16 +81,19 @@ export const ProfileModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="profile-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/70 backdrop-blur-md animate-fade-in-up"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/70 backdrop-blur-md animate-fade-in-up"
     >
       {/* Background click to dismiss */}
       <div className="fixed inset-0" onClick={closeProfileModal} aria-hidden="true" />
 
-      {/* Modal Card with Smooth Rounded-3xl Corners */}
-      <div className="relative w-full max-w-3xl max-h-[90vh] bg-[#FFFFFF] border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] flex flex-col rounded-3xl overflow-hidden">
+      {/* Modal Card with Smooth Rounded-t-3xl on Mobile & Rounded-3xl on Desktop */}
+      <div className="relative w-full max-w-3xl h-[92vh] sm:h-auto sm:max-h-[90vh] bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] flex flex-col rounded-t-3xl sm:rounded-3xl overflow-hidden pb-[max(1rem,env(safe-area-inset-bottom))]">
         
+        {/* Mobile Pull-Down Drag Bar */}
+        <div className="w-12 h-1.5 bg-[#C5A880]/40 rounded-full mx-auto my-2 sm:hidden shrink-0" />
+
         {/* Header Bar */}
-        <div className="px-6 py-4 border-b border-[#C5A880]/20 bg-[#F8F5EE] flex items-center justify-between shrink-0">
+        <div className="px-5 sm:px-6 py-3.5 sm:py-4 border-b border-[#C5A880]/20 bg-[#F8F5EE] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <span className="text-sm font-serif uppercase tracking-[0.2em] font-semibold text-[#1A1A1A]">
               Liv<span className="text-[#8C6E43]">Fabs</span>
@@ -103,7 +106,7 @@ export const ProfileModal: React.FC = () => {
 
           <button
             onClick={closeProfileModal}
-            className="p-1.5 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full transition-colors"
+            className="p-1.5 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full transition-colors active:scale-95"
             aria-label="Close profile modal"
           >
             <X className="w-5 h-5" />

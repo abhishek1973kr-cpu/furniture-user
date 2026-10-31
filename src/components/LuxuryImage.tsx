@@ -75,3 +75,4 @@ export const LuxuryImage: React.FC<LuxuryImageProps> = ({
     </div>
   );
 };
+

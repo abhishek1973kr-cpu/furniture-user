@@ -106,9 +106,9 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           </p>
         </div>
 
-        {/* Primary 4 Category Selector Tabs (Fully Rounded Pills) */}
-        <div className="flex justify-center mb-8 overflow-x-auto pb-2 scrollbar-none">
-          <div className="inline-flex p-1.5 bg-[#F4EFEB] border border-[#C5A880]/30 rounded-full shadow-sm whitespace-nowrap">
+        {/* Primary 4 Category Selector Tabs (Fully Rounded Pills, Mobile Smooth Touch Scroll) */}
+        <div className="flex justify-start sm:justify-center mb-6 sm:mb-8 overflow-x-auto pb-2 scrollbar-none touch-pan-x">
+          <div className="inline-flex p-1 sm:p-1.5 bg-[#F4EFEB] border border-[#C5A880]/30 rounded-full shadow-sm whitespace-nowrap">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
@@ -116,7 +116,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   onSelectCategory(cat);
                   setSelectedSubCategory('All');
                 }}
-                className={`px-5 sm:px-7 py-2.5 text-xs font-semibold uppercase tracking-[0.16em] rounded-full transition-all duration-300 ${
+                className={`px-4 sm:px-7 py-2 sm:py-2.5 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] sm:tracking-[0.16em] rounded-full transition-all duration-300 ${
                   selectedCategory === cat
                     ? 'bg-[#1A1A1A] text-[#FDFBF7] shadow-md'
                     : 'text-[#55504A] hover:text-[#1A1A1A]'
@@ -129,15 +129,15 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         </div>
 
         {/* Secondary Subcategory Filters & Sorting Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pb-6 mb-8 border-b border-[#C5A880]/20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 pb-5 sm:pb-6 mb-6 sm:mb-8 border-b border-[#C5A880]/20">
           
           {/* Subcategory scrollable tags (Rounded-full pills) */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none touch-pan-x">
             {availableSubCategories.map((sub) => (
               <button
                 key={sub}
                 onClick={() => setSelectedSubCategory(sub)}
-                className={`px-4 py-2 text-[11px] uppercase tracking-wider whitespace-nowrap transition-all rounded-full border ${
+                className={`px-3.5 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] uppercase tracking-wider whitespace-nowrap transition-all rounded-full border shrink-0 ${
                   selectedSubCategory === sub
                     ? 'bg-[#1A1A1A] border-[#1A1A1A] text-[#FDFBF7] shadow-sm'
                     : 'bg-[#FFFFFF] border-[#C5A880]/30 text-[#55504A] hover:text-[#1A1A1A] hover:border-[#8C6E43]'
@@ -149,17 +149,17 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
           </div>
 
           {/* Right: Results Count & Sort Dropdown (Curvy Pill) */}
-          <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-4 text-xs">
-            <span className="text-[#55504A] tracking-wide">
+          <div className="flex items-center justify-between md:justify-end w-full md:w-auto gap-3 text-xs">
+            <span className="text-[#55504A] tracking-wide text-[11px] sm:text-xs">
               Showing <strong className="text-[#1A1A1A] font-semibold">{filteredProducts.length}</strong> creations
             </span>
 
-            <div className="flex items-center gap-2 bg-[#FFFFFF] border border-[#C5A880]/30 px-4 py-2 rounded-full shadow-sm">
+            <div className="flex items-center gap-1.5 sm:gap-2 bg-[#FFFFFF] border border-[#C5A880]/30 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full shadow-sm">
               <SlidersHorizontal className="w-3.5 h-3.5 text-[#8C6E43]" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="bg-transparent text-[#1A1A1A] text-xs focus:outline-none cursor-pointer uppercase tracking-wider"
+                className="bg-transparent text-[#1A1A1A] text-[11px] sm:text-xs focus:outline-none cursor-pointer uppercase tracking-wider"
               >
                 <option value="featured" className="bg-[#FFFFFF] text-[#1A1A1A]">Featured</option>
                 <option value="price-low" className="bg-[#FFFFFF] text-[#1A1A1A]">Price: Low to High</option>
@@ -172,7 +172,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
 
         {/* Product Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

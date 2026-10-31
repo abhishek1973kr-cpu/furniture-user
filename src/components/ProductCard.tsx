@@ -133,11 +133,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </span>
           </div>
 
-          {/* Action Buttons: Fully Pill-Shaped */}
-          <div className="grid grid-cols-2 gap-2.5">
+          {/* Action Buttons: Fully Pill-Shaped with Mobile-First 44px Touch Targets */}
+          <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
             <button
               onClick={handleAddToCart}
-              className={`py-2.5 px-3 text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 ${
+              className={`py-3 sm:py-2.5 px-3 text-xs sm:text-[11px] font-semibold uppercase tracking-wider border rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 active:scale-95 ${
                 addedAnimation
                   ? 'bg-emerald-700 border-emerald-700 text-white'
                   : 'bg-transparent border-[#C5A880]/50 text-[#1A1A1A] hover:bg-[#F5F2EB] hover:border-[#8C6E43]'
@@ -158,9 +158,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
             <button
               onClick={handleBuyNow}
-              className="py-2.5 px-3 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-[11px] font-bold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md"
+              className="py-3 sm:py-2.5 px-3 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs sm:text-[11px] font-bold uppercase tracking-wider rounded-full transition-all duration-200 flex items-center justify-center gap-1.5 shadow-sm hover:shadow-md active:scale-95"
             >
-              <span>Buy Now</span>
+              <span>Buy Now (COD)</span>
             </button>
           </div>
         </div>

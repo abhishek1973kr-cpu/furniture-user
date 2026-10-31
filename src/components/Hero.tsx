@@ -60,10 +60,10 @@ export const Hero: React.FC<HeroProps> = ({ onExplore }) => {
           </p>
 
           {/* Action CTAs (Pill Rounded-full) */}
-          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => onExplore('Smart Living')}
-              className="w-full sm:w-auto px-8 py-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-[#FDFBF7] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-[#FDFBF7] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-md flex items-center justify-center gap-2 group"
             >
               <span>Explore Smart Living</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -71,31 +71,59 @@ export const Hero: React.FC<HeroProps> = ({ onExplore }) => {
 
             <button
               onClick={() => onExplore('Flexi Work & Dine')}
-              className="w-full sm:w-auto px-8 py-4 bg-[#FFFFFF] hover:bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 sm:py-4 bg-[#FFFFFF] hover:bg-[#F4EFEB] border border-[#C5A880]/50 hover:border-[#8C6E43] text-[#1A1A1A] text-xs font-semibold uppercase tracking-[0.2em] rounded-full transition-all duration-300 shadow-sm flex items-center justify-center gap-2"
             >
               <span>Explore Flexi Work & Dine</span>
               <ArrowRight className="w-4 h-4 text-[#8C6E43]" />
             </button>
           </div>
 
-          {/* Urgent Dispatch Countdown Bar (Rounded-full) */}
-          <div className="mt-10 inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 px-6 py-3.5 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-full shadow-sm text-xs text-[#2C2A29]">
-            <div className="flex items-center gap-2 text-[#8C6E43]">
-              <Clock className="w-4 h-4 text-[#8C6E43]" />
-              <span className="uppercase tracking-wider font-semibold text-[11px]">12-Hour Priority Dispatch Cutoff:</span>
+          {/* Quick Mobile Category Chips Slider (1-Tap thumb navigation) */}
+          <div className="mt-6 flex items-center justify-center gap-2 overflow-x-auto pb-2 scrollbar-none sm:hidden">
+            <button
+              onClick={() => onExplore('Smart Living')}
+              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
+            >
+              🛋️ Smart Living
+            </button>
+            <button
+              onClick={() => onExplore('On-The-Go Comfort')}
+              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
+            >
+              🛏️ On-The-Go
+            </button>
+            <button
+              onClick={() => onExplore('Flexi Work & Dine')}
+              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
+            >
+              💼 Flexi Work
+            </button>
+            <button
+              onClick={() => onExplore('Storage & Utility')}
+              className="px-3.5 py-1.5 bg-[#FFFFFF] border border-[#C5A880]/40 rounded-full text-[11px] font-semibold text-[#1A1A1A] shadow-xs shrink-0 active:scale-95 transition-transform"
+            >
+              📦 Storage
+            </button>
+          </div>
+
+          {/* Urgent Dispatch Countdown Bar (Rounded-2xl sm:rounded-full) */}
+          <div className="mt-8 sm:mt-10 inline-flex flex-wrap items-center justify-center gap-2.5 sm:gap-6 px-4 sm:px-6 py-3 sm:py-3.5 bg-[#FFFFFF] border border-[#C5A880]/30 rounded-2xl sm:rounded-full shadow-sm text-xs text-[#2C2A29] max-w-full">
+            <div className="flex items-center gap-1.5 text-[#8C6E43]">
+              <Clock className="w-3.5 h-3.5 text-[#8C6E43]" />
+              <span className="uppercase tracking-wider font-semibold text-[10px] sm:text-[11px]">12h Dispatch Cutoff:</span>
             </div>
             
-            <div className="flex items-center gap-1.5 font-mono text-sm tracking-wider">
-              <span className="bg-[#F4EFEB] px-2.5 py-1 border border-[#C5A880]/40 rounded-lg text-[#1A1A1A] font-bold">{format2(timeLeft.hours)}h</span>
+            <div className="flex items-center gap-1 font-mono text-xs sm:text-sm tracking-wider">
+              <span className="bg-[#F4EFEB] px-2 py-0.5 sm:px-2.5 sm:py-1 border border-[#C5A880]/40 rounded-md sm:rounded-lg text-[#1A1A1A] font-bold">{format2(timeLeft.hours)}h</span>
               <span className="text-[#8C6E43] font-bold">:</span>
-              <span className="bg-[#F4EFEB] px-2.5 py-1 border border-[#C5A880]/40 rounded-lg text-[#1A1A1A] font-bold">{format2(timeLeft.minutes)}m</span>
+              <span className="bg-[#F4EFEB] px-2 py-0.5 sm:px-2.5 sm:py-1 border border-[#C5A880]/40 rounded-md sm:rounded-lg text-[#1A1A1A] font-bold">{format2(timeLeft.minutes)}m</span>
               <span className="text-[#8C6E43] font-bold">:</span>
-              <span className="bg-[#F4EFEB] px-2.5 py-1 border border-[#C5A880]/40 rounded-lg text-[#8C6E43] font-bold">{format2(timeLeft.seconds)}s</span>
+              <span className="bg-[#F4EFEB] px-2 py-0.5 sm:px-2.5 sm:py-1 border border-[#C5A880]/40 rounded-md sm:rounded-lg text-[#8C6E43] font-bold">{format2(timeLeft.seconds)}s</span>
             </div>
 
-            <span className="hidden md:inline text-black/20">•</span>
-            <span className="text-[11px] text-[#8C6E43] font-semibold tracking-wide">
-              ⚡ Orders placed now dispatch today via heavy-logistics express
+            <span className="hidden sm:inline text-black/20">•</span>
+            <span className="text-[10px] sm:text-[11px] text-[#8C6E43] font-semibold tracking-wide w-full sm:w-auto text-center">
+              ⚡ Orders placed now dispatch today
             </span>
           </div>
         </div>

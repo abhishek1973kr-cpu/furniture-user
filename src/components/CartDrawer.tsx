@@ -39,7 +39,7 @@ export const CartDrawer: React.FC = () => {
         aria-hidden="true"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
         <div className="w-screen max-w-md bg-[#FFFFFF] border-l border-[#C5A880]/30 shadow-2xl flex flex-col text-[#1A1A1A] animate-fade-in-up rounded-l-3xl overflow-hidden">
           
           {/* Header */}
@@ -156,7 +156,7 @@ export const CartDrawer: React.FC = () => {
 
           {/* Footer Checkout Summary */}
           {cartItems.length > 0 && (
-            <div className="p-5 border-t border-[#C5A880]/20 bg-[#F8F5EE] space-y-3">
+            <div className="p-5 border-t border-[#C5A880]/20 bg-[#F8F5EE] space-y-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between text-[#55504A]">
                   <span>Subtotal MRP:</span>

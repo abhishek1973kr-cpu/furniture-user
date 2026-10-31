@@ -8,6 +8,7 @@ import { ProductCatalog } from '@/components/ProductCatalog';
 import { WholesalePrivilegeStory } from '@/components/WholesalePrivilegeStory';
 import { ReviewsCarousel } from '@/components/ReviewsCarousel';
 import { Footer } from '@/components/Footer';
+import { MobileBottomNav } from '@/components/MobileBottomNav';
 import { ProductDetailModal } from '@/components/ProductDetailModal';
 import { CheckoutModal } from '@/components/CheckoutModal';
 import { CartDrawer } from '@/components/CartDrawer';
@@ -59,6 +60,9 @@ export default function Home() {
 
       {/* 7. Comprehensive Luxury Footer */}
       <Footer />
+
+      {/* 8. Native Mobile App Bottom Navigation Bar */}
+      <MobileBottomNav onSelectCategory={handleCategorySelect} />
 
       {/* Modals & Overlays */}
       <ProductDetailModal />

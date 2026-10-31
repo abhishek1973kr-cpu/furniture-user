@@ -177,7 +177,7 @@ export const ProductDetailModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="product-detail-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in-up"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 bg-black/80 backdrop-blur-md animate-fade-in-up"
     >
       {/* Background click to dismiss */}
       <div
@@ -186,14 +186,17 @@ export const ProductDetailModal: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Modal Card with Smooth Rounded-3xl Corners & Scrollable Interior */}
-      <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#FFFFFF] border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] rounded-3xl flex flex-col">
+      {/* Modal Card with Smooth Rounded-t-3xl on Mobile & Rounded-3xl on Desktop */}
+      <div className="relative w-full max-w-4xl h-[92vh] sm:h-auto sm:max-h-[90vh] overflow-y-auto bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] rounded-t-3xl sm:rounded-3xl flex flex-col">
         
+        {/* Mobile Pull-Down Drag Indicator */}
+        <div className="w-12 h-1.5 bg-[#C5A880]/40 rounded-full mx-auto my-2 sm:hidden shrink-0" />
+
         {/* Sticky Close Button in Top Right */}
         <div className="sticky top-0 z-40 flex justify-end p-3 pointer-events-none">
           <button
             onClick={closeProductDetail}
-            className="pointer-events-auto p-2 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF]/95 hover:bg-[#F5F2EB] border border-[#C5A880]/40 rounded-full transition-colors shadow-md backdrop-blur-sm"
+            className="pointer-events-auto p-2 text-[#7E7870] hover:text-[#1A1A1A] bg-[#FFFFFF]/95 hover:bg-[#F5F2EB] border border-[#C5A880]/40 rounded-full transition-colors shadow-md backdrop-blur-sm active:scale-95"
             aria-label="Close product view"
           >
             <X className="w-5 h-5" />
@@ -233,17 +236,17 @@ export const ProductDetailModal: React.FC = () => {
               </div>
             </div>
 
-            {/* 8-Image Fluid Gallery Selector Bar */}
+            {/* 8-Image Fluid Gallery Selector Bar (Touch Scroll on Mobile) */}
             <div className="mt-4">
               <span className="text-[10px] uppercase tracking-widest text-[#78726A] block mb-2 font-semibold">
                 Multi-Angle Perspectives ({product.images.length} Functional Views)
               </span>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="flex sm:grid sm:grid-cols-4 gap-2 overflow-x-auto pb-1 scrollbar-none touch-pan-x">
                 {product.images.map((imgUrl, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`relative aspect-square overflow-hidden rounded-xl border transition-all duration-200 ${
+                    className={`relative w-16 h-16 sm:w-auto sm:h-auto aspect-square overflow-hidden rounded-xl border transition-all duration-200 shrink-0 ${
                       activeImageIndex === idx
                         ? 'border-[#8C6E43] ring-2 ring-[#8C6E43] scale-95 opacity-100 shadow-md'
                         : 'border-[#C5A880]/30 opacity-70 hover:opacity-100 hover:border-[#8C6E43]'
@@ -647,6 +650,35 @@ export const ProductDetailModal: React.FC = () => {
             )}
           </div>
 
+        </div>
+
+        {/* Mobile Sticky Bottom Purchase Bar (Instant 1-Tap Buy Now & Add to Bag) */}
+        <div className="sticky bottom-0 inset-x-0 bg-[#FFFFFF]/95 backdrop-blur-md p-3 sm:hidden border-t border-[#C5A880]/30 shadow-[0_-4px_16px_rgba(0,0,0,0.06)] flex items-center justify-between gap-3 z-40 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <div className="flex flex-col">
+            <span className="text-[10px] text-[#7E7870] uppercase font-semibold">Wholesale Total</span>
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-lg font-serif font-bold text-[#8C6E43]">
+                ₹{(product.wholesalePrice * quantity).toLocaleString('en-IN')}
+              </span>
+              <span className="text-[10px] text-emerald-700 font-semibold">COD</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="py-2.5 px-3 border border-[#C5A880]/60 text-[#1A1A1A] text-xs font-semibold uppercase tracking-wider rounded-full active:scale-95 bg-[#F8F5EE]"
+            >
+              {justAdded ? '✓ Added' : 'Add to Bag'}
+            </button>
+            <button
+              onClick={handleBuyNow}
+              className="py-2.5 px-4 bg-[#1A1A1A] hover:bg-[#8C6E43] text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-md active:scale-95 flex items-center gap-1.5"
+            >
+              <span>Buy Now</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
 
       </div>

@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#C5A880]/20 transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* Left: Mobile Menu Toggle & Secondary Search */}
           <div className="flex items-center gap-4 lg:hidden">
@@ -217,9 +217,15 @@ export const Header: React.FC<HeaderProps> = ({
         )}
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu Backdrop & Popdown */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-20 bg-[#FDFBF7] border-b border-[#C5A880]/30 shadow-2xl p-6 transition-all z-50 rounded-b-3xl">
+        <>
+          <div
+            className="lg:hidden fixed inset-0 top-16 sm:top-20 bg-black/50 backdrop-blur-xs z-40"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="lg:hidden fixed inset-x-0 top-16 sm:top-20 bg-[#FDFBF7] border-b border-[#C5A880]/30 shadow-2xl p-5 sm:p-6 transition-all z-50 rounded-b-3xl max-h-[80vh] overflow-y-auto">
           <div className="flex flex-col space-y-4 text-sm uppercase tracking-[0.18em]">
             <button
               onClick={() => handleNavClick('All', 'catalog')}
@@ -328,6 +334,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
         </div>
+        </>
       )}
     </header>
   );

@@ -28,21 +28,24 @@ export const AuthModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="auth-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in-up"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/70 backdrop-blur-md animate-fade-in-up"
     >
       {/* Backdrop click to dismiss */}
       <div className="fixed inset-0" onClick={closeAuthModal} aria-hidden="true" />
 
-      {/* Luxury Creamy White Modal Card with Smooth Rounded-3xl Corners */}
-      <div className="relative w-full max-w-md bg-[#FFFFFF] border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] p-6 sm:p-8 rounded-3xl overflow-hidden">
+      {/* Luxury Creamy White Modal Card with Smooth Rounded Corners */}
+      <div className="relative w-full max-w-md bg-[#FFFFFF] border-t sm:border border-[#C5A880]/40 shadow-2xl z-10 text-[#1A1A1A] p-6 sm:p-8 rounded-t-3xl sm:rounded-3xl overflow-hidden pb-[max(1.5rem,env(safe-area-inset-bottom))]">
         
+        {/* Mobile Pull-Down Drag Bar */}
+        <div className="w-12 h-1 bg-[#C5A880]/40 rounded-full mx-auto -mt-2 mb-3 sm:hidden" />
+
         {/* Subtle decorative gold top bar */}
         <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#C5A880] via-[#8C6E43] to-[#C5A880]" />
 
         {/* Close Button */}
         <button
           onClick={closeAuthModal}
-          className="absolute top-4 right-4 p-2 text-[#7E7870] hover:text-[#1A1A1A] bg-[#F5F2EB] border border-[#C5A880]/20 rounded-full transition-colors"
+          className="absolute top-4 right-4 p-2 text-[#7E7870] hover:text-[#1A1A1A] bg-[#F5F2EB] border border-[#C5A880]/20 rounded-full transition-colors active:scale-95"
           aria-label="Close sign-in window"
         >
           <X className="w-4 h-4" />
